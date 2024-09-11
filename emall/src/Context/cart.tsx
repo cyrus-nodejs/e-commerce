@@ -1,0 +1,230 @@
+ 
+import { createContext, useState, useEffect,  } from 'react'
+import axios from "axios";
+import {cartType } from '../utils/@types';
+import {ITEM,  CARTITEM} from '../utils/@types';
+import React from 'react'
+
+
+export const CartContext = createContext<cartType>(null!);
+
+
+export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
+    const [cartItems, setCartItems] = useState([])
+    const [bills, setBills] = useState('')
+    
+    
+  
+  const getCart = async () : Promise<void> => {
+  
+    
+    try {
+      const { data } = await axios.get(
+        "http://localhost:3000/cart",
+        {withCredentials: true}
+      );
+      
+      const { success, message, cart} = data;
+      if (success) {
+        setBills(cart.bill)
+        setCartItems(cart.items)
+        
+      } else {
+       console.log(message);
+       
+       
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    
+  
+    
+
+  }
+
+    
+     
+    
+
+  const addToCart = async (item:ITEM )  => {
+    const itemId = item._id
+    const quantity = item.unit
+    const title = item.title
+    const price = item.newprice
+    const image = item.image
+  
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3000/cart",
+        {
+        itemId,
+        quantity,
+        title,
+        price,
+        image,
+        },
+        {withCredentials: true}
+      );
+      
+      const { success, message} = data;
+      if (success) {
+        alert(message)
+
+      console.log(message)
+        
+      } else {
+        console.log(message);
+        alert(message)
+      
+       
+      }
+    } catch (error) {
+      console.log(error)
+      alert(error)
+    }
+  }
+
+  const reduceQty = async (item:CARTITEM) => {
+    const itemId = item.itemId
+    
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3000/reducecart",
+        {
+        itemId,
+       
+        },
+        {withCredentials: true}
+      );
+      
+      const { success, message} = data;
+      if (success) {
+        
+        
+      
+        
+    
+      console.log(message)
+        
+      } else {
+        
+       console.log(message)
+       
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const addQty = async (item:CARTITEM) => {
+    const itemId = item.itemId
+   
+    console.log(itemId)
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3000/addcart",
+        {
+        itemId,
+        },
+        {withCredentials: true}
+      );
+      
+      const { success, message} = data;
+      if (success) {
+        
+        
+        
+        
+    
+      console.log(message)
+        
+      } else {
+       
+       console.log(message)
+       
+      }
+    } catch (error) {
+      alert(error)
+    }
+  }
+ 
+  const deleteFromCart = async (item:CARTITEM)  => {
+    const itemId = item.itemId
+    
+    console.log(itemId,)
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3000/deletecart",
+        {
+        itemId,
+        },
+        {withCredentials: true}
+      );
+      
+      const { success, message} = data
+      if (success) {
+      console.log(message)
+      } else {
+       
+       console.log(message)
+       
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const clearCart = async () => {
+    
+    try {
+      const { data } = await axios.get(
+        "http://localhost:3000/clearcart",
+        {withCredentials: true}
+      );
+      
+      const { success, message} = data
+      if (success) {
+      console.log(message)
+      } else {
+  
+       console.log(message)
+       
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+  const getCartTotal = () => {
+    return bills
+  };
+
+
+ console.log(getCartTotal())
+  
+
+  
+
+  
+  useEffect(() =>{
+    getCart();
+  
+      }, [])
+  
+  console.log(cartItems)
+  return (
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        clearCart,
+        getCartTotal,
+        deleteFromCart,
+        addQty,
+        reduceQty,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+};
