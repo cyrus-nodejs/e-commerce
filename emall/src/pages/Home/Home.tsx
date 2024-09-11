@@ -8,6 +8,8 @@ import TopFeatured from "./TopFeatured/TopFeatured"
 import Recommended from "./Recommended"
 import Navbar from "../../components/Navbar/Navbar"
 import Recentlyviewed from "../Recentlyviewed"
+import FlashDeals from "./FlashDeals"
+import Clearance from "./Clearance"
 const Home = () => {
   return (
     <Container className="home  " fluid >
@@ -17,6 +19,8 @@ const Home = () => {
           <Banner />
             <TrendingProduct />
              <Categories />
+             <FlashDeals />
+             <Clearance />
              <TopDeals />
              <TopFeatured />
             <Recommended />

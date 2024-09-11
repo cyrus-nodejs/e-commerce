@@ -125,6 +125,16 @@ export const getCategory = async (req:Request, res:Response) => {
       await Item.find({topfeatured:"true"}).limit(6).then(items =>  res.json(items)).catch(err => res.status(400).json("Error : " + err))
        }
    
+       export  const flashDeals = async (req:Request, res:Response) => {
+
+        await Item.find({status:"New",}).then(items => res.json(items)).catch(err => res.status(400).json("Error : " + err))
+         }
+    
+         export  const clearance = async (req:Request, res:Response) => {
+
+          await Item.find({discount:{ $gt: 1, $lt: 20 }}).then(items => res.json(items)).catch(err => res.status(400).json("Error : " + err))
+           }
+      
 
   export  const topDeals = async (req:Request, res:Response) => {
 
@@ -154,7 +164,7 @@ export const getCategory = async (req:Request, res:Response) => {
        
               export  const addViewedItem = async (req:Request, res:Response) => {
                 const {itemId, price, discount, image, title} = req.body
-                const owner = req.user.id
+                const owner = req.user._id
               console.log(`my ${owner}, ${itemId}, ${price}, ${discount}, ${image}, ${title} `)
                 try{
                   const viewed = await View.findOne({owner:owner})
@@ -186,9 +196,9 @@ export const getCategory = async (req:Request, res:Response) => {
       
   
            
-           export const getViewedItems = async (req:any, res: any) => {
+           export const getViewedItems = async (req:Request, res: Response) => {
            
-            const owner  = req.user!.id
+            const owner  = req.user._id
         
             try{
               console.log(owner)

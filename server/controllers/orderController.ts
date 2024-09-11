@@ -17,8 +17,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET, {
   });
 
 
-  export const getCurrentOrder = async (req:any, res: any) => {
-    const owner  = req.user.id
+  export const getCurrentOrder = async (req:Request, res: Response) => {
+    const owner  = req.user._id
 
     try{
         const order = await Order.find({owner:owner}).sort({ _id: -1 }).limit(1)
@@ -56,7 +56,7 @@ export const getAllOrder = async (req:Request, res: Response) => {
     }
 }
 
-export const orderDetails = async (req:any, res:any) => {
+export const orderDetails = async (req:Request, res:Response) => {
     const id = req.params.id
    try{
        const order = await Order.findOne({_id:id})
@@ -77,7 +77,7 @@ export const orderDetails = async (req:any, res:any) => {
  
 
    
-export const config = async (req:any, res: any) => {
+export const config = async (req:Request, res: Response) => {
     const publishableKey = process.env.STRIPE_PUBLISHABLE_KEY
     if(publishableKey) {
         console.log(publishableKey)
@@ -91,9 +91,9 @@ export const config = async (req:any, res: any) => {
    
     }
 
-    export const createOrder = async (req:any, res: any) => {
+    export const createOrder = async (req:Request, res: R) => {
        
-        const owner  = req.user.id
+        const owner  = req.user._id
         const {gift, shipping, clientSecret} = req.body
         console.log(gift, shipping)
        try{
@@ -121,7 +121,7 @@ export const config = async (req:any, res: any) => {
    
 
 export const createPayment = async (req:any, res: any) => {
-    const user:UserRequest  = req.user.id
+    const user:UserRequest  = req.user._id
 try{
     const order = await Order.find({user}).sort({ _id: -1 }).limit(1)
 if (order){
@@ -148,8 +148,8 @@ res.json({success:false, message:"Something went wrong"})
 }
 }
 
-export const confirmPayment = async (req:any, res: any) => {
-    const owner = req.user.id
+export const confirmPayment = async (req:Request, res: Response) => {
+    const owner = req.user._id
     const {paymentIntent, paymentid} = req.body
     console.log(paymentIntent)
     const order = await Order.findOne({owner}).sort({ _id: -1 }).limit(1)
@@ -179,8 +179,8 @@ res.json({success:false, message:"Something went wrong"})
 }
 
 
-export const retrievePayment = async (req:any, res: any) => {
-    const user:UserRequest  = req.user.id
+export const retrievePayment = async (req:Request, res: Response) => {
+    const user:UserRequest  = req.user._id
     const {orderId} = req.body
 try{
     const order = await Order.findOne({_id:orderId})

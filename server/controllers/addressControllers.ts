@@ -1,10 +1,10 @@
 //@ts-nocheck
 import { Request, Response, Errback, NextFunction  } from "express";
 import { Address} from "../models/Address"
-import {UserRequest} from "../types/@types"
 
-export const getAddress = async (req:any, res:any) => {
-    const owner  = req.user.id
+
+export const getAddress = async (req:Request, res:Response) => {
+    const owner  = req.user._id
 
     try{
         let address = await Address.findOne({owner:owner})
