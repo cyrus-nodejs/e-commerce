@@ -53,7 +53,7 @@ function Payment() {
     
    <div class="d-flex align-items-center">
   <div class="flex-shrink-0 position-relative">
-  <img src={`http://localhost:3000/items/${item.image}`} width="70px" alt={item.title} className="rounded-md h-24" />
+  <img src={`https://emall-server.onrender.com/items/${item.image}`} width="70px" alt={item.title} className="rounded-md h-24" />
   <span className="position-absolute top-0 text-light start-100 translate-middle badge rounded-pill opacity-50 text-bg-dark"> {item.quantity}  <span className="visually-hidden">unread messages</span></span>
   </div>
   <div class="flex-grow-1 ms-3">

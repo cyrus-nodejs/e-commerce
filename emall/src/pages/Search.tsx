@@ -32,7 +32,7 @@ const Search = () => {
                    <Col   style={{border:"1px solid white", borderRadius:"10px", width:"11rem", height:"15rem", backgroundColor:"#FFFFFF",}}       >
                    <center>
                    <Link to={`/product/${item.title}`} className="p-2 text-decoration-none text-reset"> 
-                   <Image   style={{width:'8rem', height:"10rem" }}  rounded src={`http://localhost:3000/items/${item.image}`} />
+                   <Image   style={{width:'8rem', height:"10rem" }}  rounded src={`https://emall-server.onrender.com/items/${item.image}`} />
                 <p className="fs-6  text-center  ">{item.title.substring(0, 15) + ".."}</p>
                 <p className="fs-6 fw-bold  text-center  " >
                  ${item.price}

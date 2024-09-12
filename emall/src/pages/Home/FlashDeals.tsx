@@ -82,7 +82,7 @@ const FlashDeals = () => {
   
     const config ={
       method:"get",
-      url:`http://localhost:3000/flashdeals`, 
+      url:`https://emall-server.onrender.com/flashdeals`, 
       withCredentials: true, 
     }
   
@@ -116,7 +116,7 @@ const FlashDeals = () => {
   {products.map((items:ITEM, id) =>{
      return (
        <Row key={id} className=" d-flex  flex-column position-relative  mb-3" style={{width:"200px", }}>
-       <Link onClick={() =>{addViewedItem(items); addRelatedItem(items);   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> <Image src={`http://localhost:3000/items/${items.image}`} width="150px" height="200px"  className="" /></Link> 
+       <Link onClick={() =>{addViewedItem(items); addRelatedItem(items);   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> <Image src={`https://emall-server.onrender.com/items/${items.image}`} width="150px" height="200px"  className="" /></Link> 
         <div className="d-flex flex-column ">
          <div className="text-primary fw-medium">{items.title.substring(0, 25)}</div>
         {/* <div className="d-inline-flex gap-1 text-dark fs-6">{items.rating}{items.review}</div> */}

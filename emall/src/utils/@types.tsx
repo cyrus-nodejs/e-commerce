@@ -90,6 +90,7 @@ export type viewType = {
 export type cartType = {
     cartItems:CARTITEM[],
     addToCart:(arg0: ITEM  ) => void;
+    addCart:(arg0: ORDERITEM  ) => void;
     clearCart:() => void;
     getCartTotal:() => string;
     deleteFromCart:(arg0: CARTITEM) => void;
@@ -145,6 +146,7 @@ export type cartType = {
       setOrderInvoice:React.Dispatch<React.SetStateAction<never[]>>
       orderItems:ORDERITEM[]
   };
+
 
 
   

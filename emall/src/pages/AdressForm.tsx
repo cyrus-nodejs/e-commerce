@@ -86,7 +86,7 @@ setData({...data, [e.target.name] : e.target.value})
       
       
      const { data } = await axios.post(
-       "http://localhost:3000/updateaddress",
+       "https://emall-server.onrender.com/updateaddress",
        {
         firstname,
         lastname,

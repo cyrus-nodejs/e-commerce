@@ -17,7 +17,7 @@ export const CheckoutProvider = ({ children}:{ children: React.ReactNode }) => {
     try {
 
       const { data } = await axios.get(
-        "http://localhost:3000/config",
+        "https://emall-server.onrender.com/config",
         {withCredentials: true}
       );
       
@@ -39,7 +39,7 @@ export const CheckoutProvider = ({ children}:{ children: React.ReactNode }) => {
     try {
   
       const { data } = await axios.get(
-        "http://localhost:3000/create-payment-intent",
+        "https://emall-server.onrender.com/create-payment-intent",
         {withCredentials: true}
       );
       

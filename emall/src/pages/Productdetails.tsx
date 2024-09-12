@@ -23,7 +23,7 @@ const Productdetails = () => {
      const handleItemDetails = () => {
       const config ={
         method:"get",
-        url:`http://localhost:3000/itemdetails/${id}`,
+        url:`https://emall-server.onrender.com/itemdetails/${id}`,
       }
       axios(config)
       .then(response=>{
@@ -55,7 +55,7 @@ const Productdetails = () => {
       <Row  style={{ margin:"20px"}} >
     
       <Col  >
-    <Image   fluid  src={`http://localhost:3000/items/${product.image}`} />
+    <Image   fluid  src={`https://emall-server.onrender.com/items/${product.image}`} />
     </Col>
       <Col className=""   >
       <div className="fs-4 fw-normal d-inline-flex  text-dark">{product.title}</div>

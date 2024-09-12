@@ -35,7 +35,7 @@ const {setOrderInvoice} = useContext(OrderContext)
   const confirmPayment = async () => {
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/confirmpayment",
+        "https://emall-server.onrender.com/confirmpayment",
         {
        paymentIntent,
         },

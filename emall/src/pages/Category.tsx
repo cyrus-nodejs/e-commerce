@@ -27,7 +27,7 @@ const Category = () => {
     try {
   
         const { data } = await axios.get(
-          `http://localhost:3000/category/${id}`,
+          `https://emall-server.onrender.com/category/${id}`,
           {withCredentials: true}
         );
         

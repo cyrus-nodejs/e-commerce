@@ -1,14 +1,14 @@
 
 import { Col, Row,Button, Container, Image} from "react-bootstrap"
 import Navbar from "../components/Navbar/Navbar"
-// import { useContext  } from "react";
+import { useContext  } from "react";
 import axios from "axios"
-// import { CartContext } from "../Context/cart";
+import { CartContext } from "../Context/cart";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {  ORDERITEM} from "../utils/@types";
 const OrderDetails = () => {
-    // const {addToCart} = useContext(CartContext)
+     const {addCart} = useContext(CartContext)
     
     const [orderItems, setOrderItems] = useState([])
     const [bills, setBills] = useState("")
@@ -28,7 +28,7 @@ const OrderDetails = () => {
     
         try {
           const { data } = await axios.get(
-            `http://localhost:3000/orderdetails/${id}`,
+            `https://emall-server.onrender.com/orderdetails/${id}`,
             {withCredentials: true}
           );
           
@@ -99,7 +99,7 @@ const OrderDetails = () => {
         
   <div className="flex-shrink-0">
  
-  <Image src={`http://localhost:3000/items/${items.image}`} width="150px" height="200px"  className="" />
+  <Image src={`https://emall-server.onrender.com/items/${items.image}`} width="150px" height="200px"  className="" />
   </div>
   <div className="flex-grow-1 ms-1">
   <div className="d-flex flex-column ">
@@ -117,8 +117,8 @@ const OrderDetails = () => {
 <div className="col-4">
 <div className="p-2">
 
-   <Button  variant="dark" size="sm" className="rounded-1 px-5 py-2" > 
-  <a  href="/" className="text-light text-decoration-none"> BUY AGAIN</a>
+   <Button  variant="dark" size="sm" className="rounded-1 px-5 py-2" onClick={() => addCart(items)}> 
+  <a  className="text-light text-decoration-none"> BUY AGAIN</a>
       </Button>
   </div>
 </div>

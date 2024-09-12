@@ -17,7 +17,7 @@ export const AddressProvider = ({ children}:{ children: React.ReactNode }) => {
    const getAddress = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:3000/getaddress",
+        "https://emall-server.onrender.com/getaddress",
         {withCredentials: true}
       );
       

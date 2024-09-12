@@ -21,7 +21,7 @@ export const ItemProvider = ({ children}:{ children: React.ReactNode }) => {
       const image= item.image
       try {
         const { data } = await axios.post(
-          "http://localhost:3000/vieweditem",
+          "https://emall-server.onrender.com/vieweditem",
           {
           itemId,
           price,

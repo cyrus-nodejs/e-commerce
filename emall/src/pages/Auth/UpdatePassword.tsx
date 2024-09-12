@@ -27,7 +27,7 @@ const UpdatePassword = () => {
     e.preventDefault();
     try {
      const { data } = await axios.post(
-       "http://localhost:3000/updatepassword",
+       "https://emall-server.onrender.com/updatepassword",
        {
          oldPassword,
          newPassword,

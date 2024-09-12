@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import Container from 'react-bootstrap/Container';
@@ -12,9 +13,9 @@ import { useEffect } from 'react';
 
 const ResetPassword = () => {
   const {id} = useParams()
-  const [username, setUsername] = useState("")
+  // const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("")
+    // const [confirmPassword, setConfirmPassword] = useState("")
     const [message, setMessage] = useState('')
     const [prompt, setPrompt] = useState("")
     const [isValid, setIsValid] = useState(false)
@@ -40,7 +41,7 @@ const ResetPassword = () => {
     e.preventDefault();
     try {
      const { data } = await axios.post(
-       `http://localhost:3000/resetpassword`,
+       `https://emall-server.onrender.com/resetpassword`,
        {
         username,
         token,
@@ -82,11 +83,11 @@ console.log(confirmPassword)
          
                 
   <p className="text-center text-dark fs-1 fw-normal">Reset password!</p>
-     <Form.Control className="shadow-none" required size="lg" type="text" placeholder="Enter Username" name="username"  onChange={e => {setUsername(e.target.value)} } />
-      <br />
+     {/* <Form.Control className="shadow-none" required size="lg" type="text" placeholder="Enter Username" name="username"  onChange={e => {setUsername(e.target.value)} } />
+      <br /> */}
       <Form.Control className="shadow-none" required size="lg" type="text" placeholder="Enter new Password" name="password"  onChange={e => {setPassword(e.target.value)} } />
       <br />
-      <Form.Control className="shadow-none" required size="lg" type="text" placeholder="Confirm new Password" name="password"  onChange={e => {setConfirmPassword(e.target.value)} } />
+      {/* <Form.Control className="shadow-none" required size="lg" type="text" placeholder="Confirm new Password" name="password"  onChange={e => {setConfirmPassword(e.target.value)} } /> */}
       <p className="text-danger text-center">{prompt}</p>
       {isValid && (<div><div className="d-grid gap-2">
      <Button variant="outline-success" style={{margin:"20px 0px"}} size="lg"   onClick={e =>handleSubmit(e) }>Reset Password</Button>

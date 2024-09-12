@@ -27,7 +27,7 @@ const {addRelatedItem, addViewedItem} = useContext(ItemContext)
   
     const config ={
       method:"get",
-      url:`http://localhost:3000/topdeals`, 
+      url:`https://emall-server.onrender.com/topdeals`, 
       withCredentials: true, 
     }
   
@@ -75,7 +75,7 @@ const {addRelatedItem, addViewedItem} = useContext(ItemContext)
             return (
                 <Col  style={{margin:"20px"}}>
                     <Row className="bg-white border-light border rounded-2  position-relative">
-                 <Col className="p-5" > <Link onClick={() =>{addViewedItem(items); addRelatedItem(items)   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"><Image src={`http://localhost:3000/items/${items.image}`} fluid  /></Link></Col>
+                 <Col className="p-5" > <Link onClick={() =>{addViewedItem(items); addRelatedItem(items)   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"><Image src={`https://emall-server.onrender.com/items/${items.image}`} fluid  /></Link></Col>
                 <Col className="bg-white">
                 <div className="d-flex flex-column mb-3 bg-white">
   <div className="p-2 fw-medium text-primary">{items.title.substring(0, 25)}</div>

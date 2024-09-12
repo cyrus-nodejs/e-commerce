@@ -23,7 +23,7 @@ const Register = ( ) => {
    
       try {
         const { data } = await axios.post(
-          "http://localhost:3000/register",
+          "https://emall-server.onrender.com/register",
           {
             username,
             password,

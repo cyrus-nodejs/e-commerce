@@ -10,7 +10,7 @@ const Product = ({product}: { product: CATEGORY }) => {
   return (    <a  href={`/category/${product.category}`} className="p-2 text-decoration-none text-reset">
             <Col   className="container"   >
            
-              <Image src={`http://localhost:3000/category/${product.avatar}`}  />
+              <Image src={`https://emall-server.onrender.com/category/${product.avatar}`}  />
             <div className="top-left">
 
              <p className="text-light">{product.category}</p> 

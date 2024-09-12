@@ -2,7 +2,7 @@
 import { createContext, useState, useEffect,  } from 'react'
 import axios from "axios";
 import {cartType } from '../utils/@types';
-import {ITEM,  CARTITEM} from '../utils/@types';
+import {ITEM, ORDERITEM,  CARTITEM} from '../utils/@types';
 import React from 'react'
 
 
@@ -20,7 +20,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
     
     try {
       const { data } = await axios.get(
-        "http://localhost:3000/cart",
+        "https://emall-server.onrender.com/cart",
         {withCredentials: true}
       );
       
@@ -44,6 +44,43 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
   }
 
     
+  const addCart = async (item:ORDERITEM )  => {
+    const itemId = item.itemId
+    const quantity = item.quantity
+    const title = item.title
+    const price = item.price
+    const image = item.image
+  
+    try {
+      const { data } = await axios.post(
+        "https://emall-server.onrender.com/cart",
+        {
+        itemId,
+        quantity,
+        title,
+        price,
+        image,
+        },
+        {withCredentials: true}
+      );
+      
+      const { success, message} = data;
+      if (success) {
+        alert(message)
+
+      console.log(message)
+        
+      } else {
+        console.log(message);
+        alert(message)
+      
+       
+      }
+    } catch (error) {
+      console.log(error)
+      alert(error)
+    }
+  }
      
     
 
@@ -56,7 +93,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
   
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/cart",
+        "https://emall-server.onrender.com/cart",
         {
         itemId,
         quantity,
@@ -90,7 +127,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
     
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/reducecart",
+        "https://emall-server.onrender.com/reducecart",
         {
         itemId,
        
@@ -122,7 +159,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
     console.log(itemId)
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/addcart",
+        "https://emall-server.onrender.com/addcart",
         {
         itemId,
         },
@@ -154,7 +191,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
     console.log(itemId,)
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/deletecart",
+        "https://emall-server.onrender.com/deletecart",
         {
         itemId,
         },
@@ -178,7 +215,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
     
     try {
       const { data } = await axios.get(
-        "http://localhost:3000/clearcart",
+        "https://emall-server.onrender.com/clearcart",
         {withCredentials: true}
       );
       
@@ -222,6 +259,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
         deleteFromCart,
         addQty,
         reduceQty,
+        addCart,
       }}
     >
       {children}

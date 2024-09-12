@@ -81,7 +81,7 @@ const TrendingProduct = () => {
     
       const config ={
         method:"get",
-        url:`http://localhost:3000/trending`, 
+        url:`https://emall-server.onrender.com/trending`, 
         withCredentials: true, 
       }
     

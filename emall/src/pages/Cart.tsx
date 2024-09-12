@@ -103,7 +103,7 @@ setData({...data, [e.target.name] : e.target.value})
       
       
      const { data } = await axios.post(
-       "http://localhost:3000/createaddress",
+       "https://emall-server.onrender.com/createaddress",
        {
         firstname,
         lastname,
@@ -143,7 +143,7 @@ setData({...data, [e.target.name] : e.target.value})
   
   try {
     const { data } = await axios.post(
-      "http://localhost:3000/createorder",
+      "https://emall-server.onrender.com/createorder",
       {
       gift,
     shipping,
@@ -360,7 +360,7 @@ setData({...data, [e.target.name] : e.target.value})
           <td>
 
           <div className="d-inline-flex">
-  <div className="p-2 flex-fill"> <Image src={`http://localhost:3000/items/${item.image}`} width="50px" alt={item.title} className="rounded-md h-24" /></div>
+  <div className="p-2 flex-fill"> <Image src={`https://emall-server.onrender.com/items/${item.image}`} width="50px" alt={item.title} className="rounded-md h-24" /></div>
   <div className="p-2 flex-fill">
   <div className="d-flex flex-column mb-3">
   <div className="p-2"><p className="text-primary fw-medium">{item.title}</p></div>

@@ -20,7 +20,7 @@ export const AuthProvider = ({ children}:{ children: React.ReactNode }) => {
    const getUser = async () => {
      
     const { data } = await axios.post(
-      "http://localhost:3000", {},
+      "https://emall-server.onrender.com", {},
       { withCredentials: true }
     );
     const { success, user, message } = data;
@@ -48,7 +48,7 @@ export const AuthProvider = ({ children}:{ children: React.ReactNode }) => {
     const Logout = async () => {
       try {
       
-       const {data} = await  axios.post("http://localhost:3000/logout", {}, {withCredentials: true})
+       const {data} = await  axios.post("https://emall-server.onrender.com/logout", {}, {withCredentials: true})
     
        const { success, message} = data;
          if (success) {
