@@ -76,7 +76,7 @@ const Categories = () => {
   
     const config ={
       method:"get",
-      url:`https://emall-server.onrender.com/category`, 
+      url:`https://server-de5v5fkag-cyrus-nodejs-projects.vercel.app/category`, 
       withCredentials: true, 
     }
   

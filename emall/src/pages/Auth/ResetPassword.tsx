@@ -41,7 +41,7 @@ const ResetPassword = () => {
     e.preventDefault();
     try {
      const { data } = await axios.post(
-       `https://emall-server.onrender.com/resetpassword`,
+       `https://server-sable-beta-77.vercel.app/resetpassword`,
        {
         username,
         token,

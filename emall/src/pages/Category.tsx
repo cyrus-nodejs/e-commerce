@@ -27,7 +27,7 @@ const Category = () => {
     try {
   
         const { data } = await axios.get(
-          `https://emall-server.onrender.com/category/${id}`,
+          `https://server-sable-beta-77.vercel.app/category/${id}`,
           {withCredentials: true}
         );
         
@@ -65,7 +65,7 @@ const Category = () => {
            <Col  className="frame"  style={{border:"1px solid white", borderRadius:"10px", width:"11rem", height:"15rem", backgroundColor:"#FFFFFF",}}       >
            <center>
            <Link to={`/product/${item.title}`} onClick={() =>{addViewedItem(item); addRelatedItem(item) }} className="p-2 text-decoration-none text-reset"> 
-           <Image  style={{width:'8rem', height:"10rem" }}  rounded src={`http://localhost:3000/items/${item.image}`} />
+           <Image  style={{width:'8rem', height:"10rem" }}  rounded src={`https://server-sable-beta-77.vercel.app/items/${item.image}`} />
         <p className="fs-6  tfont  ">{item.title.substring(0, 10) + ".."}</p>
         <p className="fs-6 fw-bold  text-danger  " >
          ${item.price}

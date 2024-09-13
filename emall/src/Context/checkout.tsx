@@ -17,7 +17,7 @@ export const CheckoutProvider = ({ children}:{ children: React.ReactNode }) => {
     try {
 
       const { data } = await axios.get(
-        "https://emall-server.onrender.com/config",
+        "https://server-sable-beta-77.vercel.app/config",
         {withCredentials: true}
       );
       
@@ -39,7 +39,7 @@ export const CheckoutProvider = ({ children}:{ children: React.ReactNode }) => {
     try {
   
       const { data } = await axios.get(
-        "https://emall-server.onrender.com/create-payment-intent",
+        "https://server-sable-beta-77.vercel.app/create-payment-intent",
         {withCredentials: true}
       );
       

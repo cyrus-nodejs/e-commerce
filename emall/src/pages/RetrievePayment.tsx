@@ -25,7 +25,7 @@ import Stack from 'react-bootstrap/Stack';
      e.preventDefault();
      try {
       const { data } = await axios.post(
-        "https://emall-server.onrender.com/retrievepayment",
+        "https://server-sable-beta-77.vercel.app/retrievepayment",
         {
         orderId
         },

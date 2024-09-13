@@ -21,7 +21,7 @@ export const ItemProvider = ({ children}:{ children: React.ReactNode }) => {
       const image= item.image
       try {
         const { data } = await axios.post(
-          "https://emall-server.onrender.com/vieweditem",
+          "https://server-sable-beta-77.vercel.app/vieweditem",
           {
           itemId,
           price,
@@ -54,7 +54,7 @@ export const ItemProvider = ({ children}:{ children: React.ReactNode }) => {
 
       const config ={
         method:"get",
-        url:`http://localhost:3000/items`, 
+        url:`https://server-sable-beta-77.vercel.app/items`, 
         withCredentials: true, 
       }
     
@@ -76,7 +76,7 @@ export const ItemProvider = ({ children}:{ children: React.ReactNode }) => {
        console.log(category)
       try {
         const { data } = await axios.put(
-          "http://localhost:3000/relateditem",
+          "https://server-sable-beta-77.vercel.app/relateditem",
           {
           category,
           itemId,
@@ -102,7 +102,7 @@ export const ItemProvider = ({ children}:{ children: React.ReactNode }) => {
     const handleSearch = () => {
     const config ={
       method:"get",
-      url:`http://localhost:3000/search?q=${searchQuery}`,
+      url:`https://server-sable-beta-77.vercel.app/search?q=${searchQuery}`,
     }
   
     
