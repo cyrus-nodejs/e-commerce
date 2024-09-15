@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { IFile, user } from "./types/@types";
 import { UserRequest } from "./types/@types";
 

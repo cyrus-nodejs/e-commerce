@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node api/index.ts",
+"start": "node dist/src/index.js",
+    "start-dev": "nodemon src/index.ts",
     "build": "tsc",
-    "serve": "node dist/index.js"
+    "gcp-build":""
   },
   "keywords": [],
   "author": "",
@@ -56,5 +57,8 @@
     "passport-local-mongoose": "^8.0.0",
     "stripe": "^16.5.0",
     "uuid": "^9.0.1"
-  }
+  },
+  "engines": {
+  "node": "18"
+}
 }
