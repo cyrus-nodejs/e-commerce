@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.ts",
+    "start": "node dist/src/index.js",
     "build": "tsc",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
