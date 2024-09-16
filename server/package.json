@@ -4,11 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-"start": "node dist/src/index.js",
-    "start-dev": "nodemon src/index.ts",
-    "build": "tsc",
-    "gcp-build":""
+    "start": "nodemon src/index.ts",
+    "build": "rimraf dist && tsc",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "pre-commit": [
+      "ts.check",
+      "build",
+      "add-build"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -25,6 +31,8 @@
     "@types/passport-jwt": "^4.0.1",
     "@types/uuid": "^9.0.8",
     "express": "^4.19.2",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },
@@ -59,6 +67,7 @@
     "uuid": "^9.0.1"
   },
   "engines": {
-  "node": "18"
-}
+    "node": "18"
+  },
+  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
 }
