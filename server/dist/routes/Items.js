@@ -1,0 +1,28 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const itemControllers_1 = require("../controllers/itemControllers");
+const storage_1 = require("../utils/storage");
+const router = express_1.default.Router();
+router.get("/items", itemControllers_1.getItem);
+router.get("/category/:id", itemControllers_1.getCategory);
+router.get("/category", itemControllers_1.typeCategory);
+router.get("/trending", itemControllers_1.trending);
+router.get("/recommended", itemControllers_1.recommended);
+router.get("/topfeaturedslide", itemControllers_1.topFeaturedSlide);
+router.get("/topfeaturedgallery", itemControllers_1.topFeaturedGallery);
+router.get("/topdeals", itemControllers_1.topDeals);
+router.get("/search", itemControllers_1.searchItem);
+router.get("/itemdetails/:id", itemControllers_1.getItemDetails);
+router.get("/getviewed", itemControllers_1.getViewedItems);
+router.get("/flashdeals", itemControllers_1.flashDeals);
+router.get("/clearance", itemControllers_1.clearance);
+router.post("/items", storage_1.upload.single("image"), itemControllers_1.postItem);
+router.post("/vieweditem", itemControllers_1.addViewedItem);
+router.put("/relateditem", itemControllers_1.relatedItem);
+router.put("/items/:id", itemControllers_1.updateItem);
+router.delete("/items/:id", itemControllers_1.deleteItem);
+exports.default = router;
