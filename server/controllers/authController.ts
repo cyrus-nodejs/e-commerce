@@ -195,7 +195,7 @@ export const Logout = async (req:Request, res:Response, next:NextFunction ) => {
 }
 
 export const Servicom = async (req:Request, res:Response, next:NextFunction ) => {
- console.log("Welcom to Servicom")
+ console.log("Welcome to Servicom")
 
       
   

@@ -8,7 +8,7 @@ import { Request, Response} from "express";
 
 export const getCart = async (req:any, res: any) =>{
 
-    const owner  = req.user.id
+    const owner  = req.user._id
     try{
         let cart = await Cart.findOne({owner});
         if(cart && cart.items.length > 0){
