@@ -24,7 +24,7 @@ export const getCart = async (req:any, res: any) =>{
         res.status(500).send("Something went wrong");
     }
 }
-export const addToCart = async (req:Request, res: Response) => {
+export const addToCart = async (req:any, res:any ) => {
     const owner = req.user._id
     const {itemId, price, title, image, quantity}= req.body
 try{
@@ -81,7 +81,7 @@ try{
 }
 }
 
-export const deleteFromCart = async (req:Request, res:Response) => {
+export const deleteFromCart = async (req:any, res:any ) => {
  const owner = req.user._id
      const {itemId}= req.body
  try{
@@ -109,7 +109,7 @@ if (itemIndex > -1) {
     res.status(400).send();
  }
 }
-export const clearCart = async (req:Request, res:Response) => {
+export const clearCart = async (req:any, res:any ) => {
   const owner = req.user._id
 try{
   let cart = await Cart.findOne({owner});
@@ -127,7 +127,7 @@ try{
  }
  
 
-export const addCartQty = async (req:Request, res:Response) => {
+export const addCartQty = async (req:any, res:any ) => {
   const owner = req.user._id
   const {itemId}= req.body
 try{
@@ -168,7 +168,7 @@ if (cart){
 } 
 };
 
-export const decreaseCartQty = async (req:Request, res:Response) => {
+export const decreaseCartQty = async (req:any, res:any ) => {
   const owner = req.user._id
   const {itemId}= req.body
 try{

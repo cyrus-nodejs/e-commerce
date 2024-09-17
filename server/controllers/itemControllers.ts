@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 import { Category, Item, View} from "../models/Item";
 import { Request, Response} from "express";
 
-export const  getItem = async (req:Request, res:Response) => {
+export const  getItem = async (req:any, res:any ) => {
     await Item.find().sort({date:-1}).then(items => res.json(items)).catch(err => res.json("Error : " + err));
   };
 
 
- export  const postItem = async  (req:Request, res:Response) => {
+ export  const postItem = async  (req:any, res:any ) => {
 
     // const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 const {title, description, category, price, discount, status,
@@ -48,7 +48,7 @@ const newprice = Math.round(price - discountAmount)
  
 
    
-export const updateItem = (req:Request, res:Response) => {
+export const updateItem = (req:any, res:any ) => {
   Item.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(item){
       Item.findOne({_id: req.params.id}).then(function(item){
           res.json(item);
@@ -57,7 +57,7 @@ export const updateItem = (req:Request, res:Response) => {
 
 } 
 
-export const deleteItem = (req:Request, res:Response) => {
+export const deleteItem = (req:any, res:any ) => {
   Item.findByIdAndDelete({_id: req.params.id}).then(function(item){
       res.json({sucess:true});
   })
@@ -68,20 +68,20 @@ export const deleteItem = (req:Request, res:Response) => {
 
 
 
-export const searchItem = async (req:Request, res:Response) => {
+export const searchItem = async (req:any, res:any ) => {
 const searchitem = req.query
 await Item.find({ title: { $regex: `${searchitem}`, $options: "i" }}).then(items => res.json(items)).catch(err => res.status(400).json("Error : " + err))
 
 }
 
 
-export const  typeCategory = async (req:Request, res:Response) => {
+export const  typeCategory = async (req:any, res:any ) => {
 
  await Category.find().sort({date:-1}).then(items => res.json(items)).catch(err => res.json("Error : " + err));
  
 }
 
-export const getCategory = async (req:Request, res:Response) => {
+export const getCategory = async (req:any, res:any ) => {
   try{
    const item =  await Item.find({category:req.params.id})
   console.log(item)
@@ -96,7 +96,7 @@ export const getCategory = async (req:Request, res:Response) => {
  }
 
 
- export const getItemDetails = async (req:Request, res:Response) => {
+ export const getItemDetails = async (req:any, res:any ) => {
 
   await Item.find({title:req.params.id}).then(items => res.json(items)).catch(err => res.status(400).json("Error : " + err))
  
@@ -104,44 +104,44 @@ export const getCategory = async (req:Request, res:Response) => {
   }
 
   
-  export const trending = async (req:Request, res:Response) => {
+  export const trending = async (req:any, res:any ) => {
     await Item.find({trending:"true"}).then(items => res.json(items)).catch(err => res.status(400).json("Error : " + err))
      }
  
 
- export const recommended = async (req:Request, res:Response) => {
+ export const recommended = async (req:any, res:any ) => {
       await Item.find({recommended:"true"}).then(items => res.json(items)).catch(err => res.status(400).json("Error : " + err))
        }
        
  
        
- export  const topFeaturedSlide = async (req:Request, res:Response) => {
+ export  const topFeaturedSlide = async (req:any, res:any ) => {
 
     await Item.find({topfeatured:"true", status:"New" }).sort({ _id: -1 }).limit(4).then(items => res.json(items)).catch(err => res.status(400).json("Error : " + err))
      }
  
-     export  const topFeaturedGallery = async (req:Request, res:Response) => {
+     export  const topFeaturedGallery = async (req:any, res:any ) => {
 
       await Item.find({topfeatured:"true"}).limit(6).then(items =>  res.json(items)).catch(err => res.status(400).json("Error : " + err))
        }
    
-       export  const flashDeals = async (req:Request, res:Response) => {
+       export  const flashDeals = async (req:any, res:any ) => {
 
         await Item.find({status:"New",}).then(items => res.json(items)).catch(err => res.status(400).json("Error : " + err))
          }
     
-         export  const clearance = async (req:Request, res:Response) => {
+         export  const clearance = async (req:any, res:any ) => {
 
           await Item.find({discount:{ $gt: 1, $lt: 20 }}).then(items => res.json(items)).catch(err => res.status(400).json("Error : " + err))
            }
       
 
-  export  const topDeals = async (req:Request, res:Response) => {
+  export  const topDeals = async (req:any, res:any ) => {
 
         await Item.find({topdeals:"true",}).then(items => res.json(items)).catch(err => res.status(400).json("Error : " + err))
          }
     
-         export const  relatedItem = async (req:Request, res:Response) => {
+         export const  relatedItem = async (req:any, res:any ) => {
           const {category, itemId} = req.body
           console.log(category, itemId)
           try{
@@ -162,7 +162,7 @@ export const getCategory = async (req:Request, res:Response) => {
       
 
        
-              export  const addViewedItem = async (req:Request, res:Response) => {
+              export  const addViewedItem = async (req:any, res:any ) => {
                 const {itemId, price, discount, image, title} = req.body
                 const owner = req.user._id
               console.log(`my ${owner}, ${itemId}, ${price}, ${discount}, ${image}, ${title} `)
@@ -196,7 +196,7 @@ export const getCategory = async (req:Request, res:Response) => {
       
   
            
-           export const getViewedItems = async (req:Request, res: Response) => {
+           export const getViewedItems = async (req:any, res:any ) => {
            
             const owner  = req.user._id
         

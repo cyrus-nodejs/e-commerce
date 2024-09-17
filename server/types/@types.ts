@@ -10,13 +10,12 @@ export interface IFile  {
     filename:string;
 }
 
-export interface user {
-    _id: string,
+export interface USER {
+    id: string,
     email: string,
     username: string,
     register_date: string,
-    __v: number,
+    v: number,
 }
 
 
-export interface UserRequest extends Request { user: { id: string } }

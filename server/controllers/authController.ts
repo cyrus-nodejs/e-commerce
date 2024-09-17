@@ -9,7 +9,7 @@ import {createSecretToken, forgotPasswordToken} from "../middlewares/jwt/createS
 import {contactEmail} from "../utils/nodemailer"
 
 
-export const Register = async  (req:Request, res:Response, next:NextFunction) => {
+export const Register = async  (req:any, res:any, next:NextFunction) => {
     try{ 
         User.register(new User({ email: req.body.email, username: req.body.username }), req.body.password, function (err: string, user: Express.User) { 
             if (err) { 
@@ -38,7 +38,7 @@ export const Register = async  (req:Request, res:Response, next:NextFunction) =>
 }
 
 
-export const Login = async (req:Request, res:Response ) => {
+export const Login = async (req:any, res:any ) => {
     try {
        
         if(!req.body.username){ 
@@ -84,7 +84,7 @@ export const Login = async (req:Request, res:Response ) => {
 
 
 
-export const ForgotPassword = async (req:Request, res:Response ) => {
+export const ForgotPassword = async (req:any, res:any ) => {
   try {
     const email = req.body.email;
     const user = await User.findOne({email});
@@ -114,7 +114,7 @@ export const ForgotPassword = async (req:Request, res:Response ) => {
  
 }
 
-export const UpdatePassword = async (req:Request, res:Response ) => {
+export const UpdatePassword = async (req:any, res:any  ) => {
   const {oldPassword, newPassword, username} = req.body
   try {
      
@@ -140,7 +140,7 @@ export const UpdatePassword = async (req:Request, res:Response ) => {
  
 }
 
-export const ResetPassword = async (req:Request, res:Response ) => {
+export const ResetPassword = async (req:any, res:any  ) => {
   const {token, username, password} = req.body
   console.log(token)
   console.log(username, password)
@@ -180,7 +180,7 @@ export const ResetPassword = async (req:Request, res:Response ) => {
 }
 
 
-export const Logout = async (req:Request, res:Response, next:NextFunction ) => {
+export const Logout = async (req:any, res:any ,  ) => {
     if (req.user) {
          req.logout(function() {
              res.json({success:true, message: 'logging out' })
@@ -194,7 +194,7 @@ export const Logout = async (req:Request, res:Response, next:NextFunction ) => {
     
 }
 
-export const Servicom = async (req:Request, res:Response, next:NextFunction ) => {
+export const Servicom = async (req:any, res:any  ) => {
  console.log("Welcome to Servicom")
 
       

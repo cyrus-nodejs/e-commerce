@@ -1,10 +1,10 @@
-//@ts-nocheck
+
 import { Request, Response, Errback, NextFunction  } from "express";
 import { Address} from "../models/Address"
 
 
-export const getAddress = async (req:Request, res:Response) => {
-    const owner  = req.user._id
+export const getAddress = async (req:any, res:any) => {
+    const owner  = req.user.id
 
     try{
         let address = await Address.findOne({owner:owner})
@@ -33,7 +33,7 @@ export const getAddress = async (req:Request, res:Response) => {
 
 
 
-export const createAddress = async (req:Request, res:Response) => {
+export const createAddress = async (req:any, res:any) => {
     const owner   = req.user.id
      const {firstname,lastname, mobile, mobile2, address,nation, 
      region,postalcode, province, ordernote}  = req.body
@@ -55,7 +55,7 @@ export const createAddress = async (req:Request, res:Response) => {
     }
 }
 
-export const updateAddress = async (req:Request, res:Response) => {
+export const updateAddress = async (req:any, res:any) => {
     const user  = req.user.id
      const {firstname,lastname, mobile, mobile2, address,nation, 
      region,postalcode, province, ordernote}  = req.body

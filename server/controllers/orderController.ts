@@ -17,7 +17,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET, {
   });
 
 
-  export const getCurrentOrder = async (req:Request, res: Response) => {
+  export const getCurrentOrder = async (req:any, res:any ) => {
     const owner  = req.user._id
 
     try{
@@ -37,7 +37,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET, {
 
 
 
-export const getAllOrder = async (req:Request, res: Response) => {
+export const getAllOrder = async (req:any, res:any ) => {
     const owner = req.user._id
 
     try{
@@ -56,7 +56,7 @@ export const getAllOrder = async (req:Request, res: Response) => {
     }
 }
 
-export const orderDetails = async (req:Request, res:Response) => {
+export const orderDetails = async (req:any, res:any ) => {
     const id = req.params.id
    try{
        const order = await Order.findOne({_id:id})
@@ -77,7 +77,7 @@ export const orderDetails = async (req:Request, res:Response) => {
  
 
    
-export const config = async (req:Request, res: Response) => {
+export const config = async (req:any, res:any ) => {
     const publishableKey = process.env.STRIPE_PUBLISHABLE_KEY
     if(publishableKey) {
         console.log(publishableKey)
@@ -91,7 +91,7 @@ export const config = async (req:Request, res: Response) => {
    
     }
 
-    export const createOrder = async (req:Request, res: R) => {
+    export const createOrder = async (req:any, res:any ) => {
        
         const owner  = req.user._id
         const {gift, shipping, clientSecret} = req.body
@@ -148,7 +148,7 @@ res.json({success:false, message:"Something went wrong"})
 }
 }
 
-export const confirmPayment = async (req:Request, res: Response) => {
+export const confirmPayment = async (req:any, res:any ) => {
     const owner = req.user._id
     const {paymentIntent, paymentid} = req.body
     console.log(paymentIntent)
@@ -179,7 +179,7 @@ res.json({success:false, message:"Something went wrong"})
 }
 
 
-export const retrievePayment = async (req:Request, res: Response) => {
+export const retrievePayment = async (req:any, res:any ) => {
     const user:UserRequest  = req.user._id
     const {orderId} = req.body
 try{
