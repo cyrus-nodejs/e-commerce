@@ -28,7 +28,7 @@ const OrderDetails = () => {
     
         try {
           const { data } = await axios.get(
-            `https://server-sable-beta-77.vercel.app/orderdetails/${id}`,
+            `https://emall-server.onrender.com/orderdetails/${id}`,
             {withCredentials: true}
           );
           
@@ -99,7 +99,7 @@ const OrderDetails = () => {
         
   <div className="flex-shrink-0">
  
-  <Image src={`https://server-sable-beta-77.vercel.app/${items.image}`} width="150px" height="200px"  className="" />
+  <Image src={`https://emall-server.onrender.com/${items.image}`} width="150px" height="200px"  className="" />
   </div>
   <div className="flex-grow-1 ms-1">
   <div className="d-flex flex-column ">

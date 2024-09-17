@@ -35,7 +35,7 @@ const {setOrderInvoice} = useContext(OrderContext)
   const confirmPayment = async () => {
     try {
       const { data } = await axios.post(
-        "https://server-sable-beta-77.vercel.app/confirmpayment",
+        "https://emall-server.onrender.com/confirmpayment",
         {
        paymentIntent,
         },

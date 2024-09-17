@@ -81,7 +81,7 @@ const TrendingProduct = () => {
     
       const config ={
         method:"get",
-        url:`https://server-de5v5fkag-cyrus-nodejs-projects.vercel.app/trending`, 
+        url:`https://emall-server.onrender.com/trending`, 
         withCredentials: true, 
       }
     

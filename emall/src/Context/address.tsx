@@ -17,7 +17,7 @@ export const AddressProvider = ({ children}:{ children: React.ReactNode }) => {
    const getAddress = async () => {
     try {
       const { data } = await axios.get(
-        "https://server-sable-beta-77.vercel.app/getaddress",
+        "https://emall-server.onrender.com/getaddress",
         {withCredentials: true}
       );
       

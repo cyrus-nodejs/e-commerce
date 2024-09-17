@@ -20,7 +20,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
     
     try {
       const { data } = await axios.get(
-        "https://server-sable-beta-77.vercel.app/cart",
+        "https://emall-server.onrender.com/cart",
         {withCredentials: true}
       );
       
@@ -53,7 +53,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
   
     try {
       const { data } = await axios.post(
-        "https://server-sable-beta-77.vercel.app/cart",
+        "https://emall-server.onrender.com/cart",
         {
         itemId,
         quantity,
@@ -93,7 +93,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
   
     try {
       const { data } = await axios.post(
-        "https://server-sable-beta-77.vercel.app/cart",
+        "https://emall-server.onrender.com/cart",
         {
         itemId,
         quantity,
@@ -127,7 +127,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
     
     try {
       const { data } = await axios.post(
-        "https://server-sable-beta-77.vercel.app/reducecart",
+        "https://emall-server.onrender.com/reducecart",
         {
         itemId,
        
@@ -159,7 +159,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
     console.log(itemId)
     try {
       const { data } = await axios.post(
-        "https://server-sable-beta-77.vercel.app/addcart",
+        "https://emall-server.onrender.com/addcart",
         {
         itemId,
         },
@@ -191,7 +191,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
     console.log(itemId,)
     try {
       const { data } = await axios.post(
-        "https://server-sable-beta-77.vercel.app/deletecart",
+        "https://emall-server.onrender.com/deletecart",
         {
         itemId,
         },
@@ -215,7 +215,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
     
     try {
       const { data } = await axios.get(
-        "https://server-sable-beta-77.vercel.app/clearcart",
+        "https://emall-server.onrender.com/clearcart",
         {withCredentials: true}
       );
       

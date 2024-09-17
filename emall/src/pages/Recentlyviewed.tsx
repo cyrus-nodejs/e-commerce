@@ -19,7 +19,7 @@ const Recentlyviewed = () => {
   const handleTrending =  async () => {
       try {
         const { data } = await axios.get(
-          "https://server-sable-beta-77.vercel.app/getviewed",
+          "https://emall-server.onrender.com/getviewed",
           {withCredentials: true}
         );
         
@@ -71,7 +71,7 @@ const Recentlyviewed = () => {
             <Row key={id} className=" d-flex  flex-column position-relative  mb-3" style={{width:"200px", }}>
              <Link  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> 
            
-             <Image src={`https://server-sable-beta-77.vercel.app/items/${items.image}`} width="150px" height="200px"  className="" />
+             <Image src={`https://emall-server.onrender.com/items/${items.image}`} width="150px" height="200px"  className="" />
              </Link> 
              <div className="d-flex flex-column ">
               <div className="text-primary text-truncate fw-medium">{items.title}</div>

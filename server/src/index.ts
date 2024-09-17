@@ -22,7 +22,7 @@ import path from 'path';
 
 const app = express();
 
-  
+
 
 app.set('trust proxy', true);
 app.use(cookieParser());
@@ -93,10 +93,11 @@ app.use(passport.session());
  app.use("/", addressRoutes)
 
 
- app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`))
+ const server = app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`))
  
-
-
+ server.keepAliveTimeout = 110 * 1000;
+ server.headersTimeout = 120 * 1000;
+   
 
  const startServer  = async () => {
     try{

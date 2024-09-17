@@ -86,7 +86,7 @@ setData({...data, [e.target.name] : e.target.value})
       
       
      const { data } = await axios.post(
-       "https://server-sable-beta-77.vercel.app/updateaddress",
+       "https://emall-server.onrender.com/updateaddress",
        {
         firstname,
         lastname,

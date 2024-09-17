@@ -82,7 +82,7 @@ const SliderFeatured = () => {
   
     const config ={
       method:"get",
-      url:`https://server-de5v5fkag-cyrus-nodejs-projects.vercel.app/topfeaturedslide`, 
+      url:`https://emall-server.onrender.com/topfeaturedslide`, 
       withCredentials: true, 
     }
   
@@ -113,7 +113,7 @@ const SliderFeatured = () => {
 
     <Row  className=" d-flex flex-row">
      
-      <Col className="container" >    <Link onClick={() =>{addViewedItem(product); addRelatedItem(product);   }}  to={`/product/${product.title}`} className="p-2 text-decoration-none text-reset"><Image src={`https://server-de5v5fkag-cyrus-nodejs-projects.vercel.app/items/${product.image}`} fluid  className="" />    </Link></Col>
+      <Col className="container" >    <Link onClick={() =>{addViewedItem(product); addRelatedItem(product);   }}  to={`/product/${product.title}`} className="p-2 text-decoration-none text-reset"><Image src={`https://emall-server.onrender.com/items/${product.image}`} fluid  className="" />    </Link></Col>
       
       <Col >
       <div className="d-flex flex-column">

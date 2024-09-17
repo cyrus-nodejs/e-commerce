@@ -27,7 +27,7 @@ const UpdatePassword = () => {
     e.preventDefault();
     try {
      const { data } = await axios.post(
-       "https://server-sable-beta-77.vercel.app/updatepassword",
+       "https://emall-server.onrender.com/updatepassword",
        {
          oldPassword,
          newPassword,

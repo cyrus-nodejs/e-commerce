@@ -19,7 +19,7 @@ export const OrderProvider = ({ children}:{ children: React.ReactNode }) => {
    const getOrder = async () => {
     try {
       const { data } = await axios.get(
-        "https://server-sable-beta-77.vercel.app/getorder",
+        "https://emall-server.onrender.com/getorder",
         {withCredentials: true}
       );
       
@@ -46,7 +46,7 @@ export const OrderProvider = ({ children}:{ children: React.ReactNode }) => {
   const getExistingOrder = async () => {
     try {
       const { data } = await axios.get(
-        "https://server-sable-beta-77.vercel.app/invoice",
+        "https://emall-server.onrender.com/invoice",
         {withCredentials: true}
       );
       
