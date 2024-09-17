@@ -42,7 +42,7 @@ app.use(express.urlencoded({ extended: true }));
     credentials: true,
     origin: [
       'http://localhost:5173',
-      'https://e-commerce-omega-pearl.vercel.app'
+      'https://shop-heree.netlify.app'
     ],
   }),
 );
