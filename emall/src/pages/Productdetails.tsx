@@ -55,7 +55,7 @@ const Productdetails = () => {
       <Row  style={{ margin:"20px"}} >
     
       <Col  >
-    <Image   fluid  src={`https://emall-server.onrender.com/items/${product.image}`} />
+    <Image   fluid  src={product.image} />
     </Col>
       <Col className=""   >
       <div className="fs-4 fw-normal d-inline-flex  text-dark">{product.title}</div>

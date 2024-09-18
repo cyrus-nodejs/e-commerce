@@ -31,7 +31,7 @@ const Product = ({product}: { product: ITEM }) => {
 
 <div className="position-relative my-3">
   
-      <Image src={`https://emall-server.onrender.com/items/${product.image}`} height="200" width="200" alt={product.image}   className="px-2" />
+      <Image src={product.image} height="200" width="200" alt={product.image}   className="px-2" />
   { hidden && <div>
     <OverlayTrigger
           

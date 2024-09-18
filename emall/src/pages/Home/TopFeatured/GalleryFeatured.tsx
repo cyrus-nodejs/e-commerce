@@ -43,7 +43,7 @@ const {addRelatedItem, addViewedItem} = useContext(ItemContext)
         <Col key={id} className="flex-fill  " sm={6} md={4} lg={3} style={{margin:"5px",   }} >
             <Row className="bg-white rounded-3 position-relative" >
               
-      <Col sm={5} className=" bg-white  " style={{width:"",height:""}} ><Image src={`https://emall-server.onrender.com/items/${item.image}`} fluid   className="" /></Col>
+      <Col sm={5} className=" bg-white  " style={{width:"",height:""}} ><Image src={item.image} fluid   className="" /></Col>
       <Col sm={6} className="bg-white ">
       <Link onClick={() =>{addViewedItem(item); addRelatedItem(item);   }}  to={`/product/${item.title}`} className="p-2 text-decoration-none text-reset">
         <div className="d-flex flex-column mb-3">

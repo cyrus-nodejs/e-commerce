@@ -12,9 +12,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "pre-commit": [
-      "ts.check",
-      "build",
-      "add-build"
+    "ts.check",
+    "build",
+    "add-build"
   ],
   "keywords": [],
   "author": "",
@@ -45,6 +45,7 @@
     "@types/passport-local-mongoose": "^6.1.5",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "cloudinary": "^1.41.3",
     "compression": "^1.7.4",
     "connect-ensure-login": "^0.1.1",
     "connect-mongo": "^5.1.0",
@@ -59,6 +60,7 @@
     "mongoose": "^8.4.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
     "nodemailer": "^6.9.14",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
@@ -67,5 +69,4 @@
     "stripe": "^16.5.0",
     "uuid": "^9.0.1"
   }
-
 }

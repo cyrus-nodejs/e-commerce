@@ -11,3 +11,10 @@ declare global {
   }
 }
 
+declare global {
+  namespace cloudinary {
+    interface uploader {
+      upload:() => void
+    }
+  }
+}

@@ -39,7 +39,7 @@ console.log(Order)
         <div className="d-flex ">
      
   <div className="flex-shrink-0">
-  <Image src={`https://emall-server.onrender.com/items/${item.image}`} width="150px" height="200px"  className="rounded-2" />
+  <Image src={item.image} width="150px" height="200px"  className="rounded-2" />
   </div>
   <div className="flex-grow-1 ms-1">
   <div className="d-flex flex-column ">

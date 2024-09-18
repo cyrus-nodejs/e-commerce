@@ -19,3 +19,11 @@ export interface USER {
 }
 
 
+ export  type  dupload = () => void
+  
+
+
+   
+
+
+

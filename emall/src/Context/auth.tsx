@@ -20,7 +20,7 @@ export const AuthProvider = ({ children}:{ children: React.ReactNode }) => {
    const getUser = async () => {
      
     const { data } = await axios.post(
-      "https://emall-server.onrender.com", {},
+      "http://localhost:3000/items", {},
       { withCredentials: true }
     );
     const { success, user, message } = data;

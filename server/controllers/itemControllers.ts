@@ -13,7 +13,14 @@ export const  getItem = async (req:any, res:any ) => {
     // const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 const {title, description, category, price, discount, status,
   trending, quantity, recommended, topfeatured, topdeals } = req.body
-   const image = req.file.filename
+  if (!req.file) {
+    // No file was uploaded
+    return res.status(400).json({ error: "No file uploaded" });
+  }
+
+  // File upload successful
+  const image = req.file.path
+   
 console.log(req.body)
 const discountAmount= discount * 0.01 * price
 const newprice = Math.round(price - discountAmount)
