@@ -5,10 +5,11 @@ import {Servicom, Register, Login, Logout, ForgotPassword, ResetPassword, Update
 import {userVerification} from "../middlewares/jwt/verifyToken"
 
 router.get("/", Servicom)
+router.get('/',  userVerification  )
  router.post("/register", Register );
 router.post("/login", Login );
 router.post("/logout", Logout );
-  router.post('/',  userVerification  )
+  router.get('/',  userVerification  )
   router.post('/forgotpassword',  ForgotPassword )
   router.post('/resetpassword',  ResetPassword  )
   router.post('/updatepassword',  UpdatePassword  )

@@ -196,7 +196,7 @@ export const Logout = async (req:any, res:any ,  ) => {
 
 export const Servicom = async (req:any, res:any  ) => {
  console.log("Welcome to Servicom")
-
+ res.send("Express on Vercel")
       
   
 }
