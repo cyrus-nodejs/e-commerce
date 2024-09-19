@@ -18,7 +18,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET, {
 
 
   export const getCurrentOrder = async (req:any, res:any ) => {
-    const owner  = req.user._id
+    const owner  = req.user.id
 
     try{
         const order = await Order.find({owner:owner}).sort({ _id: -1 }).limit(1)
@@ -38,7 +38,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET, {
 
 
 export const getAllOrder = async (req:any, res:any ) => {
-    const owner = req.user._id
+    const owner = req.user.id
 
     try{
         const order = await Order.find({owner:owner}).sort({ _id: -1 })
@@ -93,7 +93,7 @@ export const config = async (req:any, res:any ) => {
 
     export const createOrder = async (req:any, res:any ) => {
        
-        const owner  = req.user._id
+        const owner  = req.user.id
         const {gift, shipping, clientSecret} = req.body
         console.log(gift, shipping)
        try{
@@ -121,7 +121,7 @@ export const config = async (req:any, res:any ) => {
    
 
 export const createPayment = async (req:any, res: any) => {
-    const user  = req.user._id
+    const user  = req.user.id
 try{
     const order = await Order.find({user}).sort({ _id: -1 }).limit(1)
 if (order){
@@ -180,7 +180,7 @@ res.json({success:false, message:"Something went wrong"})
 
 
 export const retrievePayment = async (req:any, res:any ) => {
-    const user  = req.user._id
+    const user  = req.user.id
     const {orderId} = req.body
 try{
     const order = await Order.findOne({_id:orderId})

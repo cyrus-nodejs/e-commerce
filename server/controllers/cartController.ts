@@ -8,7 +8,7 @@ import { Request, Response} from "express";
 
 export const getCart = async (req:any, res: any) =>{
 
-    const owner  = req.user._id
+    const owner  = req.user.id
     try{
         let cart = await Cart.findOne({owner:owner});
         if(cart && cart.items.length > 0){
@@ -25,7 +25,7 @@ export const getCart = async (req:any, res: any) =>{
     }
 }
 export const addToCart = async (req:any, res:any ) => {
-    const owner = req.user._id
+    const owner = req.user.id
     const {itemId, price, title, image, quantity}= req.body
 try{
   
@@ -82,7 +82,7 @@ try{
 }
 
 export const deleteFromCart = async (req:any, res:any ) => {
- const owner = req.user._id
+ const owner = req.user.id
      const {itemId}= req.body
  try{
 let cart = await Cart.findOne({owner:owner});
@@ -110,7 +110,7 @@ if (itemIndex > -1) {
  }
 }
 export const clearCart = async (req:any, res:any ) => {
-  const owner = req.user._id
+  const owner = req.user.id
 try{
   let cart = await Cart.findOne({owner:owner});
   if (cart){
@@ -128,7 +128,7 @@ try{
  
 
 export const addCartQty = async (req:any, res:any ) => {
-  const owner = req.user._id
+  const owner = req.user.id
   const {itemId}= req.body
 try{
 
@@ -169,7 +169,7 @@ if (cart){
 };
 
 export const decreaseCartQty = async (req:any, res:any ) => {
-  const owner = req.user._id
+  const owner = req.user.id
   const {itemId}= req.body
 try{
 

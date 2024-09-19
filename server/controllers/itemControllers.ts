@@ -171,7 +171,7 @@ export const getCategory = async (req:any, res:any ) => {
        
               export  const addViewedItem = async (req:any, res:any ) => {
                 const {itemId, price, discount, image, title} = req.body
-                const owner = req.user._id
+                const owner = req.user.id
               console.log(`my ${owner}, ${itemId}, ${price}, ${discount}, ${image}, ${title} `)
                 try{
                   const viewed = await View.findOne({owner:owner})
@@ -205,7 +205,7 @@ export const getCategory = async (req:any, res:any ) => {
            
            export const getViewedItems = async (req:any, res:any ) => {
            
-            const owner  = req.user._id
+            const owner  = req.user.id
         
             try{
               console.log(owner)
