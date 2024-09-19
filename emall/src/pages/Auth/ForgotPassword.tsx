@@ -43,7 +43,7 @@ import {  useState } from 'react';
        
       }
     } catch (error) {
-      alert(error)
+      console.log(error)
     }
     
   

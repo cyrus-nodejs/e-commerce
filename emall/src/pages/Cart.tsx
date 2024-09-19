@@ -127,14 +127,14 @@ setData({...data, [e.target.name] : e.target.value})
      alert("Item saved successfully!")
        
      } else {
-      alert(message);
+      
       console.log(message)
-      alert("!")
+    
       
      }
    } catch (error) {
-     alert(error)
-     alert("Network error!")
+    console.log(error)
+     
    }
    
  }

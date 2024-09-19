@@ -39,7 +39,7 @@ export const CheckoutProvider = ({ children}:{ children: React.ReactNode }) => {
     try {
   
       const { data } = await axios.get(
-        "https://servicom-88swbax2c-cyrus-nodejs-projects.vercel.app/create-payment-intent",
+        "https://emall-server.onrender.com/create-payment-intent",
         {withCredentials: true}
       );
       

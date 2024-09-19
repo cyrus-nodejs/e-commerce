@@ -51,13 +51,13 @@ const {setOrderInvoice} = useContext(OrderContext)
         
       } else {
         console.log(message);
-        alert(message)
+        
       
        
       }
     } catch (error) {
       console.log(error)
-      alert(error)
+    
     }
   }
 

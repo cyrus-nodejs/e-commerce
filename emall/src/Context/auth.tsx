@@ -19,8 +19,8 @@ export const AuthProvider = ({ children}:{ children: React.ReactNode }) => {
 
    const getUser = async () => {
      
-    const { data } = await axios.post(
-      "http://localhost:3000/items", {},
+    const { data } = await axios.get(
+      "https://emall-server.onrender.com", 
       { withCredentials: true }
     );
     const { success, user, message } = data;
@@ -29,14 +29,10 @@ export const AuthProvider = ({ children}:{ children: React.ReactNode }) => {
       setIsAuthenticated(true),
       setIsupdateUser(user)
       } else {
-       alert(message);
+       
        console.log(message)
        
       }
-
-    
-   
-      
   };
     useEffect(() => {
      

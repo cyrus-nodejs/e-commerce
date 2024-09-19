@@ -40,7 +40,7 @@ const Category = () => {
       
       }
       } catch (error) {
-        console.log
+        console.log(error)
       }
     
     

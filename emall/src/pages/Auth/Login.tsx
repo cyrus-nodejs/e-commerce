@@ -25,7 +25,7 @@
      e.preventDefault();
      try {
       const { data } = await axios.post(
-        "http://localhost:3000/login",
+        "https://emall-server.onrender.com/login",
         {
           username,
           password,
@@ -44,7 +44,7 @@
       console.log(message)
         
       } else {
-       alert(message);
+    
        console.log(message)
        
       }

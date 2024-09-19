@@ -100,7 +100,6 @@ setState({...state, [e.target.name] : e.target.value})
     })
     .catch(err =>{
       console.log(err)
-      alert(err)
       alert('Not saved!')
     })
   }

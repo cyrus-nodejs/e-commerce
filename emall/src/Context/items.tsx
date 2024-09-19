@@ -46,7 +46,7 @@ export const ItemProvider = ({ children}:{ children: React.ReactNode }) => {
         }
       } catch (error) {
         console.log(error)
-        alert(error)
+        
       }
     }
 
@@ -54,7 +54,7 @@ export const ItemProvider = ({ children}:{ children: React.ReactNode }) => {
 
       const config ={
         method:"get",
-        url:`https://servicom-88swbax2c-cyrus-nodejs-projects.vercel.app/items`, 
+        url:`https://emall-server.onrender.com/items`, 
         withCredentials: true, 
       }
     
@@ -64,7 +64,7 @@ export const ItemProvider = ({ children}:{ children: React.ReactNode }) => {
       setItems(response.data)
       })
       .catch(error => {
-        alert(error)
+        console.log(error)
       })
       
     }
@@ -93,7 +93,7 @@ export const ItemProvider = ({ children}:{ children: React.ReactNode }) => {
         }
       } catch (error) {
         console.log(error)
-        alert(error)
+        
       }
     }
 
@@ -111,7 +111,7 @@ export const ItemProvider = ({ children}:{ children: React.ReactNode }) => {
     setSearchItems(response.data)
     })
     .catch(error => {
-      alert(error)
+      console.log(error)
     })
     
     }
