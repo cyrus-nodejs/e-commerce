@@ -99,7 +99,7 @@ const TrendingProduct = () => {
       useEffect(() =>{
     handleTrending();
     
-      }, [])
+      }, )
     
     
   return (
