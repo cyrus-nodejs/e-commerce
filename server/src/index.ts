@@ -42,7 +42,8 @@ app.use(express.urlencoded({ extended: true }));
     credentials: true,
     origin: [
       'http://localhost:5173',
-      'https://shop-heree.netlify.app'
+      'https://shop-heree.netlify.app',
+      'https://e-commerce-roan-three.vercel.app'
     ],
   }),
 );
