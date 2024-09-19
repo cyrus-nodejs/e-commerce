@@ -42,8 +42,7 @@ const OrderDetails = () => {
             setOrderId(order._id)
             setDelivery(order.delivered)
             setPayment(order.payment)
-            alert(message)
-            alert(order)
+            
           } else {
             console.log(message);
           

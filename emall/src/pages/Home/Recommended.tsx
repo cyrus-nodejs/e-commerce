@@ -92,7 +92,7 @@ const Recommended = () => {
     setProducts(response.data)
     })
     .catch(error => {
-      alert(error)
+      console.log(error)
     })
     
     }

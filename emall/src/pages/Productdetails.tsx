@@ -32,7 +32,7 @@ const Productdetails = () => {
    
       })
       .catch(error => {
-        alert(error)
+        console.log(error)
       })
       
       }

@@ -72,13 +72,13 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
         
       } else {
         console.log(message);
-        alert(message)
+      
       
        
       }
     } catch (error) {
       console.log(error)
-      alert(error)
+    
     }
   }
      
@@ -112,13 +112,13 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
         
       } else {
         console.log(message);
-        alert(message)
+    
       
        
       }
     } catch (error) {
       console.log(error)
-      alert(error)
+    
     }
   }
 
@@ -181,7 +181,7 @@ export const CartProvider = ({ children}:{ children: React.ReactNode } ) => {
        
       }
     } catch (error) {
-      alert(error)
+      console.log(error)
     }
   }
  

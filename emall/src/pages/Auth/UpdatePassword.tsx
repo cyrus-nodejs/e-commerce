@@ -46,12 +46,12 @@ const UpdatePassword = () => {
      console.log(message)
        
      } else {
-      alert(message);
+    
       console.log(message)
       
      }
    } catch (error) {
-     alert(error)
+     console.log(error)
    }
    
  
