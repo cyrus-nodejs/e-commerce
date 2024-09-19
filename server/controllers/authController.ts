@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 import { Request, Response, Errback, NextFunction  } from "express";
 import 'dotenv/config'
 import jwt from 'jsonwebtoken'
@@ -47,7 +47,7 @@ export const Login = async (req:any, res:any ) => {
             if(!req.body.password){ 
               res.json({success: false, message: "Password was not given"}) 
             }else{ 
-              passport.authenticate('local', function (err: any, user: Express.User, info: any) { 
+              passport.authenticate('local', function (err: any, user: any, info: any) { 
                  if(err){ 
                    res.json({success: false, message: err}) 
                  } else{ 

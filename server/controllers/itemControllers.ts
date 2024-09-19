@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 import mongoose from "mongoose";
 import { Category, Item, View} from "../models/Item";
 import { Request, Response} from "express";

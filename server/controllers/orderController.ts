@@ -1,10 +1,10 @@
-//@ts-nocheck
+
 import 'dotenv/config'
 import Stripe from "stripe";
 import {Order} from "../models/Order"
-import {User, Address} from "../models/User"
+import {User} from "../models/User"
 import {Cart} from "../models/Cart"
-import {UserRequest} from "../types/@types"
+
 import { Request, Response} from "express";
 const stripe = new Stripe(process.env.STRIPE_SECRET, {
     apiVersion: "2024-06-20",
@@ -121,7 +121,7 @@ export const config = async (req:any, res:any ) => {
    
 
 export const createPayment = async (req:any, res: any) => {
-    const user:UserRequest  = req.user._id
+    const user  = req.user._id
 try{
     const order = await Order.find({user}).sort({ _id: -1 }).limit(1)
 if (order){
@@ -180,7 +180,7 @@ res.json({success:false, message:"Something went wrong"})
 
 
 export const retrievePayment = async (req:any, res:any ) => {
-    const user:UserRequest  = req.user._id
+    const user  = req.user._id
     const {orderId} = req.body
 try{
     const order = await Order.findOne({_id:orderId})

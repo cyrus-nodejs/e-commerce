@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 import { Cart} from "../models/Cart";
 import {Item} from "../models/Item";
 import { Request, Response} from "express";
@@ -10,7 +10,7 @@ export const getCart = async (req:any, res: any) =>{
 
     const owner  = req.user._id
     try{
-        let cart = await Cart.findOne({owner});
+        let cart = await Cart.findOne({owner:owner});
         if(cart && cart.items.length > 0){
         
           res.json({ success: true, message: "View cart!", cart:cart });
@@ -29,7 +29,7 @@ export const addToCart = async (req:any, res:any ) => {
     const {itemId, price, title, image, quantity}= req.body
 try{
   
-   const cart =await  Cart.findOne({owner})
+   const cart =await  Cart.findOne({owner:owner})
    const item = await Item.findOne({_id:itemId})
    
   if (!item) {
@@ -85,7 +85,7 @@ export const deleteFromCart = async (req:any, res:any ) => {
  const owner = req.user._id
      const {itemId}= req.body
  try{
-let cart = await Cart.findOne({owner});
+let cart = await Cart.findOne({owner:owner});
 const itemIndex = cart.items.findIndex((item) => item.itemId == itemId);
 console.log(itemIndex)
 if (itemIndex > -1) {
@@ -112,7 +112,7 @@ if (itemIndex > -1) {
 export const clearCart = async (req:any, res:any ) => {
   const owner = req.user._id
 try{
-  let cart = await Cart.findOne({owner});
+  let cart = await Cart.findOne({owner:owner});
   if (cart){
     await Cart.findOneAndDelete({owner});
     res.json({ success: true, message: "Cart cleared!" });
@@ -132,7 +132,7 @@ export const addCartQty = async (req:any, res:any ) => {
   const {itemId}= req.body
 try{
 
- const cart =await  Cart.findOne({owner})
+ const cart =await  Cart.findOne({owner:owner})
  const item = await Item.findOne({_id:itemId})
 if (!item) {
   res.status(404).send({message:"item not found!"})
@@ -173,7 +173,7 @@ export const decreaseCartQty = async (req:any, res:any ) => {
   const {itemId}= req.body
 try{
 
- const cart =await  Cart.findOne({owner})
+ const cart =await  Cart.findOne({owner:owner})
  const item = await Item.findOne({_id:itemId})
 if (!item) {
   res.status(404).send({message:"item not found!"})
