@@ -26,7 +26,7 @@ const app = express();
 
 app.set('trust proxy', true);
 app.use(cookieParser());
-app.use(express.static('assets'));
+
 app.use(compression())
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(express.json());
@@ -34,6 +34,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
  app.use(bodyParser.json({ limit: "100mb"}));
  app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
+ import { dirname, join} from 'path';
+
+
+
 
 
 
@@ -69,19 +73,11 @@ app.use(passport.session());
 //  app.get('/items', express.static('assets'))
  
 
+app.use(express.static(path.join(__dirname, "../dist"))); // put this line of code in app.js
 
-
-   app.use('/items', express.static(path.join(__dirname, '../assets')));
-   app.use('/category', express.static(path.join(__dirname, '../assets')));
+  //  app.use('/items', express.static(path.join(__dirname, '../assets')));
+  //  app.use('/category', express.static(path.join(__dirname, '../assets')));
    
-
-
-// app.use('/search', express.static(path.join(__dirname, 'assets')));
-// app.use('/category/:id', express.static(path.join(__dirname, 'assets')));
-
-
-
-
 
 
 
