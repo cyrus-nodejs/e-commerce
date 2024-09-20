@@ -38,7 +38,16 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-
+ app.use((req, res, next) => {
+  if (/(.ico|.js|.ts|.css|.jpg|.png|.map)$/i.test(req.path)) {
+      next();
+  } else {
+      res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+      res.header('Expires', '-1');
+      res.header('Pragma', 'no-cache');
+      res.sendFile(path.join(__dirname, '../build', '../build/index.html'  ));
+  }
+});
 
 
  app.use(
