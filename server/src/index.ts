@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: true }));
  import { dirname, join} from 'path';
 
 
-
+ app.use(express.static(path.join(__dirname, "../../build")));
  app.use((req, res, next) => {
   if (/(.ico|.js|.ts|.css|.jpg|.png|.map)$/i.test(req.path)) {
       next();
@@ -82,7 +82,7 @@ app.use(passport.session());
 //  app.get('/items', express.static('assets'))
  
 
-app.use(express.static(path.join(__dirname, "../dist"))); // put this line of code in app.js
+ // put this line of code in app.js
 
   //  app.use('/items', express.static(path.join(__dirname, '../assets')));
   //  app.use('/category', express.static(path.join(__dirname, '../assets')));
