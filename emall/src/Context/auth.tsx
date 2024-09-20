@@ -19,7 +19,7 @@ export const AuthProvider = ({ children}:{ children: React.ReactNode }) => {
 
    const getUser = async () => {
      
-    const { data } = await axios.get(
+    const { data } = await axios.post(
       "https://emall-server.onrender.com", 
       { withCredentials: true }
     );

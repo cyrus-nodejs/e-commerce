@@ -23,7 +23,7 @@ const Productdetails = () => {
      const handleItemDetails = () => {
       const config ={
         method:"get",
-        url:`https://emall-server.onrender.com/itemdetails/${id}`,
+        url:`/itemdetails/${id}`,
       }
       axios(config)
       .then(response=>{

@@ -82,7 +82,7 @@ const Recommended = () => {
   
     const config ={
       method:"get",
-      url:`https://emall-server.onrender.com/recommended`, 
+      url:`/recommended`, 
       withCredentials: true, 
     }
   

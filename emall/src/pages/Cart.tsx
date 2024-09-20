@@ -143,7 +143,7 @@ setData({...data, [e.target.name] : e.target.value})
   
   try {
     const { data } = await axios.post(
-      "https://emall-server.onrender.com/createorder",
+      "/createorder",
       {
       gift,
     shipping,
