@@ -45,7 +45,7 @@ app.use(express.urlencoded({ extended: true }));
       res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
       res.header('Expires', '-1');
       res.header('Pragma', 'no-cache');
-      res.sendFile(path.join(__dirname, '../../build', '../../public/index.html'  ));
+      res.sendFile(path.join(__dirname, '../../build' ));
   }
 });
 
