@@ -27,7 +27,7 @@ const {addRelatedItem, addViewedItem} = useContext(ItemContext)
   
     const config ={
       method:"get",
-      url:`/topdeals`, 
+      url:`http://localhost:3000/topdeals`, 
       withCredentials: true, 
     }
   

@@ -21,7 +21,7 @@ export const ItemProvider = ({ children}:{ children: React.ReactNode }) => {
       const image= item.image
       try {
         const { data } = await axios.post(
-          "/vieweditem",
+          "http://localhost:3000/vieweditem",
           {
           itemId,
           price,
@@ -54,7 +54,7 @@ export const ItemProvider = ({ children}:{ children: React.ReactNode }) => {
 
       const config ={
         method:"get",
-        url:`/items`, 
+        url:`http://localhost:3000/items`, 
         withCredentials: true, 
       }
     
@@ -76,7 +76,7 @@ export const ItemProvider = ({ children}:{ children: React.ReactNode }) => {
        console.log(category)
       try {
         const { data } = await axios.put(
-          "https://emall-server.onrender.com/relateditem",
+          "http://localhost:3000/relateditem",
           {
           category,
           itemId,
@@ -102,7 +102,7 @@ export const ItemProvider = ({ children}:{ children: React.ReactNode }) => {
     const handleSearch = () => {
     const config ={
       method:"get",
-      url:`https://emall-server.onrender.com/search?q=${searchQuery}`,
+      url:`http://localhost:3000/search?q=${searchQuery}`,
     }
   
     

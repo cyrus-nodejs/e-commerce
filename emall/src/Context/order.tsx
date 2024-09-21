@@ -19,7 +19,7 @@ export const OrderProvider = ({ children}:{ children: React.ReactNode }) => {
    const getOrder = async () => {
     try {
       const { data } = await axios.get(
-        "https://emall-server.onrender.com/getorder",
+        "http://localhost:3000/getorder",
         {withCredentials: true}
       );
       
@@ -46,7 +46,7 @@ export const OrderProvider = ({ children}:{ children: React.ReactNode }) => {
   const getExistingOrder = async () => {
     try {
       const { data } = await axios.get(
-        "https://emall-server.onrender.com/invoice",
+        "http://localhost:3000/invoice",
         {withCredentials: true}
       );
       

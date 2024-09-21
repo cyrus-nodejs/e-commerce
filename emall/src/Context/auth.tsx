@@ -10,7 +10,7 @@ export const AuthProvider = ({ children}:{ children: React.ReactNode }) => {
 
 
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
-    const [updateUser, setIsupdateUser] = useState([])
+    const [updateUser, setIsupdateUser] = useState(null)
    
      
     
@@ -18,38 +18,43 @@ export const AuthProvider = ({ children}:{ children: React.ReactNode }) => {
 
 
    const getUser = async () => {
-     
-    const { data } = await axios.post(
-      "https://emall-server.onrender.com", 
-      { withCredentials: true }
-    );
-    const { success, user, message } = data;
-
-    if (success) {
-      setIsAuthenticated(true),
-      setIsupdateUser(user)
-      } else {
-       
-       console.log(message)
-       
-      }
+     try {
+      const { data } = await axios.post(
+        "http://localhost:3000",  {},
+        { withCredentials: true }
+      );
+      const { success, user, message } = data;
+  
+      if (success) {
+        setIsAuthenticated(true),
+        setIsupdateUser(user)
+      
+        } else {
+         
+         console.log(message)
+         alert(message)
+        }
+     }catch (err){
+      alert(err)
+     }
+  
   };
     useEffect(() => {
      
       getUser();
       
-    }, [ ])
+    }, [])
     
   
     const Logout = async () => {
       try {
       
-       const {data} = await  axios.post("https://emall-server.onrender.com/logout", {}, {withCredentials: true})
+       const {data} = await  axios.post("http://localhost:3000/logout", {}, {withCredentials: true})
     
        const { success, message} = data;
          if (success) {
           setIsAuthenticated(false)
-          setIsupdateUser([])
+          setIsupdateUser(null)
         
 
            

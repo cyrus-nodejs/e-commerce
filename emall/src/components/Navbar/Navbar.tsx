@@ -7,6 +7,10 @@ import { useState, useContext,  useLayoutEffect} from "react";
 import { CartContext } from "../../Context/cart";
 import { FavoriteContext } from "../../Context/wishlist";
 import { AuthContext } from "../../Context/auth";
+
+import {Alert} from 'react-bootstrap';
+
+
 // import NavSearch from "./NavSearch";
 import NavbarSearch from "./NavbarSearch";
 import { Link } from "react-router-dom";
@@ -32,14 +36,14 @@ const Navbar = () => {
 
     
 
-  
+
   const [show, setShow] = useState(false);
   const [display, setDisplay] = useState(false);
   const wishlistClose = () => setDisplay(false);
   const wishListShow = () => setDisplay(true);
   const cartClose = () => setShow(false);
   const cartShow = () => setShow(true);
-  const { cartItems, getCartTotal } = useContext(CartContext)
+  const { cartItems, getCartTotal, cartMessage } = useContext(CartContext)
   const {favoriteItems } = useContext(FavoriteContext)
   const {updateUser,  isAuthenticated, Logout} = useContext(AuthContext)
   
@@ -66,7 +70,9 @@ const Navbar = () => {
   return (
  
     <  Container  className="mainnav fixed-top  " fluid>
- 
+     {cartMessage && ( <Alert   className=" bg-dark " dismissible >
+       <div className="text-light text-center   "> {cartMessage}  </div>
+        </Alert>)}
  <nav className={scrolled ? "  ": "navbar navbar-expand-lg d-none d-lg-block border  "} >
   <div className="container-fluid">
     
@@ -148,7 +154,7 @@ const Navbar = () => {
   <div className="px-1"><i className='bx bxs-group bx-lg text-light' ></i></div>
   <div className="d-flex flex-column mb-3">
   <div className=" text-light fs-6">Logout</div>
-  <div className=" text-white ">Welcome {updateUser.username}</div>
+  <div className=" text-white ">Hi {updateUser.username}</div>
   
 </div>
 
@@ -235,7 +241,7 @@ const Navbar = () => {
     </div>
     <div className="ms-auto">
       <div className="navbar-toggler border-0  	   " >
-      <span className=" text-light ">  <a className="navbar-brand text-light fs-5 fw-medium" href="/">E-mall</a></span>
+      <span className=" text-light ">  <a className="navbar-brand text-light fs-5 fw-medium" href="/">ShopHere</a></span>
     </div>
     </div>
     <div className="ms-auto">
@@ -285,7 +291,10 @@ const Navbar = () => {
 ) }
           </li>  
           <li className="nav-item  d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none">
+       
+    
           <Row   className=" ">
+          
         <div className="d-flex     ">
         <div className=" flex-fill border  rounded-2  "> 
         <Link to="/category/Computer & Desktop" className="text-decoration-none text-rest"><div className="bg-white   d-flex   text-black fw-medium">
@@ -376,8 +385,8 @@ const Navbar = () => {
             <Blog />
           </li>
            
-         
-          
+        
+        
         </ul>
         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
        

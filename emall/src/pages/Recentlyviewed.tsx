@@ -19,7 +19,7 @@ const Recentlyviewed = () => {
   const handleTrending =  async () => {
       try {
         const { data } = await axios.get(
-          "https://emall-server.onrender.com/getviewed",
+          "http://localhost:3000/getviewed",
           {withCredentials: true}
         );
         

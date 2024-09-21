@@ -76,7 +76,7 @@ const Categories = () => {
   
     const config ={
       method:"get",
-      url:`https://emall-server.onrender.com/category`, 
+      url:`http://localhost:3000/category`, 
       withCredentials: true, 
     }
   

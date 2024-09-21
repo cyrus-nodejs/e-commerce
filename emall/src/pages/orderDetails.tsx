@@ -28,7 +28,7 @@ const OrderDetails = () => {
     
         try {
           const { data } = await axios.get(
-            `https://emall-server.onrender.com/orderdetails/${id}`,
+            `http://localhost:3000/orderdetails/${id}`,
             {withCredentials: true}
           );
           

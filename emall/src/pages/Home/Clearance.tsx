@@ -1,5 +1,5 @@
 
-import { Row, Image, Button,  } from "react-bootstrap"
+import { Row, Button,  } from "react-bootstrap"
 import { CartContext } from "../../Context/cart";
 import { useContext} from 'react'
 import { useState, useEffect } from "react";
@@ -12,7 +12,7 @@ import Slider from "react-slick"
 import { ItemContext } from "../../Context/items";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Clearance = () => {
   const {  addToCart } = useContext(CartContext)
@@ -82,7 +82,7 @@ const Clearance = () => {
   
     const config ={
       method:"get",
-      url:`https://emall-server.onrender.com/clearance`, 
+      url:`http://localhost:3000/clearance`, 
       withCredentials: true, 
     }
   
@@ -116,7 +116,7 @@ const Clearance = () => {
   {products.map((items:ITEM, id) =>{
      return (
        <Row key={id} className=" d-flex  flex-column position-relative  mb-3" style={{width:"200px", }}>
-       <Link onClick={() =>{addViewedItem(items); addRelatedItem(items);   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> <Image src={items.image} width="150px" height="200px"  className="" /></Link> 
+       <Link onClick={() =>{addViewedItem(items); addRelatedItem(items);   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> <LazyLoadImage src={items.image} width="150px" height="200px"  className="" /></Link> 
         <div className="d-flex flex-column ">
          <div className="text-primary fw-medium">{items.title.substring(0, 25)}</div>
         {/* <div className="d-inline-flex gap-1 text-dark fs-6">{items.rating}{items.review}</div> */}

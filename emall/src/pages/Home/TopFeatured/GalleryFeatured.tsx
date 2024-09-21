@@ -14,7 +14,7 @@ const {addRelatedItem, addViewedItem} = useContext(ItemContext)
  
     const config ={
       method:"get",
-      url:`https://emall-server.onrender.com/topfeaturedgallery`, 
+      url:`http://localhost:3000/topfeaturedgallery`, 
       withCredentials: true, 
     }
   

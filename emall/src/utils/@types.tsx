@@ -96,6 +96,7 @@ export type cartType = {
     deleteFromCart:(arg0: CARTITEM) => void;
     addQty:(arg0: CARTITEM) => void;
     reduceQty: (arg0: CARTITEM) => void;
+    cartMessage:string,
   };
 
   export interface RENDER {
@@ -167,7 +168,7 @@ export type cartType = {
   export type authType = {
     Logout:() => void;
     isAuthenticated:boolean;
-    updateUser:USER[];
+    updateUser:USER | null;
     setIsAuthenticated:React.Dispatch<React.SetStateAction<boolean>>;
 
   };

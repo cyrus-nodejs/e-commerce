@@ -23,7 +23,7 @@ const Productdetails = () => {
      const handleItemDetails = () => {
       const config ={
         method:"get",
-        url:`/itemdetails/${id}`,
+        url:`http://localhost:3000/itemdetails/${id}`,
       }
       axios(config)
       .then(response=>{

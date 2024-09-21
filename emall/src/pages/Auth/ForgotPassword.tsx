@@ -22,7 +22,7 @@ import {  useState } from 'react';
      e.preventDefault();
      try {
       const { data } = await axios.post(
-        `https://emall-server.onrender.com/forgotpassword`,
+        `http://localhost:3000/forgotpassword`,
         {
           email
         },

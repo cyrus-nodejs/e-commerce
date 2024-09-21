@@ -82,7 +82,7 @@ const Recommended = () => {
   
     const config ={
       method:"get",
-      url:`/recommended`, 
+      url:`http://localhost:3000/recommended`, 
       withCredentials: true, 
     }
   

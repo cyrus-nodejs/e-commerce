@@ -82,7 +82,7 @@ const SliderFeatured = () => {
   
     const config ={
       method:"get",
-      url:`https://emall-server.onrender.com/topfeaturedslide`, 
+      url:`http://localhost:3000/topfeaturedslide`, 
       withCredentials: true, 
     }
   

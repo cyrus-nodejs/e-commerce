@@ -81,7 +81,7 @@ const TrendingProduct = () => {
     
       const config ={
         method:"get",
-        url:`https://emall-server.onrender.com/trending`, 
+        url:`http://localhost:3000/trending`, 
         withCredentials: true, 
       }
     
@@ -99,7 +99,7 @@ const TrendingProduct = () => {
       useEffect(() =>{
     handleTrending();
     
-      }, )
+      }, [] )
     
     
   return (

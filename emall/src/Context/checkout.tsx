@@ -17,7 +17,7 @@ export const CheckoutProvider = ({ children}:{ children: React.ReactNode }) => {
     try {
 
       const { data } = await axios.get(
-        "https://emall-server.onrender.com/config",
+        "http://localhost:3000/config",
         {withCredentials: true}
       );
       

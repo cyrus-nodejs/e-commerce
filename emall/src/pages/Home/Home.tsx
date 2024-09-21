@@ -10,12 +10,15 @@ import Navbar from "../../components/Navbar/Navbar"
 import Recentlyviewed from "../Recentlyviewed"
 import FlashDeals from "./FlashDeals"
 import Clearance from "./Clearance"
+
+
 const Home = () => {
   return (
     <Container className="home  " fluid >
 
       <div className="px-3">
           <Navbar />
+
           <Banner />
             <TrendingProduct />
              <Categories />

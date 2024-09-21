@@ -41,7 +41,7 @@ const ResetPassword = () => {
     e.preventDefault();
     try {
      const { data } = await axios.post(
-       `https://emall-server.onrender.com/resetpassword`,
+       `http://localhost:3000/resetpassword`,
        {
         username,
         token,
