@@ -4,8 +4,8 @@ import {
   RouterProvider,
 
 } from "react-router-dom";
- import {Alert} from 'react-bootstrap';
-import { CartContext } from "./Context/cart";
+
+
 import Home from "./pages/Home/Home";
 import ErrorPage from "./pages/Errorpage";
 import Login from "./pages/Auth/Login";
@@ -26,11 +26,10 @@ import RetrievePayment from "./pages/RetrievePayment";
 import UpdatePassword from "./pages/Auth/UpdatePassword";
 import ResetPassword from "./pages/Auth/ResetPassword";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
-import { useContext } from "react";
 
 const  App = () => {
     
-const {cartMessage} = useContext(CartContext)
+
   const router = createBrowserRouter([
     {
     path: "/",
