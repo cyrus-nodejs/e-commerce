@@ -1,0 +1,110 @@
+
+.home{
+    background-color:	#F8F8FF;
+    
+}
+.nextprevious{
+visibility: hidden;
+}
+.progressbar{
+  height: 7px;
+}
+
+.nextprevious:hover{
+visibility: visible;
+}
+.banner{
+
+    height:24rem; 
+}
+.smallfont{
+  font-size:medium;
+}
+.anime-header{
+  background-color: #112a56;
+}
+
+.bxs-skip-previous-circle{
+    color: black;
+}
+
+
+.bxs-skip-next-circle{
+    color: black;
+}
+.ban1{
+    height: 12rem;
+    border-radius: 20px;
+    
+    
+
+}
+
+
+
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+
+  }
+  
+  /* Bottom left text */
+  .bottom-left {
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+  }
+  .bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+  }
+  
+  /* Top left text */
+  .top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+  }
+  .progress-bar{
+    background: red;
+  }
+  .view-wish{
+    background-color: white;
+    color: black;
+  }
+
+  .view-wish:hover{
+    background-color:rgba(0, 255, 255, 0.521);
+    color:white;
+  }
+  /* .wish{
+    position: absolute;
+    top: 80px;
+    
+  }
+  .compare{
+    position: absolute;
+    padding-top: 100px;
+    top: 10px;
+  }
+  .view{
+    position: absolute;
+    top: 80px;
+  } */
+
+  .progress{
+    background-color:	#DCDCDC;
+  }
+  
+  div.scroll-container {
+    
+    overflow: auto;
+    white-space: nowrap;
+    padding: 10px;
+  }
+  
+  div.scroll-container img {
+    padding: 10px;
+  }
