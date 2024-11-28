@@ -9,7 +9,7 @@ import Navbar from '../components/Navbar/Navbar';
 import {   useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../redux/app/hook';
 import { fetchCategoryDetails, getCategoryDetails } from '../redux/features/items/itemSlice';
-import { fetchAddRecentlyViewed, fetchAddRelated } from '../redux/features/items/itemSlice';
+import { fetchAddRecentlyViewed} from '../redux/features/items/itemSlice';
 
 import { fetchAsyncUser, getIsAuthenticated, getUpdateUser } from '../redux/features/auth/authSlice';
 import Recentlyviewed from './Recentlyviewed';
@@ -52,7 +52,7 @@ const Category = () => {
                
            <Col  className="frame"  style={{border:"1px solid white", borderRadius:"10px", width:"11rem", height:"15rem", backgroundColor:"#FFFFFF",}}       >
            <center>
-           <Link to={`/product/${item.title}`} onClick={() =>{dispatch(fetchAddRecentlyViewed(item)); dispatch(fetchAddRelated(item)) }} className="p-2 text-decoration-none text-reset"> 
+           <Link to={`/product/${item.title}`} onClick={() =>{dispatch(fetchAddRecentlyViewed(item))}} className="p-2 text-decoration-none text-reset"> 
            <Image  style={{width:'8rem', height:"10rem" }}  rounded src={item.image} />
         <p className="fs-6  tfont  ">{item.title.substring(0, 10) + ".."}</p>
         <p className="fs-6 fw-bold  text-danger  " >

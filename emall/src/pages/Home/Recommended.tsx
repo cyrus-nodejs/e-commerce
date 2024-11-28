@@ -12,7 +12,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useAppSelector, useAppDispatch } from "../../redux/app/hook";
 import { getRecommended, fetchRecommended } from "../../redux/features/items/itemSlice";
-import { fetchAddRecentlyViewed, fetchAddRelated } from "../../redux/features/items/itemSlice";
+import { fetchAddRecentlyViewed } from "../../redux/features/items/itemSlice";
 import { fetchAddCart } from "../../redux/features/cart/cartSlice";
 
 const Recommended = () => {
@@ -98,7 +98,7 @@ const recommended = useAppSelector(getRecommended)
   {recommended?.map((items:ITEM, id) =>{
      return (
        <Row key={id} className=" d-flex  flex-column position-relative  mb-3" style={{width:"200px", }}>
-       <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items)); dispatch(fetchAddRelated(items));   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> <Image loading="lazy" src={items.image} width="150px" height="200px"  className="" /></Link> 
+       <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items))   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> <Image src={items.image} width="150px" height="200px"  className="" /></Link> 
         <div className="d-flex flex-column ">
          <div className="text-primary fw-medium">{items.title.substring(0, 25)}</div>
         {/* <div className="d-inline-flex gap-1 text-dark fs-6">{items.rating}{items.review}</div> */}

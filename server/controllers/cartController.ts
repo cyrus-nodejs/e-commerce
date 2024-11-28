@@ -42,6 +42,10 @@ try{
    const image = item.image
    const quantity = item.quantity
  
+   if (!owner) {
+    res.json({ success: false, message: "Login to add Cart" })
+  }
+
   if (!item) {
     res.status(404).send({message:"item not found!"})
   }

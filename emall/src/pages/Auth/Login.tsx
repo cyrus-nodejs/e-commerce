@@ -86,29 +86,29 @@ interface FormValues {
      <section>
      <Container fluid>
     
- <center>
- <div   className="d-inline-flex px-5 mx-5">
+ 
+ <div   className="d-flex">
   
- <div >
- {isAuthenticated && (
+ <div className="ms-auto  me-auto" >
+ {isAuthenticated && user &&(
           <Navigate to="/" replace={true} />
         )}
                  
-   <p className="text-center  fs-3 fw-medium">Login</p>
+   <p className="text-center  fs-2 fw-medium">Login</p>
    <Form onSubmit={formik.handleSubmit}>
-      <Form.Control size="lg"  required  value={formik.values.username} onChange={formik.handleChange} style={{}} name="username"   type="email" placeholder="Email" />
+      <Form.Control size="lg" className='shadow-none' required  value={formik.values.username} onChange={formik.handleChange} style={{}} name="username"   type="email" placeholder="Email" />
       {formik.touched.username && formik.errors.username && (
             <div className="error ">{formik.errors.username}</div>
           )}
      
       <br />
-      <Form.Control size="lg"  required   value={formik.values.password}  onChange={formik.handleChange} style={{}} name="password"     type="password" placeholder="Password" />
+      <Form.Control size="lg" className='shadow-none'  required   value={formik.values.password}  onChange={formik.handleChange} style={{}} name="password"     type="password" placeholder="Password" />
       {formik.touched.password && formik.errors.password && (
             <div className="error">{formik.errors.password}</div>
           )}
       <br />
                 <div className="d-grid gap-2">
-             <Button type="submit" disabled={submitting}  variant="outline-info" style={{margin:"20px 0px"}} size="lg"  >Sign in</Button>
+             <Button type="submit" disabled={submitting}  variant="outline-primary" style={{margin:"20px 0px"}} size="lg"  >Sign in</Button>
                </div> 
 
                </Form>
@@ -126,7 +126,7 @@ interface FormValues {
  </div>
  </div>
  
- </center>
+ 
  </Container>
  
      </section>

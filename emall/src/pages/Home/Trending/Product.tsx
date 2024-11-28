@@ -7,7 +7,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { useAppDispatch } from "../../../redux/app/hook";
 import { fetchAddCart } from "../../../redux/features/cart/cartSlice";
-import { fetchAddRelated, fetchAddRecentlyViewed } from "../../../redux/features/items/itemSlice";
+import { fetchAddRecentlyViewed } from "../../../redux/features/items/itemSlice";
 import { ITEM } from "../../../utils/@types";
 import '../Home.css'
 
@@ -30,7 +30,7 @@ const dispatch = useAppDispatch()
 
 <div className="position-relative my-3">
   
-      <Image loading="lazy" src={product.image} height="200" width="200" alt={product.image}   className="px-2" />
+      <Image  src={product.image} height="200" width="200" alt={product.image}   className="px-2" />
   { hidden && <div>
     <OverlayTrigger
           
@@ -62,7 +62,7 @@ const dispatch = useAppDispatch()
             </Tooltip>
           }
         >
-            <Link  onClick={() =>{dispatch(fetchAddRecentlyViewed(product)); dispatch(fetchAddRelated(product))   }}  to={`/product/${product.title}`} className="p-2 text-decoration-none text-reset"> <div className="position-absolute view bottom-50 end-0 translate-middle"><i className='bx z-3 bx-show view-wish bx-sm  bx-border-circle '></i>
+            <Link  onClick={() =>{dispatch(fetchAddRecentlyViewed(product))  }}  to={`/product/${product.title}`} className="p-2 text-decoration-none text-reset"> <div className="position-absolute view bottom-50 end-0 translate-middle"><i className='bx z-3 bx-show view-wish bx-sm  bx-border-circle '></i>
   </div></Link>
         </OverlayTrigger>
 

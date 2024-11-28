@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { ITEM } from "../../../utils/@types";
 
   import { useAppDispatch, useAppSelector } from "../../../redux/app/hook";
-  import {fetchAddRelated, fetchAddRecentlyViewed, fetchTopFeaturedGallery, getTopFeaturedGallery } from "../../../redux/features/items/itemSlice";
+  import { fetchAddRecentlyViewed, fetchTopFeaturedGallery, getTopFeaturedGallery } from "../../../redux/features/items/itemSlice";
 const GalleryFeatured = () => {
   const dispatch = useAppDispatch()
   const topFeaturedGallery = useAppSelector(getTopFeaturedGallery)
@@ -26,9 +26,9 @@ const GalleryFeatured = () => {
         <Col key={id} className="flex-fill  " sm={6} md={4} lg={3} style={{margin:"5px",   }} >
             <Row className="bg-white rounded-3 position-relative" >
               
-      <Col sm={5} className=" bg-white  " style={{width:"",height:""}} ><Image src={item.image} loading="lazy" fluid   className="" /></Col>
+      <Col sm={5} className=" bg-white  " style={{width:"",height:""}} ><Image src={item.image}  fluid   className="" /></Col>
       <Col sm={6} className="bg-white ">
-      <Link onClick={() =>{ dispatch(fetchAddRecentlyViewed(item)); dispatch(fetchAddRelated(item));   }}  to={`/product/${item.title}`} className="p-2 text-decoration-none text-reset">
+      <Link onClick={() =>{ dispatch(fetchAddRecentlyViewed(item));    }}  to={`/product/${item.title}`} className="p-2 text-decoration-none text-reset">
         <div className="d-flex flex-column mb-3">
       <div className="text-primary fw-medium ">{item.title.substring(0, 18)}</div>
             {/* <div className="d-inline-flex gap-1 text-dark fs-6">{item.rasting}</div> */}

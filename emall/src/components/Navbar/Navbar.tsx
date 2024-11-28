@@ -173,7 +173,7 @@ const Navbar = () => {
 </div>
 
 </div>
-) : (<a href="/login"><div   className="d-flex flex-row m-3">
+) : (<a href="/login" className='text-dark text-decoration-none'><div   className="d-flex flex-row m-3">
   <div className="px-1"><i className='bx bxs-group bx-lg text-light' ></i></div>
   <div className="d-flex flex-column mb-3">
   <div className=" text-light text-decoration-onone" >Login</div>
@@ -261,7 +261,7 @@ const Navbar = () => {
     <div className="ms-auto">
       <div className="navbar-toggler border-0 " >
       <div   className=" position-relative" onClick={cartShow}>
-  <i className='bx bx-cart bx-md text-light' ></i> <span className="position-absolute top-0 text-light start-100 translate-middle badge rounded-pill text-bg-info"> {cartItems?.length}  <span className="visually-hidden">unread messages</span></span>
+  <i className='bx bx-cart bx-md text-light' ></i> <span className="position-absolute top-0 text-light start-100 translate-middle badge rounded-pill text-bg-info"> {cartItems?.length > 0 ? (cartItems?.length) : (0)}  <span className="visually-hidden">unread messages</span></span>
 </div>
     </div>  
     </div>
@@ -293,7 +293,7 @@ const Navbar = () => {
 </div>
 
 </div>
-) : (<a href="/login"><div   className="d-flex flex-row m-3">
+) : (<a href="/login" className="text-dark text-decoration-none"><div   className="d-flex flex-row m-3">
 
   <div className="d-flex flex-column mb-3">
   <div className=" text-dark text-decoration-none" >Login</div>

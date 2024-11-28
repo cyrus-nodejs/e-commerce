@@ -53,10 +53,11 @@ const user = useAppSelector(getUpdateUser)
     <Row style={{margin:"20px 20px"}} >
     
     {productDetails?.map((product:ITEM )=> 
+    <div>
       <Row  style={{ margin:"20px"}} >
     
       <Col  >
-    <Image loading="lazy"  fluid  src={product.image} />
+    <Image   fluid  src={product.image} />
     </Col>
       <Col className=""   >
       <div className="fs-4 fw-normal d-inline-flex  text-dark">{product.title}</div>
@@ -81,17 +82,17 @@ const user = useAppSelector(getUpdateUser)
         <div className="text-start border-bottom fs-3">Product Description</div>
       <div className='fs-6 mt-3 '>{product.description} </div>
       </div>
-      
+    
     </Row>
   
-    
-        
+  <RelatedItems product={product} />
+        </div>
 
 
     
          
       )}
-      <RelatedItems />
+      
       {/* <CustomerViewed /> */}
       {user && isAuthenticated && (<Recentlyviewed />)}
  

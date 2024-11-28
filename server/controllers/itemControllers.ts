@@ -166,21 +166,15 @@ export const getCategory = async (req:any, res:any ) => {
          }
     
          export const  relatedItem = async (req:any, res:any ) => {
-          const {category, itemId} = req.body
-          console.log(category, itemId)
           try{
-           const item = await Item.find({_id:{$ne:itemId}, category:category })
-            if(item ){
+            const item =  await Item.find({category:req.params.id})
+           console.log(item)
+           if (item){
              console.log(item)
-             res.json({ success: true, message: "view related items!", item:item });
+            res.json({success:true, message:"categories sorted!", item:item})
            }
-           else{
-             res.json({ success: false, message: "No related items!" });
-           }
-       
-           
-           }catch(err){
-             console.log(err)
+           }catch (err){
+             res.json({success:false, message:"No categories!"})
            }
         };
       
@@ -194,7 +188,7 @@ export const getCategory = async (req:any, res:any ) => {
                   const viewed = await View.findOne({owner:owner})
                   const  newitem = await Item.findOne({_id:itemId})
                   if (!owner) {
-                    res.status(404).send({message:"Acess Denied"})
+                    res.status(404).send({message:"No User"})
                   }
             
                   if (viewed){
@@ -224,13 +218,12 @@ export const getCategory = async (req:any, res:any ) => {
            export const getViewedItems = async (req:any, res:any ) => {
             const owner  = req.user?.id
             if (!owner) {
-              res.json({success:false, message:"Acess No User Found"})
+              res.json({success:false, message:"No User Found"})
             }else{
               try{
           
                 const  view = await View.findOne({owner:owner})
               
-             
                  if(view ){
                  
                    res.json({ success: true, message: "Recently viewed!", view:view});

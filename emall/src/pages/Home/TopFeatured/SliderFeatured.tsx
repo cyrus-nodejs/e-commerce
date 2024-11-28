@@ -10,7 +10,7 @@ import Slider from "react-slick"
 import '../Home.css'
 import {  useEffect} from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/app/hook";
-import {fetchAddRelated, fetchAddRecentlyViewed, fetchTopFeaturedSlide, getTopFeaturedSlide } from "../../../redux/features/items/itemSlice";
+import { fetchAddRecentlyViewed, fetchTopFeaturedSlide, getTopFeaturedSlide } from "../../../redux/features/items/itemSlice";
 import { fetchAddCart } from "../../../redux/features/cart/cartSlice";
 import { ITEM } from "../../../utils/@types";
 
@@ -99,7 +99,7 @@ const SliderFeatured = () => {
 
     <Row  className=" d-flex flex-row">
                                   
-      <Col className="container" >    <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(product)); dispatch(fetchAddRelated(product))  }}  to={`/product/${product.title}`} className="p-2 text-decoration-none text-reset"><Image src={product.image} loading="lazy" fluid  className="" />    </Link></Col>
+      <Col className="container" >    <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(product)) }}  to={`/product/${product.title}`} className="p-2 text-decoration-none text-reset"><Image src={product.image}  fluid  className="" />    </Link></Col>
       
       <Col >
       <div className="d-flex flex-column">

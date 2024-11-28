@@ -23,10 +23,11 @@ router.get("/itemdetails/:id",  getItemDetails);
  router.get("/getviewed",   getViewedItems);
 router.get("/flashdeals",   flashDeals);
 router.get("/clearance",   clearance);
+router.get("/relateditem/:id",  relatedItem );
 
 router.post("/items", upload.single("image"), postItem);
-router.post("/vieweditem",  addViewedItem  );
-router.put("/relateditem",  relatedItem );
+router.post("/addviewed",  addViewedItem  );
+
 router.put("/items/:id",   updateItem);
 router.delete("/items/:id",   deleteItem);
 

@@ -84,7 +84,7 @@ const Register = ( ) => {
 <div className=" d-flex ">
  <div className="ms-auto  me-auto" >
             
-  <p className='text-center fs-4  fw-medium'>Create an account</p>
+  <p className='text-center fs-3  fw-medium'>Create an account</p>
   
   <Form onSubmit={formik.handleSubmit}>
   <Form.Control size="lg" className="shadow-none"  required  onChange={formik.handleChange} value={formik.values.firstname} style={{}}  name="firstname"type="text"  placeholder="firstname" />
@@ -120,14 +120,15 @@ const Register = ( ) => {
      
       <div className="d-grid gap-2">
     
-    <Button className="text-dark" variant="outline-info" type="submit" disabled={submitting} style={{margin:"20px 0px"}} size="lg"      >Sign up</Button>
+    <Button className="" variant="outline-primary" type="submit" disabled={submitting} style={{margin:"20px 0px"}} size="lg"      >Sign up</Button>
    
      </div>
      </Form>
      <Stack direction="horizontal" gap={1}>
       <div className="p-2 loginp"  > <p className="fs-6 "> Already registered?  <a href="/login" style={{color:'red', textDecoration:'none', }}>  Please sign in</a></p></div>
+      <p className="text-danger mt-2 fs-5 text-center">{message}</p> 
     </Stack>
-    <p className="text-danger mt-2 fs-5 text-center">{message}</p>  
+  
 </div>
  </div>
 </Container>

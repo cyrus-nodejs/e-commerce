@@ -1,20 +1,28 @@
-
-import { Row, Image, Button,  } from "react-bootstrap"
+import { ITEM } from "../utils/@types";
+import { Row,Col, Image, Button,  } from "react-bootstrap"
 import Nextrrow from "./Home/Trending/Nextrrow";
 import Previosarrow from "./Home/Trending/Previosarrow";
 import Slider from "react-slick"
-
-import { useAppDispatch } from "../redux/app/hook";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../redux/app/hook";
 import { fetchAddCart } from "../redux/features/cart/cartSlice";
-import { ITEM } from "../utils/@types";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
-const RelatedItems = () => {
-  const relatedItem = JSON.parse(localStorage.getItem("relateditem") || '') 
-
+import { fetchGetRelated, getRelated } from "../redux/features/items/itemSlice";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const RelatedItems = ({product}: { product: ITEM }) => {
+  const relatedItem =   useAppSelector(getRelated)
+  console.log(relatedItem)
   const dispatch = useAppDispatch()
- 
+  
+   
+    useEffect(() =>{
+      dispatch(fetchGetRelated(product))
+      
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [dispatch])
   
 
 
@@ -88,14 +96,14 @@ const RelatedItems = () => {
            
   return (
      
-      <Row  className='' >
+      <Col  className='' >
         {relatedItem && (
           <div>
           <div>
           <div className="d-inline-flex p-2 fs-4 border-info  border-bottom">Related Products</div>
         </div>
           
-            <div  className="slider-container">
+            <div  className="slider-container m-3">
           <Slider   {...settings}>  
       {relatedItem.map((items:ITEM) =>{
          return (
@@ -123,7 +131,7 @@ const RelatedItems = () => {
         )}
     
        
-</Row>
+</Col>
   )
 }
 

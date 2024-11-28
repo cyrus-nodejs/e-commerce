@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 import { useAppSelector, useAppDispatch } from "../../redux/app/hook";
 import { getTopdeals, fetchTopDeals } from "../../redux/features/items/itemSlice";
-import { fetchAddRecentlyViewed, fetchAddRelated } from "../../redux/features/items/itemSlice";
+import { fetchAddRecentlyViewed } from "../../redux/features/items/itemSlice";
 import { fetchAddCart } from "../../redux/features/cart/cartSlice";
 
 const TopDeals = () => {
@@ -62,7 +62,7 @@ const topdeals = useAppSelector(getTopdeals)
            return (
                <Col  style={{margin:"20px"}}>
                    <Row className="bg-white border-light border rounded-2  position-relative">
-                <Col className="p-5" > <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items)); dispatch(fetchAddRelated(items))   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"><Image src={items.image} fluid loading="lazy" /></Link></Col>
+                <Col className="p-5" > <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items))   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"><Image src={items.image} fluid loading="lazy" /></Link></Col>
                <Col className="bg-white">
                <div className="d-flex flex-column mb-3 bg-white">
  <div className="p-2 fw-medium text-primary">{items.title.substring(0, 25)}</div>

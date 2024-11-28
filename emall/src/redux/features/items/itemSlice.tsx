@@ -17,6 +17,7 @@ export interface AuthState {
     topFeaturedGallery : ITEM[]
     topFeaturedSlide : ITEM[]
     clearance : ITEM[]
+    relatedItems : ITEM[]
     productDetails: ITEM[] | null
   
     recentlyViewed: ITEM[]
@@ -39,6 +40,7 @@ const initialState: AuthState = {
     recommended :  [],
     topFeaturedGallery :  [],
     topFeaturedSlide : [],
+    relatedItems : [],
     searchTerm:'',
     searchResult:[],
     allItems:[] ,
@@ -62,7 +64,7 @@ export const fetchAddRecentlyViewed = createAsyncThunk(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     'items/fetchAddRecentlyViewed', async (item:any) => {
         const itemId = item.id
-        const response= await axios.post(`${BASEURL}/vieweditem`,{itemId},{ withCredentials: true })
+        const response= await axios.post(`${BASEURL}/addviewed`,{itemId},{ withCredentials: true })
         console.log(response.data)
         return response.data
       });
@@ -76,13 +78,12 @@ export const fetchAddRecentlyViewed = createAsyncThunk(
           });
        
 
-          export const fetchAddRelated= createAsyncThunk(
+          export const fetchGetRelated= createAsyncThunk(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            'items/fetchAddRelated', async (item:any) => {
-            const  itemId = item._id
-            const category = item.category
-                const response= await axios.post(`${BASEURL}/relateditem`, {category, itemId},{ withCredentials: true })
-                console.log(response.data)
+            'items/fetchGetRelated', async (item:any) => {
+            const id = item.category
+                const response= await axios.get(`${BASEURL}/relateditem/${id}`,{ withCredentials: true })
+                console.log(response.data.item)
                 return response.data
               });
         
@@ -144,6 +145,7 @@ export const fetchAddRecentlyViewed = createAsyncThunk(
                                   });
                                   export const fetchProductDetails = createAsyncThunk(
                                     'items/fetchProductDetails',  async (id:string | undefined) => {
+                                    
                                 const response= await axios.get(`${BASEURL}/itemdetails/${id}`,{ withCredentials: true })
                                         console.log(response.data)
                                         return response.data
@@ -205,14 +207,14 @@ state.status = 'succeeded'
 state.status = 'failed'
 state.error = action.error.message;
 })
-.addCase(fetchAddRelated.pending, (state) => {
+.addCase(fetchGetRelated.pending, (state) => {
 state.status = 'pending'
 })
-.addCase(fetchAddRelated.fulfilled, (state, action) => {
-localStorage.setItem("relateditem", JSON.stringify(action.payload.item))
-          state.message= action.payload.message
+.addCase(fetchGetRelated.fulfilled, (state, action) => {
+  state.relatedItems=action.payload.item
+  state.message= action.payload.message
 })
-.addCase(fetchAddRelated.rejected, (state, action) => {
+.addCase(fetchGetRelated.rejected, (state, action) => {
 state.status = 'failed'
 state.error = action.error.message;
 })
@@ -361,6 +363,8 @@ export const getClearance =(state:RootState) => state.items.clearance
 export const getTopFeaturedGallery =(state:RootState) => state.items.topFeaturedGallery
 export const getTopFeaturedSlide =(state:RootState) => state.items.topFeaturedSlide
 export const getAllItems =(state:RootState) => state.items.allItems
+export const getRelated =(state:RootState) => state.items.relatedItems
+
 export const getSearchResult = (state:RootState) => state.items.searchResult
 export const getSearchTerm = (state:RootState) => state.items.searchTerm
 // Export the slice reducer for use in the store configuration

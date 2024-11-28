@@ -10,7 +10,7 @@ import {contactEmail} from "../utils/nodemailer"
 
 export const Register = async  (req:any, res:any, next:NextFunction) => {
     try{ 
-        User.register(new User({ email: req.body.email, username: req.body.username }), req.body.password, function (err: string, user: Express.User) { 
+        User.register(new User({ email: req.body.email, username: req.body.email }), req.body.password, function (err: string, user: Express.User) { 
             if (err) { 
                 res.json({ success: false, message: "Your account could not be saved. Error: " + err }); 
             } 
