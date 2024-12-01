@@ -60,13 +60,18 @@ app.get("/", (req, res)=>{
 
 
 
- const cookieParams = {maxAge: 24 * 60 * 60 * 1000, httpOnly: true,  secure: true };
+
  app.use(
 	session({
     name:process.env.SESSION_NAME!,
 		secret:process.env.SESSION_SECRET!, //pick a random string to make the hash that is generated secure
 		store: MongoStore.create({mongoUrl:process.env.MONGO_URL }),
-     cookie: cookieParams,
+     cookie: {
+      maxAge: 24 * 60 * 60 * 1000,
+      secure: true,
+      httpOnly: true,
+      sameSite: "none"
+    },
 		saveUninitialized: false ,//required
     resave: false, //required
    
