@@ -1,10 +1,7 @@
-//@ts-nocheck
 
 import {User} from "../../models/User"
 
 import passport from 'passport'
-
-
 
 
 

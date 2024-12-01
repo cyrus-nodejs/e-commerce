@@ -69,13 +69,13 @@ interface FormValues {
 
 
       useEffect(() =>{
-        if (isAuthenticated && user){
+        if (isAuthenticated ){
           navigate('/')
         }else{
           redirect("/login")
         }
 
-          }, [isAuthenticated, user, navigate])
+          }, [isAuthenticated,  navigate])
   
           
           

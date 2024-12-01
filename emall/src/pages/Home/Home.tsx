@@ -18,6 +18,8 @@ const Home = () => {
   const dispatch = useAppDispatch()
   const user = useAppSelector(getUpdateUser)
   const isAuthenticated = useAppSelector(getIsAuthenticated)
+  console.log(user)
+  console.log(isAuthenticated)
   useEffect(() =>{
     dispatch(fetchAsyncUser())
     

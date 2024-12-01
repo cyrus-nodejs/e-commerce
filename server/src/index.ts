@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: true }));
  
 
 
-
+console.log(process.env!.FRONTEND_URL)
 
  const corsOptions = {
    origin: process.env!.FRONTEND_URL,
@@ -54,20 +54,19 @@ app.use(express.urlencoded({ extended: true }));
 }
 app.use(cors(corsOptions))
 
+app.get("/", (req, res)=>{
+  console.log(`User is login ${req.user}`)
+})
 
 
 
+ const cookieParams = {maxAge: 24 * 60 * 60 * 1000, httpOnly: true,  secure: true };
  app.use(
 	session({
     name:process.env.SESSION_NAME!,
 		secret:process.env.SESSION_SECRET!, //pick a random string to make the hash that is generated secure
 		store: MongoStore.create({mongoUrl:process.env.MONGO_URL }),
-     cookie: {
-      maxAge: 24 * 60 * 60 * 1000,
-      secure: true,
-      httpOnly: true,
-      sameSite: "none"
-    },
+     cookie: cookieParams,
 		saveUninitialized: false ,//required
     resave: false, //required
    

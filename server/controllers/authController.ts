@@ -10,7 +10,7 @@ import {contactEmail} from "../utils/nodemailer"
 
 export const Register = async  (req:any, res:any, next:NextFunction) => {
     try{ 
-        User.register(new User({ email: req.body.email, username: req.body.email }), req.body.password, function (err: string, user: Express.User) { 
+        User.register(new User({ email: req.body.email, username:req.body.email, firstname:req.body.firstname, lastname:req.body.lastname }), req.body.password, function (err: string, user: Express.User) { 
             if (err) { 
                 res.json({ success: false, message: "Your account could not be saved. Error: " + err }); 
             } 
@@ -46,22 +46,22 @@ export const Login = async (req:any, res:any ) => {
             if(!req.body.password){ 
               res.json({success: false, message: "Password was not given"}) 
             }else{ 
-              passport.authenticate('local', function (err: any, user: any, info: any) { 
+              passport.authenticate('local', async (err: any, user: any, info: any)  => { 
                  if(err){ 
                    res.json({success: false, message: err}) 
                  } else{ 
                   if (! user) { 
                     res.json({success: false, message: 'username or password incorrect'}) 
                   } else{ 
-                    req.login(user, function(err: any){ 
+                    req.login(user, async (err: any) => { 
                       if(err){ 
                         res.json({success: false, message: err}) 
                       }else{ 
-                    console.log(req.user)
-                    const token = createSecretToken(user._id);
+                    console.log(`Login my ${req.user}`)
+                    const token = createSecretToken(JSON.stringify(user));
                      res.cookie("token", token, {
+                      secure:true,
                          withCredentials: true,
-                         secure: true,
                          httpOnly: true,
                          sameSite: "none",
                        });

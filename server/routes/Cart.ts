@@ -6,8 +6,8 @@ import { getCart, addToCart, deleteFromCart, decreaseCartQty,
 const router = express.Router();
 
 
-router.get("/cart", getCart);
-router.post("/cart",  addToCart);
+router.get("/getcart", getCart);
+router.post("/addtocart",  addToCart);
 router.post("/reducecart",  decreaseCartQty);
 router.post("/addcart",  addCartQty);
 router.post("/deletecart",  deleteFromCart);

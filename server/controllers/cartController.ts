@@ -32,66 +32,70 @@ export const getCart = async (req:any, res: any) =>{
 export const addToCart = async (req:any, res:any ) => {
     const owner = req.user?.id
     const {itemId}= req.body
-try{
+    if (!owner) {
+      res.json({ success: true, message: "Login required to add to cart!" }) 
+    }else{
+      try{
   
-   const cart =await  Cart.findOne({owner:owner})
-   const item = await Item.findOne({_id:itemId})
-
-   const price = item.price
-   const title = item.title
-   const image = item.image
-   const quantity = item.quantity
- 
-   if (!owner) {
-    res.json({ success: false, message: "Login to add Cart" })
-  }
-
-  if (!item) {
-    res.status(404).send({message:"item not found!"})
-  }
-
-
-
- if (cart){
-    let itemIndex = cart.items.findIndex((item: { itemId: any; })=>item.itemId == itemId )
-    //check if product exists or not
-    
-
-    if (itemIndex > -1){
-        const product  = cart.items[itemIndex]
-        product.quantity += quantity
-        cart.bill = cart.items.reduce((total: number, curr: { quantity: number; price: number; }) =>{
-          return total + curr.quantity * curr.price
-        }, 0)
-        cart.items[itemIndex] = product
-        await cart.save();
-    res.json({ success: true, message: "Item added to Cart!" });
-    }
-    else {
-     cart.items.push(item)
-     cart.bill = cart.items.reduce((total: number, curr: { quantity: number; price: number; }) =>{
-      return total + curr.quantity * curr.price
-    }, 0)
-     await cart.save();
-    res.json({ success: true, message: "Item added to Cart!" , });
+        const cart =await  Cart.findOne({owner:owner})
+        const item = await Item.findOne({_id:itemId})
+     
+        const price = item.price
+       
+        const unit = item.unit
+      
+        if (!owner) {
+         res.json({ success: false, message: "Login to add Cart" })
+       }
+     
+       if (!item) {
+         res.status(404).send({message:"item not found!"})
+       }
+     
+     
+     
+      if (cart){
+         let itemIndex = cart.items.findIndex((item: { itemId: any; })=>item.itemId == itemId )
+         //check if product exists or not
+         
+     
+         if (itemIndex > -1){
+             const product  = cart.items[itemIndex]
+             product.unit += unit
+             cart.bill = cart.items.reduce((total: number, curr: { unit: number; price: number; }) =>{
+               return total + curr.unit * curr.price
+             }, 0)
+             cart.items[itemIndex] = product
+             await cart.save();
+         res.json({ success: true, message: "Item added to Cart!" });
+         }
+         else {
+          cart.items.push(item)
+          cart.bill = cart.items.reduce((total: number, curr: { unit: number; price: number; }) =>{
+           return total + curr.unit * curr.price
+         }, 0)
+          await cart.save();
+         res.json({ success: true, message: "Item added to Cart!" , });
+          }
+         
+         
+      }else {
+         //no cart exists, create one
+         const newCart = Cart.create({
+             owner,
+             items:[item],
+             bill: unit * price
+         })
+        
+         return  res.json({ success: true, message: "Item added to Cart!" }) ;
+      }
+     }catch (err){
+         console.log(err);
+         res.status(500).send("something went wrong");
+      
      }
-    
-    
- }else {
-    //no cart exists, create one
-    const newCart = Cart.create({
-        owner,
-        items:[item],
-        bill: quantity * price
-    })
-   
-    return  res.json({ success: true, message: "Item added to Cart!" }) ;
- }
-}catch (err){
-    console.log(err);
-    res.status(500).send("something went wrong");
- 
-}
+    }
+
 }
 
 export const deleteFromCart = async (req:any, res:any ) => {
@@ -103,13 +107,13 @@ const itemIndex = cart.items.findIndex((item: { itemId: any; }) => item.itemId =
 console.log(itemIndex)
 if (itemIndex > -1) {
   let item = cart.items[itemIndex]
-  cart.bill -= item.quantity * item.price
+  cart.bill -= item.unit * item.price
   if (cart.bill < 0) {
     cart.bill = 0
   }
   cart.items.splice(itemIndex, 1);
-  cart.bill = cart.items.reduce((total: number, curr: { quantity: number; price: number; }) =>{
-    return total + curr.quantity * curr.price
+  cart.bill = cart.items.reduce((total: number, curr: { unit: number; price: number; }) =>{
+    return total + curr.unit * curr.price
   }, 0)
   cart = await cart.save()
   res.json({ success: true, message: "Item deleted from Cart!" });
@@ -123,7 +127,7 @@ if (itemIndex > -1) {
  }
 }
 export const clearCart = async (req:any, res:any ) => {
-  const owner = req.user.id
+  const owner = req.user?.id
 try{
   let cart = await Cart.findOne({owner:owner});
   if (cart){
@@ -159,13 +163,13 @@ if (cart){
   console.log(itemIndex)
   if (itemIndex > -1){
       const product  = cart.items[itemIndex]
-      product.quantity += 1
-      cart.bill = cart.items.reduce((total: number, curr: { quantity: number; price: number; }) =>{
-        return total + curr.quantity * curr.price
+      product.unit += 1
+      cart.bill = cart.items.reduce((total: number, curr: { unit: number; price: number; }) =>{
+        return total + curr.unit * curr.price
       }, 0)
       cart.items[itemIndex] = product
       await cart.save();
-  res.json({ success: true, message: "Item quantity increased!" , cart:cart});
+  res.json({ success: true, message: "Item unit increased!" , cart:cart});
   }
   
   
@@ -200,13 +204,13 @@ if (cart){
 
   if (itemIndex > -1){
       const product  = cart.items[itemIndex]
-      product.quantity += -1
-      cart.bill = cart.items.reduce((total: number, curr: { quantity: number; price: number; }) =>{
-        return total + curr.quantity * curr.price
+      product.unit += -1
+      cart.bill = cart.items.reduce((total: number, curr: { unit: number; price: number; }) =>{
+        return total + curr.unit * curr.price
       }, 0)
       cart.items[itemIndex] = product
       await cart.save();
-  res.json({ success: true, message: "Item quantity decreased!" , cart:cart});
+  res.json({ success: true, message: "Item unit decreased!" , cart:cart});
   }
   
   

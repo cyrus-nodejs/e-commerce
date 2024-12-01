@@ -2,7 +2,7 @@
 import { Category, Item, View} from "../models/Item";
 
   export const  getAllItems = async (req:any, res:any ) => {
-
+console.log(`My ${req.user}`)
     await Item.find().sort({date:-1}).then((items: any) => res.json(items)).catch((err: string) => res.json("Error : " + err));
     
    }
@@ -218,7 +218,7 @@ export const getCategory = async (req:any, res:any ) => {
            export const getViewedItems = async (req:any, res:any ) => {
             const owner  = req.user?.id
             if (!owner) {
-              res.json({success:false, message:"No User Found"})
+              res.json({success:false, message:"Not Logged in!"})
             }else{
               try{
           

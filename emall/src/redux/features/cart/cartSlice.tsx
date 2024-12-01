@@ -29,7 +29,7 @@ const initialState: AuthState = {
 
 export const fetchCart = createAsyncThunk(
     'cart/fetchCart', async () => {
-        const response= await axios.get(`${BASEURL}/cart`, { withCredentials: true })
+        const response= await axios.get(`${BASEURL}/getcart`, { withCredentials: true })
         console.log(response.data)
         return response.data
       });
@@ -37,7 +37,7 @@ export const fetchCart = createAsyncThunk(
       export const fetchAddCart = createAsyncThunk(
         'cart/fetchLogin', async (data:{_id:string}) => {
          const  itemId = data._id
-            const response= await axios.post(`${BASEURL}/login`,{itemId},{ withCredentials: true })
+            const response= await axios.post(`${BASEURL}/addtocart`,{itemId},{ withCredentials: true })
             console.log(response.data)
             return response.data
           });
@@ -67,7 +67,7 @@ export const fetchCart = createAsyncThunk(
           });
           export const fetchClearCart = createAsyncThunk(
             'cart/fetchClearCart',  async () => {
-              const response= await axios.post(`${BASEURL}/clearcart`,{ withCredentials: true })
+              const response= await axios.get(`${BASEURL}/clearcart`,{ withCredentials: true })
                 console.log(response.data)
                 return response.data
               });
@@ -91,8 +91,8 @@ export const cartSlice = createSlice({
       
     })
     .addCase(fetchCart.fulfilled, (state, action) => {
-         state.cartItems= action.payload.item
-         state.cartBills = action.payload.bills
+         state.cartItems= action.payload.cart.items
+         state.cartBills = action.payload.cart.bill
         
       })
       .addCase(fetchCart.rejected, (state, action) => {

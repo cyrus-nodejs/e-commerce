@@ -6,8 +6,8 @@ import {  Image, Button } from 'react-bootstrap'
 
 import { Link } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from "../../redux/app/hook";
-
-import {  fetchDeleteFromCart, fetchAddCartQty, fetchReduceCartQTY, fetchClearCart, getCartItems, getCartBills } from "../../redux/features/cart/cartSlice";
+import { useEffect } from 'react';
+import {fetchCart,  fetchDeleteFromCart, fetchAddCartQty, fetchReduceCartQTY, fetchClearCart, getCartItems, getCartBills } from "../../redux/features/cart/cartSlice";
 
 
 const CartModal = () => {
@@ -16,6 +16,13 @@ const CartModal = () => {
   const cartItems= useAppSelector(getCartItems)
   const cartBills= useAppSelector(getCartBills)
       
+  useEffect(() =>{
+    dispatch(fetchCart())
+    
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [dispatch])
+  console.log(cartItems)
+  console.log(cartBills)
      
     return (
     
@@ -41,7 +48,7 @@ const CartModal = () => {
             >
               +
             </Button></div>
-  <div className="p-2 flex-fill"> <Button variant="light" className='border'>{item.quantity}</Button></div>
+  <div className="p-2 flex-fill"> <Button variant="light" className='border'>{item.unit}</Button></div>
   <div className="p-2 flex-fill"><Button
   variant="light"
               className="border"

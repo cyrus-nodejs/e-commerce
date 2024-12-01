@@ -74,6 +74,9 @@ export interface VIEWITEM {
 export interface USER {
   _id: string,
   email: string,
+  firstname:string,
+  lastname:string,
+  token:string,
   username: string,
   register_date: string
   __v: number

@@ -34,7 +34,6 @@ const OrderDetails = () => {
      // eslint-disable-next-line @typescript-eslint/no-explicit-any
      const orderWeekDay= (date: any) =>{
       const newDate = new Date(date)
-      console.log(newDate)
       const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
        return weekday[newDate.getDay()]
      }

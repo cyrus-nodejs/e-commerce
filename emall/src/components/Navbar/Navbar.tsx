@@ -55,7 +55,8 @@ const Navbar = () => {
     const updateUser = useAppSelector(getUpdateUser)
     const isAuthenticated = useAppSelector(getIsAuthenticated)
     const cartMessage = useAppSelector(getMessage)
-    
+    console.log(updateUser)
+    console.log(isAuthenticated)
     useEffect(() => {
     dispatch(fetchAsyncUser())
   
@@ -84,7 +85,7 @@ const Navbar = () => {
   return (
  
     <  Container  className="mainnav fixed-top  " fluid>
-     {cartMessage && ( <Alert   className=" bg-dark " dismissible >
+     {cartMessage && ( <Alert   className=" bg-danger " dismissible >
        <div className="text-light text-center   "> {cartMessage}  </div>
         </Alert>)}
  <nav className={scrolled ? "  ": "navbar navbar-expand-lg d-none d-lg-block border  "} >
@@ -168,7 +169,7 @@ const Navbar = () => {
   <div className="px-1"><i className='bx bxs-group bx-lg text-light' ></i></div>
   <div className="d-flex flex-column mb-3">
   <div className=" text-light fs-6">Logout</div>
-  <div className=" text-white ">Hi {updateUser?.username}</div>
+  <div className=" text-white ">Hello {updateUser?.firstname.toUpperCase()}</div>
   
 </div>
 
@@ -284,11 +285,11 @@ const Navbar = () => {
     </ul>
         <ul className="navbar-nav  justify-content-center flex-grow-1 pe-3">
           <li className="nav-item  d-lg-none  d-xl-block d-xl-none d-xxl-block d-xxl-none">
-          {isAuthenticated & updateUser? ( <div onClick={() => dispatch(fetchAsyncLogout())} className="d-flex flex-row m-3">
+          {isAuthenticated && updateUser? ( <div onClick={() => dispatch(fetchAsyncLogout())} className="d-flex flex-row m-3">
 
   <div className="d-flex flex-column ">
-  <div className=" text-dark fs-5">Logout</div>
-  <div className=" text-dark ">Welcome {updateUser?.username}</div>
+  <div className=" text-dark fs-6">Logout</div>
+  <div className=" text-dark ">Hello {updateUser?.firstname.toUpperCase()}</div>
   
 </div>
 

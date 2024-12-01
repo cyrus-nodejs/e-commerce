@@ -57,8 +57,7 @@ const initialState: AuthState = {
     const BASEURL = import.meta.env.VITE_APP_BASE_URL
 console.log(BASEURL)
  
-   // eslint-disable-next-line react-refresh/only-export-components
-//  const BASEURL = "http://localhost:3000"
+
   
 export const fetchAddRecentlyViewed = createAsyncThunk(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

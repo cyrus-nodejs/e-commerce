@@ -14,13 +14,22 @@ const UserSchema = new Schema({
        required:[true, "Please enter an email"],
         unique:true,
        lowercase:true,
-    },   
+    },  
+     
     username:{
                  type:String,
-                 required:true,
                  unique:true,
             },
-            resetlink:{
+            firstname:{
+                type:String,
+           },
+           lastname:{
+            type:String,
+          
+       },
+  
+
+         token:{
                 type:String,
                 unique:true,
                 
@@ -32,6 +41,7 @@ const UserSchema = new Schema({
                  default: Date.now
              },
 
+        
         
 })
 
