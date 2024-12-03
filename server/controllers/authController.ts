@@ -61,7 +61,6 @@ export const Login = async (req:any, res:any ) => {
                     const token = createSecretToken(JSON.stringify(user));
                      res.cookie("token", token, {
                       withCredentials: true,
-                      secure: true,
                       sameSite: "none",
                        });
                          res.json({success:true, message:"Authentication successful" }); 
