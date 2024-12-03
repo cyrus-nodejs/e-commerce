@@ -63,6 +63,7 @@ export const Login = async (req:any, res:any ) => {
                       withCredentials: true,
                       secure: true,
                       sameSite: "none",
+                      httpOnly: true,
                        });
                          res.json({success:true, message:"Authentication successful" }); 
                       } 
