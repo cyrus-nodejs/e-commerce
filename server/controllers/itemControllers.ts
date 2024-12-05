@@ -188,25 +188,27 @@ export const getCategory = async (req:any, res:any ) => {
                   const viewed = await View.findOne({owner:owner})
                   const  newitem = await Item.findOne({_id:itemId})
                   if (!owner) {
-                    res.status(404).send({message:"No User"})
+                    res.json({success:false, message:"No user found!"})
+                  }else{
+                    if (viewed){
+                      const filter = {owner: owner }
+                      const update = {$addToSet:{items : newitem }}
+                       const doc = await View.findOneAndUpdate(filter, update, 
+                        {new:true, upsert:true,  includeResultMetadata: true})
+                        doc.save
+                      res.json({ success: true, message: "Item added to View List!" });
+                      
+                    }else{
+                       await View.create({
+                        owner,
+                        items:[newitem],
+                    });
+         
+                res.json({success:true, message:"viewed List created!"})
+                }
                   }
             
-                  if (viewed){
-                    const filter = {owner: owner }
-                    const update = {$addToSet:{items : newitem }}
-                     const doc = await View.findOneAndUpdate(filter, update, 
-                      {new:true, upsert:true,  includeResultMetadata: true})
-                      doc.save
-                    res.json({ success: true, message: "Item added to View List!" });
-                    
-                  }else{
-                     await View.create({
-                      owner,
-                      items:[{newitem}],
-                  });
-       
-              res.json({success:true, message:"viewed List created!"})
-              }
+                  
 
             }catch (err){
      console.log(err)
@@ -217,12 +219,12 @@ export const getCategory = async (req:any, res:any ) => {
            
            export const getViewedItems = async (req:any, res:any ) => {
             const owner  = req.user?.id
+            const  view = await View.findOne({owner:owner})
+            try{
             if (!owner) {
-              res.json({success:false, message:"Not Logged in!"})
+              res.json({success:false, message:"No User found"})
             }else{
-              try{
           
-                const  view = await View.findOne({owner:owner})
               
                  if(view ){
                  
@@ -231,11 +233,11 @@ export const getCategory = async (req:any, res:any ) => {
                  else{
                    res.json({ success: false, message: "No recentely viewed!" });
                  }
-             }
-             catch(err){
-                 console.log(err);
-                 res.status(500).send("Something went wrong");
-             }
+            
             }
-           
+          }
+          catch(err){
+              console.log(err);
+              res.status(500).send("Something went wrong");
+          }
         }
