@@ -201,7 +201,7 @@ export const getCategory = async (req:any, res:any ) => {
                     }else{
                        await View.create({
                         owner,
-                        items:newitem,
+                        items:[newitem]
                     });
          
                 res.json({success:true, message:"viewed List created!"})
