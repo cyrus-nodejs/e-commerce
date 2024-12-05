@@ -48,7 +48,7 @@ const Recentlyviewed = () => {
            <div className="">
             <div className="row">
 
-            {recentlyViewed.length > 0 ? (<div> {recentlyViewed?.reverse().map((items:ITEM, id) =>{
+            {recentlyViewed && recentlyViewed.length > 0 ? (<div> {recentlyViewed?.reverse().map((items:ITEM, id) =>{
           return (
             <Row key={id} className=" d-flex  flex-column position-relative  mb-3" style={{width:"200px", }}>
              <Link  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> 
