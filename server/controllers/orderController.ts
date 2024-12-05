@@ -180,7 +180,7 @@ if (order){
         res.json({success:false, message:" Payment not validated!"})
     }
 }else{
-    res.json({sucess:false, message:"No cart exist"})
+    res.json({sucess:false, message:"No cOrder exist"})
 }
 }catch (err){
 console.log(err)

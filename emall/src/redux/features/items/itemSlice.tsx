@@ -61,8 +61,8 @@ console.log(BASEURL)
   
 export const fetchAddRecentlyViewed = createAsyncThunk(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    'items/fetchAddRecentlyViewed', async (item:any) => {
-        const itemId = item.id
+    'items/fetchAddRecentlyViewed', async (item:ITEM) => {
+        const itemId = item._id
         const response= await axios.post(`${BASEURL}/addviewed`,{itemId},{ withCredentials: true })
         console.log(response.data)
         return response.data
