@@ -201,7 +201,7 @@ export const getCategory = async (req:any, res:any ) => {
                     }else{
                        await View.create({
                         owner,
-                        items:[newitem],
+                        items:newitem,
                     });
          
                 res.json({success:true, message:"viewed List created!"})
@@ -224,8 +224,6 @@ export const getCategory = async (req:any, res:any ) => {
             if (!owner) {
               res.json({success:false, message:"No User found"})
             }else{
-          
-              
                  if(view ){
                  
                    res.json({ success: true, message: "Recently viewed!", view:view});
