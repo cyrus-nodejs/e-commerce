@@ -1,5 +1,5 @@
 
-import { Row, Image, Button,  } from "react-bootstrap"
+import { Row, Image, Button, Spinner } from "react-bootstrap"
 
 
 import {  useEffect } from "react";
@@ -10,21 +10,31 @@ import Nextrrow from "./Trending/Nextrrow";
 import Previosarrow from "./Trending/Previosarrow";
 import Slider from "react-slick"
 import { fetchClearance, getClearance } from "../../redux/features/items/itemSlice";
-import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
-import { fetchAddRecentlyViewed} from "../../redux/features/items/itemSlice";
+import { fetchAddRecentlyViewed, fetchDeleteItem} from "../../redux/features/items/itemSlice";
 import { fetchAddCart } from "../../redux/features/cart/cartSlice";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-
+import { getAuthUser, fetchAsyncUser } from "../../redux/features/auth/authSlice";
+import { useAppSelector, useAppDispatch } from "../../redux/app/hook";
 const Clearance = () => {
+
 const dispatch = useAppDispatch()
   const clearance = useAppSelector(getClearance)
+  const authUser = useAppSelector(getAuthUser)
+
   
   useEffect(() =>{
     dispatch(fetchClearance())
       }, [dispatch])
       
+
+      
+ 
+  useEffect(() =>{
+    dispatch(fetchAsyncUser())
+      }, [dispatch])
+
+
  
       const settings = {
         infinite: false,
@@ -109,7 +119,16 @@ const dispatch = useAppDispatch()
     <div className="top-left  fw-bold rounded-1 px-2 text-light bg-info ">{items.status}</div> 
    {/* < div className="top-left  fw-bold rounded-1 px-2 text-light bg-success ">{items.discount}</div>  */}
      
-     <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div> 
+   {authUser?.role === 'customer'  && ( <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div> )}  
+  
+  {authUser?.role === 'reseller'  && ( <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div> )}  
+    
+  {authUser?.role === 'admin' &&  (    <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchDeleteItem(items))}   className="d-block" variant="dark">Delete Item</Button></div> )}   
+      
+      
+  {authUser?.role === 'customer service' &&  (    <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Update Item</Button></div> )}   
+      
+
      </div>
      
      </Row>
@@ -118,7 +137,9 @@ const dispatch = useAppDispatch()
 </Slider>
 </div>
 
-    </div>):(<div className="fs-4 text-center">Flashdeals Loading..</div>)}
+    </div>):(<div className="fs-4 text-center"><Spinner animation="border" variant="primary" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner> <p className="fs-4 text-center">Refresh Page</p> </div>)}
    
    
    

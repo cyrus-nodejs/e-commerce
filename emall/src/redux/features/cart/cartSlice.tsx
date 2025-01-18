@@ -5,7 +5,7 @@ import axios from 'axios'
 
 
 export interface AuthState {
-    cartItems: null | ITEM[] | undefined
+    cartItems: ITEM | null
     cartBills: number 
     status:  'idle' | 'pending' | 'succeeded' | 'failed'
     error:string | null | undefined
@@ -15,7 +15,7 @@ export interface AuthState {
 
   // Define the initial value for the slice state
 const initialState: AuthState = {
-   cartItems:null,
+   cartItems: null,
    cartBills:0,
     message:"",
     status: 'idle' ,

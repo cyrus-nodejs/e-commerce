@@ -9,7 +9,7 @@ import {Form, Container,  Button} from "react-bootstrap"
  
  import {  useState, useEffect} from 'react';
  import { useAppDispatch, useAppSelector } from '../../redux/app/hook';
- import { getMessage,   fetchLogin, getUpdateUser,   getIsAuthenticated } from '../../redux/features/auth/authSlice';
+ import { getMessage,   fetchLogin, getAuthUser,   getIsAuthenticated } from '../../redux/features/auth/authSlice';
 
 
  const Login = () => {
@@ -19,7 +19,7 @@ import {Form, Container,  Button} from "react-bootstrap"
   
   
     const isAuthenticated = useAppSelector(getIsAuthenticated)
-      const user = useAppSelector(getUpdateUser)
+      const user = useAppSelector(getAuthUser)
     
 
       

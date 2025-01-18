@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-
+import {loadStripe} from '@stripe/stripe-js';
 import {useEffect, useState} from 'react';
 
 
@@ -21,16 +21,16 @@ function Completion() {
 
 
 const stripePromise  = useAppSelector(getStripePromise)
-
+const stripe = loadStripe(stripePromise)
 useEffect(() =>{
  dispatch(fetchConfig())
    }, [dispatch])
 
  
   useEffect(() => {
-    if (!stripePromise) return;
+    if (!stripe) return;
 
-    stripePromise.then(async (stripe: { retrievePaymentIntent: (arg0: string | null) => PromiseLike<{ error: unknown; paymentIntent: unknown; }> | { error: unknown; paymentIntent: unknown; }; }) => {
+    stripe.then(async (stripe: { retrievePaymentIntent: (arg0: string | null) => PromiseLike<{ error: unknown; paymentIntent: unknown; }> | { error: unknown; paymentIntent: unknown; }; }) => {
       const url  = new URL(window.location);
       const clientSecret = url.searchParams.get('payment_intent_client_secret');
       const { error, paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
@@ -39,7 +39,7 @@ useEffect(() =>{
         <> Payment {paymentIntent.status}: <a href={`https://dashboard.stripe.com/test/payments/${paymentIntent.id}`} target="_blank" rel="noreferrer">{paymentIntent.id}</a></>
       );
     });
-  }, [stripePromise]);
+  }, [stripe]);
 
   
   
@@ -50,7 +50,7 @@ useEffect(() =>{
       <div id="messages" role="alert" className="fs-2" style={messageBody ? {display: 'block'} : {}}>{messageBody}</div>
       <div className="">
         
-      {paymentIntent ? ( <div className="mx-5 px-5 col-6">
+      {paymentIntent.status == 'succeeded' ? ( <div className="mx-5 px-5 col-6">
         <p className=' fs-1'>Payment Successful!</p>
         <p className=" fs-1"> Please Validate to continue!</p>
         <Button variant="dark" className="shadow-none  rounded-1" size="lg" type="submit" onClick={() => dispatch(fetchConfirmPayment(paymentIntent))} >
@@ -58,10 +58,10 @@ useEffect(() =>{
           Validate Order!
           </Link>
          </Button>
-         {message && (<div>
+         {/* {messageBody && (<div>
           
-      <p> <span className="text-danger fs-2">{message}</span><Link to="/" className=" fs-2 " >Back to Home</Link></p>
-         </div>)}
+      <p> <span className="text-danger fs-2">{messageBody}</span><Link to="/" className=" fs-2 " >Back to Home</Link></p>
+         </div>)} */}
          </div>  
       ) : (
         <div className="mx-5 px-5 col-6">
@@ -71,8 +71,7 @@ useEffect(() =>{
       TRY AGAIN!
        </Link>
       </Button></div >)}
-
-     
+    
       
       
     </div>

@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '../redux/app/hook';
 import { fetchCategoryDetails, getCategoryDetails } from '../redux/features/items/itemSlice';
 import { fetchAddRecentlyViewed} from '../redux/features/items/itemSlice';
 
-import { fetchAsyncUser, getIsAuthenticated, getUpdateUser } from '../redux/features/auth/authSlice';
+import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
 import Recentlyviewed from './Recentlyviewed';
 import { useParams } from "react-router-dom";
 import { ITEM } from '../utils/@types';
@@ -19,7 +19,7 @@ import { ITEM } from '../utils/@types';
 
 const Category = () => {
   const dispatch = useAppDispatch()
-  const user = useAppSelector(getUpdateUser)
+  const user = useAppSelector(getAuthUser)
   const categoryDetails = useAppSelector(getCategoryDetails)
   const isAuthenticated = useAppSelector(getIsAuthenticated)
   

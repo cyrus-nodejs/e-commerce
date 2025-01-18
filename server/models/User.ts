@@ -28,7 +28,11 @@ const UserSchema = new Schema({
           
        },
   
-
+         role:{
+          type:String,
+          enum: [ 'customer', 'reseller','customer service', 'admin', 'super admin'],
+          default:'customer'
+         },
          token:{
                 type:String,
                 unique:true,

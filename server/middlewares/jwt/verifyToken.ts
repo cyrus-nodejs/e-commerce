@@ -3,25 +3,32 @@ import 'dotenv/config'
 import jwt from 'jsonwebtoken'
 import { Request, Response, Errback, NextFunction  } from "express";
 
-
- export const userVerification = (req:Request,  res:Response, next:NextFunction) => {
-    const token = req.cookies.token
-   console.log(`verifytoken => ${token}`)
-    if (!token){
-        return res.json({success:false,  message:"No Acess Token! "})
+//Verify User Role
+export const verifyRole = (roles) => {
+    return (req:any, res:any, next:any) => {
+      if (!roles.includes(req.user?.role)) {
+        return res.json({success:false, message: `Access denied. ${req.user.role } access level required!` });
+      }
+      next();
+    };
+  };
+  //Authorize Users
+ export const userAuthorization = (req:Request,  res:Response, next:NextFunction) => {
+    const eToken = req.cookies.eToken
+   console.log(`verifytoken => ${eToken}`)
+    if (!eToken){
+        return res.json({success:false,  message:"No Access Token! "})
     }
-    jwt.verify(token, process.env.TOKEN_KEY!, async (err:any, user:any) => {
+    jwt.verify(eToken, process.env.TOKEN_KEY!, async (err:any, user:any) => {
         if(err){
-            return res.json({success:false,  message:`Invalid Token!`})
-        }else{
-console.log(req.user)
-            if (user) return res.json({ success: true, message:`Hi ${user}`, user:req.user })
-                else return res.json({ success: false, message:"No Loggedin!!" })
+            return res.json({success:false,  message:`Invalid or expired token!`})
         }
-   
+           next()
+            
     })
-  next()  
+ 
 }
+
 
 
 export const forgotPasswordVerification = (req:Request,  res:Response, next:NextFunction) => {

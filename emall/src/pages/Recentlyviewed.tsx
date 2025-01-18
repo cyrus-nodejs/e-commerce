@@ -5,7 +5,7 @@ import { Row, Image,   } from "react-bootstrap"
 import { ITEM } from "../utils/@types";
 
 import { useAppDispatch, useAppSelector } from "../redux/app/hook";
-import { fetchAsyncUser, getIsAuthenticated, getUpdateUser } from '../redux/features/auth/authSlice';
+import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
 import { useEffect } from "react";
 import { fetchRecentlyViewed, getRecentlyViewedItem } from "../redux/features/items/itemSlice";
 import "slick-carousel/slick/slick.css";
@@ -16,7 +16,7 @@ const Recentlyviewed = () => {
   const dispatch = useAppDispatch()
   const recentlyViewed = useAppSelector(getRecentlyViewedItem)
   
-  const user = useAppSelector(getUpdateUser)
+  const user = useAppSelector(getAuthUser)
     const isAuthenticated = useAppSelector(getIsAuthenticated)
     
    

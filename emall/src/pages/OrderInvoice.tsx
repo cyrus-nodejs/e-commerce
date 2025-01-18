@@ -3,15 +3,15 @@ import {Container,     Button,   } from "react-bootstrap"
 
 
 import "../index.css"
-import { Link } from "react-router-dom"
+
 
 import Navbar from "../components/Navbar/Navbar"
 import { useAppDispatch, useAppSelector } from "../redux/app/hook"
 
-import { fetchAsyncUser, getIsAuthenticated, getUpdateUser } from '../redux/features/auth/authSlice';
+import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
 import { useEffect } from "react";
 import { fetchCurrentOrder, getCurrentOrder } from "../redux/features/order/orderSlice";
-import { fetchCreatePayment } from "../redux/features/checkout/checkoutSlice"
+
 const OrderInvoice = () => {
 
 
@@ -19,7 +19,7 @@ const OrderInvoice = () => {
 const dispatch = useAppDispatch()
 const currentOrder = useAppSelector(getCurrentOrder)
 
-const user = useAppSelector(getUpdateUser)
+const user = useAppSelector(getAuthUser)
   const isAuthenticated = useAppSelector(getIsAuthenticated)
   
 
@@ -61,11 +61,11 @@ return (
 </div>
 <div className="d-flex">
 <div className="p-2 ">
-{!currentOrder.payment && (<Button variant="dark" className="shadow-none rounded-1" size="lg" type="submit" onClick={() => dispatch(fetchCreatePayment())}  >
+{/* {!currentOrder.payment && (<Button variant="dark" className="shadow-none rounded-1" size="lg" type="submit"   >
 <Link to="/payment" className="text-decoration-none text-light">
  CONFIRM ORDER
  </Link>
-</Button>)}
+</Button>)} */}
 
 
 {currentOrder.payment && ( 

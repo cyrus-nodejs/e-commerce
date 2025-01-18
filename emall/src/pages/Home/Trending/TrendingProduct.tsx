@@ -103,7 +103,7 @@ const TrendingProduct = () => {
     
 
 </Slider>
- </div></div>): (<div className="fs-4 my-2 text-center">Trending Items Loading!</div>)}
+ </div></div>): (<div className="fs-4 my-2 text-center"></div>)}
      
  </Row>
   )

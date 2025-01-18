@@ -1,13 +1,9 @@
 
 import { Address} from "../models/Address"
 
-
+// Retrieve user addresses
 export const getAddress = async (req:any, res:any) => {
     const owner  =  req.user?.id
-    if (!owner) {
-        res.json({success:false, message:"No user"})
-      }
-       else{
         try{
             const address = await Address.findOne({owner:owner})
             if(address ){
@@ -25,7 +21,6 @@ export const getAddress = async (req:any, res:any) => {
        }
 
     
-}
 
 
 
@@ -37,26 +32,18 @@ export const getAddress = async (req:any, res:any) => {
 
 
 
+//create user address 
 export const createAddress = async (req:any, res:any) => {
-    const owner   = req.user?.id
-     const {firstname,lastname, mobile, mobile2, address,nation, 
-     region,postalcode, province, ordernote}  = req.body
-         console.log(req.body.firstname)
-         console.log(req.body)
- try{
-    if (!owner) {
-        res.json({success:false, message:"No user found!"})
-      }else{
+  const owner   = req.user?.id
+     const {firstname,lastname, mobile, mobile2, address,nation, region,postalcode, province, ordernote}  = req.body
+
+
+     try{
         await Address.create({owner, firstname,lastname, mobile, mobile2, address,nation, 
             region,postalcode, province, ordernote,
     });
     
      res.json({success:true, message:"Default address saved!"})
-     
-       
-      }
-        
-      
     }
     catch(err){
         console.log(err)
@@ -64,6 +51,7 @@ export const createAddress = async (req:any, res:any) => {
     }
 }
 
+   //Update user adress
 export const updateAddress = async (req:any, res:any) => {
     const owner  = req.user.id
      const {firstname,lastname, mobile, mobile2, address,nation, 
@@ -71,10 +59,6 @@ export const updateAddress = async (req:any, res:any) => {
          console.log(req.body.firstname)
          console.log(req.body)
  try{
-    
-    if (!owner) {
-        res.json({success:false, message:"No user found!"})
-      }else{
         const filter = {owner: owner }
         const update = {firstname:firstname, lastname:lastname, mobile:mobile, mobile2:mobile2,
            address:address, nation:nation, region:region,postalcode:postalcode, province:province, ordernote:ordernote
@@ -84,8 +68,7 @@ export const updateAddress = async (req:any, res:any) => {
           doc.save
 
       }
- 
-    }
+
     catch(err){
         console.log(err)
         res.status(500).send("Something went wrong");

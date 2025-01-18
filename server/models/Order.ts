@@ -38,9 +38,10 @@ const OrderSchema = new Schema({
         default:false,
         
     },
-    delivered:{
-        type: Boolean ,
-        default :false,
+    delivery:{
+        type: String ,
+        enum: ['pending', 'shipped', 'delivered', 'canceled'],
+        default :'pending',
     },
     date_added: {
         type: Date,

@@ -6,7 +6,7 @@ import '../Home.css'
 
 
 const Product = ({product}: { product: CATEGORY }) => {
-
+//get total quantity of items by category
   return (    <a  href={`/category/${product.category}`} className="p-2 text-decoration-none text-reset">
             <Col   className="container"   >
            

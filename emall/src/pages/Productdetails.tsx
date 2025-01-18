@@ -10,7 +10,7 @@ import RelatedItems from "./RelatedProducts";
 import Recentlyviewed from "./Recentlyviewed";
 import { useAppDispatch, useAppSelector } from "../redux/app/hook"
 import { fetchAddCart } from "../redux/features/cart/cartSlice";
-import { fetchAsyncUser, getIsAuthenticated, getUpdateUser } from '../redux/features/auth/authSlice';
+import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
 import { useEffect } from "react";
 import { fetchProductDetails, getProductDetails } from "../redux/features/items/itemSlice";
 // import CustomerViewed from "./CustomerViewed";
@@ -19,7 +19,7 @@ const Productdetails = () => {
   const dispatch = useAppDispatch()
 const productDetails = useAppSelector(getProductDetails)
 
-const user = useAppSelector(getUpdateUser)
+const user = useAppSelector(getAuthUser)
   const isAuthenticated = useAppSelector(getIsAuthenticated)
   
 

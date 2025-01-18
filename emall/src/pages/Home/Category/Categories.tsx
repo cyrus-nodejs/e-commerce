@@ -92,7 +92,7 @@ const Categories = () => {
     <Slider {...settings}>
     {category?.map((product:CATEGORY)=> <Product  product={product}/>   )}
     </Slider>
-    </div></div>) : (<div className="fs-4 my-2 text-center">Category Loading...</div>)}
+    </div></div>) : (<div className="fs-4 my-2 text-center"></div>)}
       
     </Row>
   )

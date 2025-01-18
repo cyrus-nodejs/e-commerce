@@ -1,16 +1,17 @@
 
 import { useEffect, useState } from 'react';
-import axios from "axios";
+
 import { Form, Row, Col, Button, Container } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../redux/app/hook";
-import { fetchAsyncUser, getIsAuthenticated, getUpdateUser } from '../redux/features/auth/authSlice';
+import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
+import { fetchAddItem } from '../redux/features/items/itemSlice';
 
 import Navbar from '../components/Navbar/Navbar';
 
 const Additem = () => {
   const  dispatch = useAppDispatch()
 
-  const user = useAppSelector(getUpdateUser)
+  const authUser = useAppSelector(getAuthUser)
  
   const isAuthenticated = useAppSelector(getIsAuthenticated)
   
@@ -85,10 +86,6 @@ setState({...state, [e.target.name] : e.target.value})
     formData.append("title", state.title)
     formData.append("description", state.description)
       formData.append("image", state.image);
-      // formData.append("avatar", state.avatar);
-      // for (let i = 0; i < state.image.length; i++) {
-      //   formData.append('image', state.image[i]);
-      // }
   formData.append("category", state.category)
      formData.append("price", state.price)
      formData.append("quantity", state.quantity)
@@ -101,11 +98,8 @@ setState({...state, [e.target.name] : e.target.value})
         
        
       
-       
-    axios.post("https://emall-server.onrender.com/items",  
-  formData, {withCredentials:true} )
-    .then(response => {
-      alert(response.statusText)
+       dispatch(fetchAddItem(formData)).then(response => {
+      alert(response)
       alert("Item saved successfully!")
     })
     .catch(err =>{
@@ -118,7 +112,7 @@ setState({...state, [e.target.name] : e.target.value})
    
   return (
     <section className="mx-5 py-2 border ">
-      {isAuthenticated && user ? ( <Container fluid>
+      {isAuthenticated && authUser?.role === "customer service" ? ( <Container fluid>
 <Navbar />
         <p className="fs-3 text-center">Upload Item</p>
      <Form encType="multipart/form-data">

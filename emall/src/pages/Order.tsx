@@ -5,7 +5,7 @@ import { ITEM, ORDER } from "../utils/@types";
 
 
 import { fetchAddCart } from "../redux/features/cart/cartSlice";
-import { fetchAsyncUser, getIsAuthenticated, getUpdateUser } from '../redux/features/auth/authSlice';
+import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
 import { useEffect } from "react";
 import { fetchAllOrders, getAllOrder, getOrderItems } from "../redux/features/order/orderSlice";
 // import { CartContext } from "../Context/cart"
@@ -15,7 +15,7 @@ const Order = () => {
 const dispatch = useAppDispatch()
 const allOrders = useAppSelector(getAllOrder)
 const orderItems = useAppSelector(getOrderItems)
-const user = useAppSelector(getUpdateUser)
+const user = useAppSelector(getAuthUser)
  
   const isAuthenticated = useAppSelector(getIsAuthenticated)
   

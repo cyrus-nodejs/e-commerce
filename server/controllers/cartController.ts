@@ -5,13 +5,11 @@ import {Item} from "../models/Item";
 
 
 
-
+//Retrieve User cart
 export const getCart = async (req:any, res: any) =>{
 
     const owner  = req.user?.id
-    if(!owner){
-      res.json({ success: true, message: "No user" });
-    }else{
+
       try{
         let cart = await Cart.findOne({owner:owner});
         if(cart && cart.items.length > 0){
@@ -28,15 +26,12 @@ export const getCart = async (req:any, res: any) =>{
     }
     }
     
-}
+// Add itemms to Cart
 export const addToCart = async (req:any, res:any ) => {
     const owner = req.user?.id
     const {itemId}= req.body
-    if (!owner) {
-      res.json({ success: true, message: "Login required to add to cart!" }) 
-    }else{
+    console.log(itemId, owner)
       try{
-  
         const cart =await  Cart.findOne({owner:owner})
         const item = await Item.findOne({_id:itemId})
      
@@ -96,8 +91,8 @@ export const addToCart = async (req:any, res:any ) => {
      }
     }
 
-}
 
+//Remove selected items from cart
 export const deleteFromCart = async (req:any, res:any ) => {
  const owner = req.user?.id
      const {itemId}= req.body
@@ -126,6 +121,7 @@ if (itemIndex > -1) {
     res.status(400).send();
  }
 }
+// Clear all items in cart
 export const clearCart = async (req:any, res:any ) => {
   const owner = req.user?.id
 try{
@@ -144,6 +140,7 @@ try{
  }
  
 
+ //Increase quantity of selected cart items
 export const addCartQty = async (req:any, res:any ) => {
   const owner = req.user.id
   const {itemId}= req.body
@@ -185,6 +182,8 @@ if (cart){
 } 
 };
 
+
+ //Decrease quantity of selected cart items
 export const decreaseCartQty = async (req:any, res:any ) => {
   const owner = req.user?.id
   const {itemId}= req.body

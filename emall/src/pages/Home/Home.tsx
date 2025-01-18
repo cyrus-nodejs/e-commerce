@@ -9,14 +9,14 @@ import Recommended from "./Recommended"
 import Navbar from "../../components/Navbar/Navbar"
 import Recentlyviewed from "../Recentlyviewed"
 import { useAppDispatch, useAppSelector } from "../../redux/app/hook"
-import { fetchAsyncUser, getIsAuthenticated, getUpdateUser } from "../../redux/features/auth/authSlice"
+import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from "../../redux/features/auth/authSlice"
 import FlashDeals from "./FlashDeals"
 import Clearance from "./Clearance"
 import { useEffect } from "react"
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const user = useAppSelector(getUpdateUser)
+  const user = useAppSelector(getAuthUser)
   const isAuthenticated = useAppSelector(getIsAuthenticated)
   console.log(user)
   console.log(isAuthenticated)

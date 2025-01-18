@@ -18,21 +18,22 @@ import { getAddress, fetchCreateAddress } from "../redux/features/address/addres
 import {  fetchDeleteFromCart, getCartItems, fetchClearCart, 
   fetchReduceCartQTY, fetchAddCartQty, getCartBills,   } from "../redux/features/cart/cartSlice"
 import { addGiftWrap } from "../redux/features/order/orderSlice"
-  import { getClientSecret,   } from "../redux/features/checkout/checkoutSlice"
-  import { getShipping, getGift, fetchCreateOrder } from "../redux/features/order/orderSlice"
-  import { getUpdateUser} from "../redux/features/auth/authSlice"
+  // import { getClientSecret,   } from "../redux/features/checkout/checkoutSlice"
+  import { getShipping, getGift } from "../redux/features/order/orderSlice"
+  import { fetchCreatePayment } from "../redux/features/checkout/checkoutSlice"
+  import { getAuthUser} from "../redux/features/auth/authSlice"
 const Cart = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  let biodata;
+  let orderdata;
 const dispatch = useAppDispatch()
 const destination = useAppSelector(getAddress)
 const cartBills = useAppSelector(getCartBills)
 const cartItems = useAppSelector(getCartItems)
 const gift = useAppSelector(getGift)
-const clientSecret = useAppSelector(getClientSecret)
+// const clientSecret = useAppSelector(getClientSecret)
 const shipping = useAppSelector(getShipping)
-const updateUser = useAppSelector(getUpdateUser)
+const updateUser = useAppSelector(getAuthUser)
 
 
   
@@ -271,7 +272,7 @@ setData({...data, [e.target.name] : e.target.value})
 
       <div className="d-flex">
         <div className="ms-auto p-2" >
-      <Button onClick={() => dispatch(fetchCreateAddress(biodata={firstname,
+      <Button onClick={() => dispatch(fetchCreateAddress(orderdata={firstname,
         lastname, mobile, mobile2, address,ordernote,nation,province,region, postalcode}))} variant="dark"    type="submit">
       {isLoading ? 'Loading…' : 'Save'}
       </Button>
@@ -367,7 +368,7 @@ setData({...data, [e.target.name] : e.target.value})
         <div className="d-flex flex-column mb-3 border  p-3">
          
   
-  {cartItems.length > 0 && (
+  {cartItems?.length > 0 && (
     <div className="d-grid gap-2 p-2">
       <div className="d-flex "> 
       <div className="d-flex flex-column ">
@@ -410,7 +411,7 @@ Arriving at {destination?.address} {destination?.province} between {date.toDateS
   </div>
   <div className="p-2">
   <div className="d-flex ">
-  <div className="p-2 fw-bold">Item total({cartItems.length}):</div>
+  <div className="p-2 fw-bold">Item total({cartItems?.length}):</div>
   <div className="ms-auto p-2 fw-bold">${cartBills}</div>
 </div>
   </div>
@@ -422,7 +423,7 @@ Arriving at {destination?.address} {destination?.province} between {date.toDateS
   <div className="ms-auto p-2 fw-bold">${gift}</div>
 </div>) : (null) }
   </div>
-  {cartItems.length > 0 ? (
+  {cartItems?.length > 0 ? (
     <div className="d-grid gap-2 p-2">
     <div className="d-flex mb-3">
   <div className="p-2 fw-bold">Total:
@@ -443,11 +444,13 @@ Arriving at {destination?.address} {destination?.province} between {date.toDateS
   <Form.Check aria-label="option 1" label="I agree with Terms & Conditions" /> 
   </div>
   <div className="d-grid gap-2 p-2">
-  <Link to="/orderinvoice" className="text-decoration-none text-light">
-      <Button variant="dark" className="shadow-none rounded-1" size="lg" type="submit" onClick={() => dispatch(fetchCreateOrder(biodata={gift, shipping, clientSecret}))}>
-       Create Order
+
+      <Button variant="dark" className="shadow-none rounded-1" size="lg" type="submit" onClick={() => dispatch(fetchCreatePayment(orderdata={gift, shipping,  cartBills}))}>
+      <Link to="/payment" className="text-decoration-none text-light">
+       Make Payment
+       </Link>
       </Button>
-      </Link>
+   
     </div>
   
 
@@ -463,7 +466,7 @@ Arriving at {destination?.address} {destination?.province} between {date.toDateS
         </Col>
       </Row>
       {
-      cartItems.length > 0 ? (
+      cartItems?.length > 0 ? (
         <div className="">
           
 <div className="d-grid gap-2">

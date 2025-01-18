@@ -1,13 +1,13 @@
 
 import { Container, Button, Stack, Form } from 'react-bootstrap';
-import {  useState } from 'react';
+import {  useState , useEffect} from 'react';
 
 
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hook';
 import { fetchRegister, getMessage } from '../../redux/features/auth/authSlice';
-
+import { fetchAsyncUser } from '../../redux/features/auth/authSlice';
 
 
 
@@ -15,7 +15,7 @@ const Register = ( ) => {
   const dispatch = useAppDispatch()
   const message = useAppSelector(getMessage)
   const [submitting, setSubmitting] = useState(false);
-
+   
   
   interface FormValues {
     firstname: string;
@@ -26,7 +26,11 @@ const Register = ( ) => {
     confirmPassword: string;
   }
   
-  
+  useEffect(() =>{
+    dispatch(fetchAsyncUser())
+    
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [dispatch])
   
   
     const validationSchema = Yup.object().shape({
@@ -107,6 +111,21 @@ const Register = ( ) => {
             <div className="error ">{formik.errors.email}</div>
           )}
       <br />
+   {/* {authUser?.role === 'super admin' &&  (<div><Form.Select size="lg" required className="shadow-none" value={formik.values.role}  onChange={formik.handleChange}  name="role"  >
+           
+            <option>customer service</option>
+            <option>admin</option>
+            <option>super admin</option>
+           
+          </Form.Select>
+          { formik.touched.role && formik.errors.role && (
+            <div className="error ">{formik.errors.role}</div>
+          )}
+          </div>
+    )}
+    */}
+      
+      
       <Form.Control size="lg" className="shadow-none"  required   value={formik.values.password}  onChange={formik.handleChange} style={{}} name="password"     type="password" placeholder="Password" />
       {formik.touched.password && formik.errors.password && (
             <div className="error">{formik.errors.password}</div>

@@ -1,16 +1,17 @@
 
  import express from "express"
-import { getAllItems, postItem, getItemDetails, getCategory,
+import { getAllItems, addItem, getItemDetails, getCategory,
 trending, topFeaturedGallery, topFeaturedSlide, topDeals,
- searchItem, deleteItem,
+ searchItem, deleteItem,getItembyId,
 updateItem, typeCategory, recommended,
 addViewedItem, getViewedItems, relatedItem, flashDeals, clearance } from "../controllers/itemControllers";
- 
+ import { userAuthorization } from "../middlewares/jwt/verifyToken";
+ import { verifyRole } from "../middlewares/jwt/verifyToken";
 import { upload } from "../utils/storage";
 const router = express.Router();
 
 
-router.get("/allitems", getAllItems);
+
 router.get("/category/:id",  getCategory);
 router.get("/category",  typeCategory);
 router.get("/trending",  trending);
@@ -25,11 +26,14 @@ router.get("/flashdeals",   flashDeals);
 router.get("/clearance",   clearance);
 router.get("/relateditem/:id",  relatedItem );
 
-router.post("/items", upload.single("image"), postItem);
-router.post("/addviewed",  addViewedItem  );
+router.get("/getitem/:id",  getItembyId );
+router.get("/allitems", getAllItems);
 
-router.put("/items/:id",   updateItem);
-router.delete("/items/:id",   deleteItem);
+
+router.post("/add/item", userAuthorization, verifyRole(['customer service']), upload.single("image"), addItem);
+router.post("/addviewed", userAuthorization,  addViewedItem  );
+router.put("/update/item/:id", userAuthorization, verifyRole([' customer service']), updateItem);
+router.delete("/delete/item/:id", userAuthorization, verifyRole(['admin']),  deleteItem);
 
 
 

@@ -9,8 +9,12 @@ import {
 import Home from "./pages/Home/Home";
 import ErrorPage from "./pages/Errorpage";
 import Login from "./pages/Auth/Login";
+import AssignAdmin from "./pages/Auth/Admin/AddAdmin";
+import AssignCustomerService from "./pages/Auth/Admin/AddCustomerService";
+import AssignReseller from "./pages/Auth/Admin/AddReseller";
 import Register from "./pages/Auth/Register";
 import Cart from "./pages/Cart";
+import UpdateItem from "./pages/UpdateItem";
 // import Wishlist from "./components/Wishlist/Wishlist";
 import Additem from "./pages/AddItem";
  import AddressForm from "./pages/AdressForm";
@@ -39,6 +43,22 @@ const  App = () => {
   {
     path: `/register`,
     element: <Register   />,
+    errorElement: <ErrorPage />
+  },
+
+  {
+    path: `/addreseller`,
+    element: <AssignReseller   />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: `/addadmin`,
+    element: <AssignAdmin   />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: `/addcustomerservice`,
+    element: <AssignCustomerService   />,
     errorElement: <ErrorPage />
   },
 
@@ -81,6 +101,11 @@ const  App = () => {
   {
     path: `/cart`,
     element: <Cart  />,
+    errorElement: <ErrorPage />
+  },
+  {     
+    path: `/update/item/:id`,
+    element:<UpdateItem /> ,
     errorElement: <ErrorPage />
   },
   {     

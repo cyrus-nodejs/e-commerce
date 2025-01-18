@@ -79,6 +79,7 @@ export interface USER {
   token:string,
   username: string,
   register_date: string
+  role:string,
   __v: number
 }
 

@@ -10,13 +10,18 @@ import Slider from "react-slick"
 import '../Home.css'
 import {  useEffect} from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/app/hook";
-import { fetchAddRecentlyViewed, fetchTopFeaturedSlide, getTopFeaturedSlide } from "../../../redux/features/items/itemSlice";
+import { fetchAddRecentlyViewed,fetchDeleteItem, fetchTopFeaturedSlide, getTopFeaturedSlide } from "../../../redux/features/items/itemSlice";
 import { fetchAddCart } from "../../../redux/features/cart/cartSlice";
 import { ITEM } from "../../../utils/@types";
-
+import { getAuthUser, fetchAsyncUser } from "../../../redux/features/auth/authSlice";
 const SliderFeatured = () => {
   const dispatch = useAppDispatch()
+  const authUser = useAppSelector(getAuthUser)
 
+  
+  useEffect(() =>{
+    dispatch(fetchAsyncUser())
+      }, [dispatch])
 
 
   const settings = {
@@ -99,7 +104,7 @@ const SliderFeatured = () => {
 
     <Row  className=" d-flex flex-row">
                                   
-      <Col className="container" >    <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(product)) }}  to={`/product/${product.title}`} className="p-2 text-decoration-none text-reset"><Image src={product.image}  fluid  className="" />    </Link></Col>
+      <Col className="container" >    <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(product)) }}  to={`/product/${product.title}`} className="p-2 text-decoration-none text-reset"><Image src={product.image}  width="150px" height="200px"   className="" />    </Link></Col>
       
       <Col >
       <div className="d-flex flex-column">
@@ -108,7 +113,17 @@ const SliderFeatured = () => {
       <div className="fw-bold ">${product.price}</div> 
       <div className="top-left rounded-1 px-2 text-light bg-info">{product.status}</div>
       <div className="">{product.description.substring(0, 100)}</div>
-       <div className="text-center d-grid gap-2"><Button size="sm" className="d-block" onClick={() => dispatch(fetchAddCart(product))}  variant="outline-dark">Add to cart</Button></div> 
+       {/* <div className="text-center d-grid gap-2"><Button size="sm" className="d-block" onClick={() => dispatch(fetchAddCart(product))}  variant="outline-dark">Add to cart</Button></div>  */}
+       {authUser?.role === 'customer'  && ( <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(product))}   className="d-block" variant="dark">Add to cart</Button></div> )}  
+  
+  {authUser?.role === 'reseller'  && ( <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(product))}   className="d-block" variant="dark">Add to cart</Button></div> )}  
+    
+  {authUser?.role === 'admin' &&  (    <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchDeleteItem(product))}   className="d-block" variant="dark">Delete Item</Button></div> )}   
+      
+      
+  {authUser?.role === 'customer service' &&  (    <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(product))}   className="d-block" variant="dark">Update Item</Button></div> )}   
+      
+
        
        </div>
        </Col>
@@ -118,7 +133,7 @@ const SliderFeatured = () => {
        )
 })}
  </Slider>
- </div></div>) : (<div className='my-2 text-end fs-4'>TopfeaturedSlide loading..</div>)}
+ </div></div>) : (<div className='my-2 text-end fs-4'></div>)}
       
 </Row>
 

@@ -19,9 +19,8 @@ export interface AuthState {
     clearance : ITEM[]
     relatedItems : ITEM[]
     productDetails: ITEM[] | null
-  
+    getItembyId:object | ITEM
     recentlyViewed: ITEM[]
-
     searchItems: ITEM[] | null
     searchQuery: string
     status:  'idle' | 'pending' | 'succeeded' | 'failed'
@@ -44,6 +43,7 @@ const initialState: AuthState = {
     searchTerm:'',
     searchResult:[],
     allItems:[] ,
+    getItembyId:{},
     clearance :  [],
     productDetails:null,
     recentlyViewed:[],
@@ -68,6 +68,41 @@ export const fetchAddRecentlyViewed = createAsyncThunk(
         return response.data
       });
 
+      export const fetchAddItem = createAsyncThunk(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        'items/fetchUpdateItem', async (data:any) => {
+            const response= await axios.post(`${BASEURL}/add/items`,{data},{ withCredentials: true })
+            console.log(response.data)
+            return response.data
+          });
+    
+      export const fetchUpdateItem = createAsyncThunk(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        'items/fetchUpdateItem', async (data:{id:any, formData:any}) => {
+            const {id, formData} = data
+            const response= await axios.post(`${BASEURL}/update/item/${id}`,{formData},{ withCredentials: true })
+            console.log(response.data)
+            return response.data
+          });
+    
+
+      export const fetchDeleteItem = createAsyncThunk(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        'items/fetchDeleteItem', async (item:ITEM) => {
+            const itemId = item._id
+            const response= await axios.post(`${BASEURL}/delete/item`,{itemId},{ withCredentials: true })
+            console.log(response.data)
+            return response.data
+          });
+      
+          export const fetchGetItemById= createAsyncThunk(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            'items/fetchGetItemById', async (id:any) => {
+                const response= await axios.get(`${BASEURL}/getitem/${id}`,{ withCredentials: true })
+                console.log(response.data)
+                return response.data
+              });
+        
       export const fetchRecentlyViewed = createAsyncThunk(
         'items/fetchRecentlyViewed', async () => {
          
@@ -86,6 +121,8 @@ export const fetchAddRecentlyViewed = createAsyncThunk(
                 return response.data
               });
         
+
+           
 
   export const fetchCategory = createAsyncThunk(
     'items/fetchCategory',  async () => {
@@ -195,6 +232,26 @@ state.message = action.payload.message
 state.status = 'failed'
 state.error = action.error.message;
 })
+builder.addCase(fetchUpdateItem.pending, (state) => {
+  state.status = 'pending'
+  })
+  .addCase(fetchUpdateItem.fulfilled, (state, action) => {
+  state.message = action.payload.message
+  })
+  .addCase(fetchUpdateItem.rejected, (state, action) => {
+  state.status = 'failed'
+  state.error = action.error.message;
+  })
+builder.addCase(fetchDeleteItem.pending, (state) => {
+  state.status = 'pending'
+  })
+  .addCase(fetchDeleteItem.fulfilled, (state, action) => {
+  state.message = action.payload.message
+  })
+  .addCase(fetchDeleteItem.rejected, (state, action) => {
+  state.status = 'failed'
+  state.error = action.error.message;
+  })
 .addCase(fetchRecentlyViewed.pending, (state) => {
 state.status = 'pending'
 })
@@ -217,6 +274,17 @@ state.status = 'pending'
 state.status = 'failed'
 state.error = action.error.message;
 })
+.addCase(fetchGetItemById.pending, (state) => {
+  state.status = 'pending'
+  })
+  .addCase(fetchGetItemById.fulfilled, (state, action) => {
+    state.getItembyId=action.payload
+    state.message= action.payload.message
+  })
+  .addCase(fetchGetItemById.rejected, (state, action) => {
+  state.status = 'failed'
+  state.error = action.error.message;
+  })
 .addCase(fetchCategory.pending, (state) => {
 state.status = 'pending'
 })
@@ -363,6 +431,7 @@ export const getTopFeaturedGallery =(state:RootState) => state.items.topFeatured
 export const getTopFeaturedSlide =(state:RootState) => state.items.topFeaturedSlide
 export const getAllItems =(state:RootState) => state.items.allItems
 export const getRelated =(state:RootState) => state.items.relatedItems
+export const getOneItem =(state:RootState) => state.items.getItembyId
 
 export const getSearchResult = (state:RootState) => state.items.searchResult
 export const getSearchTerm = (state:RootState) => state.items.searchTerm

@@ -11,7 +11,7 @@
 import * as Yup from 'yup';
 import { useState, useEffect } from 'react';
  import { useAppDispatch, useAppSelector } from "../redux/app/hook";
- import { fetchAsyncUser, getIsAuthenticated, getUpdateUser } from '../redux/features/auth/authSlice';
+ import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
  import { fetchRetrievePayment, getMessage } from '../redux/features/order/orderSlice';
  
 
@@ -19,7 +19,7 @@ import { useState, useEffect } from 'react';
  
     const dispatch = useAppDispatch()
        
-  const user = useAppSelector(getUpdateUser)
+  const user = useAppSelector(getAuthUser)
   const isAuthenticated = useAppSelector(getIsAuthenticated)
   const message = useAppSelector(getMessage)
   const [submitting, setSubmitting] = useState(false);
@@ -27,18 +27,14 @@ import { useState, useEffect } from 'react';
 
 
 interface FormValues {
-
-orderId:string,
+orderId:string
 }
 
 
 
 
   const validationSchema = Yup.object().shape({
-   username: Yup.string().email('Invalid email').required('Email is required'),
-   password: Yup.string()
-    .min(6, 'Password must be at least 6 characters')
-    .required('Password is required'),
+   orderId: Yup.string()
    });
 
   const handleSubmit = async (values: FormValues) => {
@@ -58,7 +54,6 @@ orderId:string,
   const formik = useFormik({
     initialValues: {
       orderId: '',
-      
     },
     validationSchema,
     onSubmit: handleSubmit,

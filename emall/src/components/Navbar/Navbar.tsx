@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
+
 import "./navbar.css"
 import { Container, Col, Row, Image} from 'react-bootstrap';
 import { useState, useContext, useEffect,  useLayoutEffect} from "react";
@@ -7,7 +6,7 @@ import { useState, useContext, useEffect,  useLayoutEffect} from "react";
 
 import { FavoriteContext } from "../../Context/wishlist";
 import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
-import { getUpdateUser, getIsAuthenticated, fetchAsyncUser, fetchAsyncLogout } from "../../redux/features/auth/authSlice";
+import { getAuthUser, getIsAuthenticated, fetchAsyncUser, fetchAsyncLogout } from "../../redux/features/auth/authSlice";
 import { getCartItems, getCartBills, getMessage } from "../../redux/features/cart/cartSlice";
 import {Alert} from 'react-bootstrap';
 
@@ -52,7 +51,7 @@ const Navbar = () => {
     const dispatch = useAppDispatch()
     const cartItems  = useAppSelector(getCartItems)
     const cartBills = useAppSelector(getCartBills)
-    const updateUser = useAppSelector(getUpdateUser)
+    const updateUser = useAppSelector(getAuthUser)
     const isAuthenticated = useAppSelector(getIsAuthenticated)
     const cartMessage = useAppSelector(getMessage)
     console.log(updateUser)
@@ -211,7 +210,7 @@ const Navbar = () => {
 <div className="d-flex flex-row m-3" >
   <div className="px-1">
   <div   className=" position-relative" onClick={cartShow}>
-  <i className='bx bx-cart bx-lg text-light' ></i> <span className="position-absolute top-0 text-light start-100 translate-middle badge rounded-pill text-bg-info"> {cartItems?.length > 0 ? (cartItems?.length) : (0)}  <span className="visually-hidden">unread messages</span></span>
+  <i className='bx bx-cart bx-lg text-light' ></i> <span className="position-absolute top-0 text-light start-100 translate-middle badge rounded-pill text-bg-info"> {cartItems? (cartItems?.length) : (0)}  <span className="visually-hidden">unread messages</span></span>
 </div>
     </div>
     
@@ -262,7 +261,7 @@ const Navbar = () => {
     <div className="ms-auto">
       <div className="navbar-toggler border-0 " >
       <div   className=" position-relative" onClick={cartShow}>
-  <i className='bx bx-cart bx-md text-light' ></i> <span className="position-absolute top-0 text-light start-100 translate-middle badge rounded-pill text-bg-info"> {cartItems?.length > 0 ? (cartItems?.length) : (0)}  <span className="visually-hidden">unread messages</span></span>
+  <i className='bx bx-cart bx-md text-light' ></i> <span className="position-absolute top-0 text-light start-100 translate-middle badge rounded-pill text-bg-info"> {cartItems   ? (cartItems?.length) : (0)}  <span className="visually-hidden">unread messages</span></span>
 </div>
     </div>  
     </div>

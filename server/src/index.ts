@@ -15,6 +15,7 @@ import itemRoutes from "../routes/Items"
 import cartRoutes from "../routes/Cart"
 import orderRoutes from "../routes/Order"
 import addressRoutes from "../routes/Address"
+import adminRoutes from '../routes/Admin'
 import passport from "../middlewares/passport/index"
 import cookieParser from 'cookie-parser';
 
@@ -43,14 +44,8 @@ console.log(process.env!.FRONTEND_URL)
    origin: process.env!.FRONTEND_URL,
   credentials: true, 
   optionSuccessStatus: 200,
-  Headers: true,
-  exposedHeaders: 'Set-Cookie',
   methods: ['GET', 'PUT', 'POST', 'DELETE'],
-  allowedHeaders: [
-    'Access-Control-Allow-Origin',
-    'Content-Type',
-    'Authorization'
-  ]
+
 }
 app.use(cors(corsOptions))
 
@@ -59,7 +54,7 @@ app.get("/", (req, res)=>{
 })
 
 
-app.set('trust proxy', 1)
+  app.set('trust proxy', 1)
 
  app.use(
 	session({
@@ -67,7 +62,8 @@ app.set('trust proxy', 1)
 		secret:process.env.SESSION_SECRET!, //pick a random string to make the hash that is generated secure
 		store: MongoStore.create({mongoUrl:process.env.MONGO_URL }),
      cookie: {
-      maxAge: 24 * 60 * 60 * 1000, httpOnly: true, sameSite: "none", secure: true 
+       maxAge: 24 * 60 * 60 * 1000, 
+       httpOnly: true, sameSite: "none", secure: true 
     },
 		saveUninitialized: false ,//required
     resave: false, //required
@@ -86,6 +82,7 @@ app.use(passport.session());
  app.use("/", cartRoutes)
  app.use("/", orderRoutes)
  app.use("/", addressRoutes)
+ app.use("/", adminRoutes)
 
 
  const server = app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`))

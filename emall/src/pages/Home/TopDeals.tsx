@@ -9,12 +9,13 @@ import { Link } from "react-router-dom";
 
 import { useAppSelector, useAppDispatch } from "../../redux/app/hook";
 import { getTopdeals, fetchTopDeals } from "../../redux/features/items/itemSlice";
-import { fetchAddRecentlyViewed } from "../../redux/features/items/itemSlice";
+import { fetchAddRecentlyViewed, fetchDeleteItem } from "../../redux/features/items/itemSlice";
 import { fetchAddCart } from "../../redux/features/cart/cartSlice";
-
+import { getAuthUser, fetchAsyncUser } from "../../redux/features/auth/authSlice";
 const TopDeals = () => {
 const dispatch = useAppDispatch()
 const topdeals = useAppSelector(getTopdeals)
+const authUser = useAppSelector(getAuthUser)
   const Completionist = () => <span>You are good to go!</span>;
   const renderer = ({ days, hours, minutes, seconds, completed }:RENDER) => {
     if (completed) {
@@ -33,7 +34,10 @@ const topdeals = useAppSelector(getTopdeals)
   
     }, [dispatch])
   
-  
+    useEffect(() =>{
+      dispatch(fetchAsyncUser())
+      
+        }, [dispatch])
   return (
     <Row className="my-3">
       {topdeals && topdeals.length  > 0 ? (<div><div className="d-flex row mb-3">
@@ -62,7 +66,7 @@ const topdeals = useAppSelector(getTopdeals)
            return (
                <Col  style={{margin:"20px"}}>
                    <Row className="bg-white border-light border rounded-2  position-relative">
-                <Col className="p-5" > <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items))   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"><Image src={items.image} fluid loading="lazy" /></Link></Col>
+                <Col className="p-5" > <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items))   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"><Image src={items.image} width="150px" height="200px" loading="lazy" /></Link></Col>
                <Col className="bg-white">
                <div className="d-flex flex-column mb-3 bg-white">
  <div className="p-2 fw-medium text-primary">{items.title.substring(0, 25)}</div>
@@ -72,7 +76,15 @@ const topdeals = useAppSelector(getTopdeals)
  <div className=""> <ProgressBar variant="" className='progressbar' now={5} /></div>
  <div className="p-2">Sold: {5}/{items.quantity} products</div>
  {items.discount && (<div className="top-left  fw-bold rounded-1 px-2 text-light bg-success">{items.discount}%</div>)}
- <div className="text-center d-grid gap-2"><Button size="sm" className="d-block" variant="dark" onClick={() => dispatch(fetchAddCart(items))} >Add to cart</Button></div> 
+ {/* <div className="text-center d-grid gap-2"><Button size="sm" className="d-block" variant="dark" onClick={() => dispatch(fetchAddCart(items))} >Add to cart</Button></div>  */}
+ {authUser?.role === 'customer'  && ( <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div> )}  
+  
+  {authUser?.role === 'reseller'  && ( <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div> )}  
+    
+  {authUser?.role === 'admin' &&  (    <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchDeleteItem(items))}   className="d-block" variant="dark">Delete Item</Button></div> )}   
+      
+      
+  {authUser?.role === 'customer service' &&  (    <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Update Item</Button></div> )}   
 </div>
                
                </Col> 
@@ -82,7 +94,7 @@ const topdeals = useAppSelector(getTopdeals)
                
            )
        } )}
-       </Row></div>):<div className="fs-4 my-2 text-center">Topdeals items loading...</div>}
+       </Row></div>):<div className="fs-4 my-2 text-center"></div>}
       
         
     </Row>

@@ -1,13 +1,15 @@
 
 import { Category, Item, View} from "../models/Item";
-
+import { verifyRole } from "../middlewares/jwt/verifyToken";
+//Retrieve all items from database
   export const  getAllItems = async (req:any, res:any ) => {
 console.log(`My ${req.user}`)
     await Item.find().sort({date:-1}).then((items: any) => res.json(items)).catch((err: string) => res.json("Error : " + err));
     
    }
 
- export  const postItem = async  (req:any, res:any ) => {
+   // Add items to database
+ export  const addItem = async  (req:any, res:any ) => {
 
 const {title, description, category, price, discount, status,
   trending, quantity, recommended, topfeatured, topdeals } = req.body
@@ -50,28 +52,32 @@ const newprice = Math.round(price - discountAmount)
    }
   
 
- 
-
-   
-export const  updateItem = async (req:any, res:any ) => {
-  const admin = req.user.id
-  const {title, description, category, price, discount, status,
-    trending, quantity, recommended, topfeatured, topdeals } = req.body
-  try{
-    const filter = {category: category }
-    const update = {title, description, category, price, discount, status,
-      trending, quantity, recommended, topfeatured, topdeals}
-     const doc = await Item.findOneAndUpdate(filter, update, 
-      {new:true, upsert:true,  includeResultMetadata: true})
-      doc.save
+ //Retrieve  items by its Id
+ export const  getItembyId = async (req:any, res:any ) => {
+      const {id} = req.params
+      await Item.findById(id).then((item: any) => res.json(item)).catch((err: string) => res.json("Error : " + err));
+     }
   
-  }catch(err){
-    console.log(err)
+
+   // Update selected item
+export const  updateItem = async (req:any, res:any ) => {
+  const {id} = req.params
+  const  {items} = req.body
+  try {
+    const updatedItem = await Item.findByIdAndUpdate(id, items, { new: true });
+    if (!updatedItem) {
+      return res.json({sucesss:true, message: 'Item not found' });
+    }
+    console.log(updatedItem)
+    res.json({success:true, message:"Item updated successfully"});
+  } catch (error) {
+    res.json({ message: 'Server Error', error });
   }
 } 
 
+//Remove selected item fro database
 export const deleteItem = async (req:any, res:any ) => {
-  const admin = req.user.id
+ 
   const {itemId}= req.body
 try{
   let item = await Item.findOne({_id:itemId});
@@ -84,7 +90,7 @@ try{
 
 }catch (error) {
  console.log(error);
- res.status(400).send();
+ res.json(400).send();
 }
 }
 
@@ -92,20 +98,19 @@ try{
 
 
 
-
+// Search Items
 export const searchItem = async (req:any, res:any ) => {
 const searchitem = req.query
 await Item.find({ title: { $regex: `${searchitem}`, $options: "i" }}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
 
 }
 
-
+//Get product categories
 export const  typeCategory = async (req:any, res:any ) => {
-
  await Category.find().sort({date:-1}).then((items: any) => res.json(items)).catch((err: string) => res.json("Error : " + err));
- 
 }
 
+//get products by categories
 export const getCategory = async (req:any, res:any ) => {
   try{
    const item =  await Item.find({category:req.params.id})
@@ -120,35 +125,36 @@ export const getCategory = async (req:any, res:any ) => {
  
  }
 
-
+//Get product details
  export const getItemDetails = async (req:any, res:any ) => {
-
   await Item.find({title:req.params.id}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
- 
- 
+
   }
 
   
+  //Get trending products
   export const trending = async (req:any, res:any ) => {
     await Item.find({trending:"true"}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
      }
  
-
+//Get recommended items
  export const recommended = async (req:any, res:any ) => {
       await Item.find({recommended:"true"}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
        }
        
  
-       
+       // Get items in slide
  export  const topFeaturedSlide = async (req:any, res:any ) => {
 
     await Item.find({topfeatured:"true", status:"New" }).sort({ _id: -1 }).limit(4).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
      }
  
+     //Get gallery items
      export  const topFeaturedGallery = async (req:any, res:any ) => {
       await Item.find({topfeatured:"true"}).limit(6).then((items: any) =>  res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
        }
    
+      // Get flash deals
        export  const flashDeals = async (req:any, res:any ) => {
 
         await Item.find({status:"New",}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
@@ -160,11 +166,13 @@ export const getCategory = async (req:any, res:any ) => {
            }
       
 
+          //Get Top deals
   export  const topDeals = async (req:any, res:any ) => {
 
         await Item.find({topdeals:"true",}).limit(2).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
          }
     
+            //Get Related items
          export const  relatedItem = async (req:any, res:any ) => {
           try{
             const item =  await Item.find({category:req.params.id})
@@ -179,7 +187,8 @@ export const getCategory = async (req:any, res:any ) => {
         };
       
 
-       
+        
+       //Add items to viewed list
               export  const addViewedItem = async (req:any, res:any ) => {
                 const {itemId} = req.body
                 const owner = req.user?.id
@@ -187,9 +196,7 @@ export const getCategory = async (req:any, res:any ) => {
                 try{
                   const viewed = await View.findOne({owner:owner})
                   const  newitem = await Item.findOne({_id:itemId})
-                  if (!owner) {
-                    res.json({success:false, message:"No user found!"})
-                  }else{
+                 
                     if (viewed){
                       const filter = {owner: owner }
                       const update = {$addToSet:{items : newitem }}
@@ -206,7 +213,7 @@ export const getCategory = async (req:any, res:any ) => {
          
                 res.json({success:true, message:"viewed List created!"})
                 }
-                  }
+                  
             
                   
 
@@ -216,14 +223,12 @@ export const getCategory = async (req:any, res:any ) => {
            }
       
   
-           
+             //Get Viewed Items
            export const getViewedItems = async (req:any, res:any ) => {
             const owner  = req.user?.id
             const  view = await View.findOne({owner:owner})
             try{
-            if (!owner) {
-              res.json({success:false, message:"No User found"})
-            }else{
+         
                  if(view ){
                  
                    res.json({ success: true, message: "Recently viewed!", view:view});
@@ -231,8 +236,6 @@ export const getCategory = async (req:any, res:any ) => {
                  else{
                    res.json({ success: false, message: "No recentely viewed!" });
                  }
-            
-            }
           }
           catch(err){
               console.log(err);

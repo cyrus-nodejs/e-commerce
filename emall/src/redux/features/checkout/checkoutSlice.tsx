@@ -2,12 +2,11 @@ import { createSlice,  createAsyncThunk } from '@reduxjs/toolkit'
 
 import { RootState } from '../../app/store'
 import axios from 'axios'
-import {loadStripe} from '@stripe/stripe-js';
+
 
 export interface CheckoutState {
-  stripePromise:string | null | undefined | unknown ,
+  stripePromise:string  ,
   clientSecret:string,
-
   status:  'idle' | 'pending' | 'succeeded' | 'failed'
   error:string | null | undefined
   }
@@ -16,7 +15,6 @@ export interface CheckoutState {
 const initialState: CheckoutState = {
     stripePromise:'',
     clientSecret:'',
-    
     status:  'idle',
     error: null ,
   }
@@ -28,16 +26,16 @@ const initialState: CheckoutState = {
 export const fetchConfig = createAsyncThunk(
     'checkout/fetchConfig', async () => {
         const response= await axios.get(`${BASEURL}/config`,{ withCredentials: true })
-        console.log(response.data.publishableKey)
-        return response.data.publishableKey
+        console.log(response.data)
+        return response.data
       });
 
   export const fetchCreatePayment = createAsyncThunk(
-    'checkout/fetchCreatePayment',  async () => {
-
-        const response= await axios.get(`${BASEURL}/create-payment-intent`, { withCredentials: true })
-        console.log(response.data.clientSecret)
-        return response.data.clientSecret
+    'checkout/fetchCreatePayment',  async (data:{gift:number, shipping:number,  cartBills:number}) => {
+         const {gift, shipping, cartBills} = data
+        const response= await axios.post(`${BASEURL}/create-payment-intent`, {gift, shipping , cartBills}, { withCredentials: true })
+        console.log(response.data)
+        return response.data
       });
 
       
@@ -57,7 +55,7 @@ export const checkoutSlice = createSlice({
     })
     .addCase(fetchConfig.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        state.stripePromise= loadStripe(action.payload)
+        state.stripePromise = action.payload.publishableKey
 
       })
       .addCase(fetchConfig.rejected, (state, action) => {
@@ -69,7 +67,7 @@ export const checkoutSlice = createSlice({
       })
       .addCase(fetchCreatePayment.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        state.clientSecret= action.payload
+        state.clientSecret= action.payload.clientSecret
       })
       .addCase(fetchCreatePayment.rejected, (state, action) => {
         state.status = 'failed'

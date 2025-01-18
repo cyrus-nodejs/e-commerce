@@ -8,14 +8,14 @@ import { useParams } from "react-router-dom";
 import {  useEffect } from "react";
 
 import { fetchAddCart } from "../redux/features/cart/cartSlice";
-import { fetchAsyncUser, getIsAuthenticated, getUpdateUser } from '../redux/features/auth/authSlice';
+import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
 import { fetchOrderDetails, getOrderDetails, getOrderDetailsItems } from "../redux/features/order/orderSlice";
 import { useAppDispatch, useAppSelector } from "../redux/app/hook";
 
 const OrderDetails = () => {
     const dispatch = useAppDispatch()
     const isAuthenticated = useAppSelector(getIsAuthenticated)
-    const user = useAppSelector(getUpdateUser)
+    const user = useAppSelector(getAuthUser)
   const orderDetails = useAppSelector(getOrderDetails)
   const orderDetailsItems =  useAppSelector(getOrderDetailsItems) 
 
@@ -116,7 +116,7 @@ const OrderDetails = () => {
   
 
 
-  </Col></div>) : (<div className="fs-3">No User. Pls Login to see Orders</div>) }
+  </Col></div>) : (<div className="fs-3"> Login to view Orders</div>) }
 
       
       </Container >
