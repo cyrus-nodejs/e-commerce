@@ -23,24 +23,37 @@ Conclusion
    Authentication: JWT (JSON Web Tokens)
    Payment Gateway: Stripe or PayPal
    Other Tools: Mongoose (ODM), Passport mongoose Local (password hashing), Cors (Cross-Origin Resource Sharing)
+
 3. Features
    Product Listing: Users can view a list of available products, including descriptions, prices, and images.
+
    Cart Management: Users can add, remove, and update quantities of items in their cart.
+
    Checkout & Payment: Users can proceed to checkout and pay for their orders using Stripe or PayPal.
+
    Order Management: Users can view order history and order details.
    Admin Panel: Admins can add, edit, or delete products and manage orders and users.
+
    Authentication: Users can sign up, log in, and log out. Admins are authenticated with higher privileges.
+
    Responsive Design: The app is responsive, ensuring it works on both desktop and mobile devices.
+
 4. Frontend Implementation
    React Components Structure
+
    App.js: Main entry point of the React app. Sets up routing for the application.
+
    ProductList: Displays all the products fetched from the backend.
-   ProductCard: Displays individual product details.
+
+   ProductDetails: Displays individual product details.
+
    Cart: Manages the cart items, including adding/removing items and displaying cart totals.
+
    Checkout: Allows users to review their cart and proceed to payment.
+
    AdminDashboard: Provides access to the admin features to manage products, users, and orders.
-   Routing with React Router
-   jsx
+
+   Routing with React Router jsx
 
    Copy
    import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -48,11 +61,13 @@ Conclusion
 function App() {
 return (
 const router = createBrowserRouter([
+
 {
 path: "/",
 element: <Home />,
 errorElement: <ErrorPage />
 },
+
 {
 path: `/register`,
 element: <Register   />,
@@ -64,11 +79,13 @@ path: `/addreseller`,
 element: <AssignReseller   />,
 errorElement: <ErrorPage />
 },
+
 {
 path: `/addadmin`,
 element: <AssignAdmin   />,
 errorElement: <ErrorPage />
 },
+
 {
 path: `/addcustomerservice`,
 element: <AssignCustomerService   />,
@@ -81,16 +98,18 @@ element: <Login   />,
 errorElement: <ErrorPage />
 },
 
-// {
-// path: `/wishlist`,
-// element: <Wishlist  />,
-// errorElement: <ErrorPage />
-// },
+{
+path: `/wishlist`,
+element: <Wishlist  />,
+errorElement: <ErrorPage />
+},
+
 {  
  path: `/additem`,
 element:<Additem /> ,
 errorElement: <ErrorPage />
 },
+
 {
 path: "/category/:id",
 element: <Category   />,
@@ -102,6 +121,7 @@ errorElement: <ErrorPage />
 element:<Payment   /> ,
 errorElement: <ErrorPage />
 },
+
 {  
  path: `/completion`,
 element:<Completion    /> ,
@@ -113,31 +133,37 @@ path: `/cart`,
 element: <Cart  />,
 errorElement: <ErrorPage />
 },
+
 {  
  path: `/update/item/:id`,
 element:<UpdateItem /> ,
 errorElement: <ErrorPage />
 },
+
 {  
  path: `/orderdetails/:id`,
 element:<OrderDetails  /> ,
 errorElement: <ErrorPage />
 },
+
 {  
  path: `/orderinvoice`,
 element:<OrderInvoice  /> ,
 errorElement: <ErrorPage />
 },
+
 {  
  path: `/orders`,
 element:<Order  /> ,
 errorElement: <ErrorPage />
 },
+
 {  
  path: `/editaddress`,
 element:<AddressForm   /> ,
 errorElement: <ErrorPage />
 },
+
 {
 path: "/product/:id",
 element: <Productdetails     />,
@@ -155,37 +181,45 @@ path: "/forgotpassword",
 element: < ForgotPassword />,
 errorElement: <ErrorPage />
 },
+
 {
 path: `/resetpassword/:id`,
 element: < ResetPassword />,
 errorElement: <ErrorPage />
 },
-// {
-// path: "/updatepassword",
-// element: < UpdatePassword />,
-// errorElement: <ErrorPage />
-// },
+
+{
+path: "/updatepassword",
+element: < UpdatePassword />,
+errorElement: <ErrorPage />
+},
 
 ])
 );
 }
+
 Redux toolkit for State Management
+
 Actions:
-ADD_TO_CART, REMOVE_FROM_CART, UPDATE_CART, CLEAR_CART
-FETCH_PRODUCTS, FETCH_ORDER_HISTORY, UPDATE_PRODUCT
+fetchCart fetch AddCart fetchAddCartQty fetchCreatePayment, fetchAddItem. fetchDeleteItem
+
 Reducers:
 authReducer, addressReducer, cartReducer, checkoutReducer, itemsReducer orderReducer
+
 Example cartReducer:
 
 export const cartSlice = createSlice({
 name: 'cart',
 initialState,
-// The `reducers` field lets us define reducers and generate associated actions
+
+The `reducers` field lets us define reducers and generate associated actions
 reducers: {
 
 },
 extraReducers: (builder) => {
+
 // Add reducers for additional action types here, and handle loading state as needed
+
 builder.addCase(fetchCart.pending, (state) => {
 state.status = 'pending'
 
@@ -269,117 +303,63 @@ state.status = 'pending'
 })
 
 5.  Backend Implementation
-    API Endpoints
-    GET /api/items: Retrieve all products.
-    GET /api/getiyem/:id: Retrieve a specific product by ID.
-    POST /api/products: Add a new product (reseller only).
-    PUT /api/update/item/:id: Update a product (customer service only).
-    DELETE /api/delete/item/:id: Delete a product (admin-only).
-    POST /api/checkout: Process payment and create an order.
-    POST /api/login: User login to generate JWT.
-    POST /api/register: User registration to create a new account.
 
-    Product Model (Mongoose Schema)
-    const ItemSchema = new Schema({
-    title:{
-    type:String,
-    required:true,
-    unique:true,
-    },
+        API Endpoints
+        GET /api/items: Retrieve all products.
+        GET /api/getiyem/:id: Retrieve a specific product by ID.
+        POST /api/products: Add a new product (reseller only).
+        PUT /api/update/item/:id: Update a product (customer service only).
+        DELETE /api/delete/item/:id: Delete a product (admin-only).
+        POST /api/checkout: Process payment and create an order.
+        POST /api/login: User login to generate JWT.
+        POST /api/register: User registration to create a new account.
 
-    description:{
-    type:String,
-    required:true,
-    unique:true
-    },
-    category:{
-    type:String,
-    required:true,
-    },
-    price:{
-    type:Number,
-    required:true,
-    },
+        Items Model (Mongoose Schema)
 
-    newprice:{
-    type:Number,
-    required:true,
-    },
+        const ItemSchema = new Schema({
 
-    status:{
-    type:String,
-
-    },
-    review:{
-    type:Number,
-
-    },
-    rating:{
-    type:Number,
-
-    },
-    discount:{
-    type:Number,
-    },
-    unit: {
-    type:Number,
-    default:1,
-    } ,
-
-quantity: {
-type:Number,
-default:1
-} ,
-image:{
-type:String,
-required:true,
-unique:true,
-},
-
-    trending:{
-        type:Boolean,
-        required:true,
-
-    },
-     recommended:{
-         type:Boolean,
-         required:true,
-
-     },
-    topfeatured:{
-        type:Boolean,
-        required:true,
-
-    },
-
-    topdeals:{
-        type:Boolean,
-    },
-
-    date_added:{
-        type:Date,
-        default:Date.now
-    },
-
-})
+    title:{type:String, required:true,unique:true,},
+    description:{type:String, required:true,unique:true},
+    category:{type:String,required:true,},price:{type:Number, required:true,},
+    newprice:{ type:Number, required:true,},
+    status:{ type:String,},review:{type:Number},
+    rating:{type:Number, },
+    discount:{type:Number,},
+    unit: {type:Number,default:1,} ,
+    quantity: {type:Number, default:1} ,
+    image:{type:String, required:true, unique:true,},
+    trending:{type:Boolean,required:true,},
+    recommended:{type:Boolean, required:true,},
+    topfeatured:{type:Boolean,required:true,},
+    topdeals:{type:Boolean,},
+    date_added:{type:Date,default:Date.now},
+    })
 
 export const Item:any = mongoose.model("Item", ItemSchema);
 
 Authentication & Authorization Middleware
+
 Passport-mongoose-local is used for session authentication
+
 JWT is used to protect routes.
-Admin routes are protected with a middleware that checks if the user is an admin.
+Admin routes are protected with a VERIFYROLE middleware that checks if the user is an admin.
+
 //Verify User Role
+
 export const verifyRole = (roles: string | any[]) => {
+
 return (req:any, res:any, next:any) => {
 if (!roles.includes(req.user?.role)) {
 return res.json({success:false, message: `Access denied. ${req.user.role } access level required!` });
 }
-next();
+next()
+}
 };
-};
+
 //Authorize Users
-export const userAuthorization = (req:Request, res:Response, next:NextFunction) => {
+
+export const userAuthorization = (req:Request, res:Response,next:NextFunction) => {
+
 const eToken = req.cookies.eToken
 console.log(`verifytoken => ${eToken}`)
 if (!eToken){
@@ -396,7 +376,9 @@ next()
 }
 
 6.  Admin Panel
+
     The admin panel allows the admin user to manage the e-commerce application:
+
     Product Management: Add, edit, or remove products.
     Order Management: View and manage customer orders.
     User Management: View all users and their details.
@@ -406,54 +388,32 @@ next()
     DELETE /api/delete/item/:id: Delete a product.
 
 7.  Authentication & Authorization
-    User Registration:
-    Collect user information like email, password, and role.
-    Hash the password using passpor-local-mongoose and save the user in the database.
-    js
-    const UserSchema = new Schema({
-    email:{
-    type:String,
-    required:[true, "Please enter an email"],
-    unique:true,
-    lowercase:true,
+
+        User Registration:
+        Collect user information like email, password, and role.
+        Hash the password using passpor-local-mongoose and save the user in the database.
+        js
+
+        const UserSchema = new Schema({
+
+    email:{type:String,required:true, unique:true,lowercase:true,},
+    username:{type:String,unique:true,},
+    firstname:{type:String,},
+    lastname:{type:String,},
+    role:{type:String,
+    enum: [ 'customer', 'reseller','customer service', 'admin', 'super admin'],
+    default:'customer'},
+    token:{type:String, unique:true,
     },
-
-        username:{
-                     type:String,
-                     unique:true,
-                },
-                firstname:{
-                    type:String,
-               },
-               lastname:{
-                type:String,
-
-           },
-
-             role:{
-              type:String,
-              enum: [ 'customer', 'reseller','customer service', 'admin', 'super admin'],
-              default:'customer'
-             },
-             token:{
-                    type:String,
-                    unique:true,
-
-
-               },
-
-                 register_date:{
-                    type:Date,
-                     default: Date.now
-                 },
+    register_date:{type:Date, default: Date.now},
 
 })
 
 UserSchema.plugin(passportLocalMongoose);
-
 export const User:any = mongoose.model("User", UserSchema);
 
 User Login:
+
 try {
 if (!req.body.username) {
 res.json({ success: false, message: "Username was not given" })
@@ -490,21 +450,24 @@ res.json({ success: true, message: "Authentication successful", user:user });
 } catch (error) {
 console.log(error)
 
-} 8. Payment Gateway Integration
-We will integrate Stripe to handle payments.
+}
 
-Install Stripe package:
+8.  Payment Gateway Integration
+    We will integrate Stripe to handle payments.
+    Install Stripe package:
 
 bash
 Copy
 npm install stripe
-Backend Route for Stripe Payment:
 
+Backend Route for Stripe Payment:
 js
 Copy
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 app.post('/api/create-payment-intent', async (req, res) => {
+
 const owner = req.user?.id
 const {gift, shipping, cartBills} = req.body
 try{

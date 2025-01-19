@@ -5,7 +5,7 @@ import axios from 'axios'
 
 
 export interface AuthState {
-   authUser: USER  |null
+   authUser: USER  | null
     isAuthenticated: boolean
     status:  'idle' | 'pending' | 'succeeded' | 'failed'
     error:string | null | undefined

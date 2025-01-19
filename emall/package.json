@@ -2,7 +2,7 @@
   "name": "emall",
   "private": true,
   "version": "0.0.0",
-   "proxy": "https://shoppinghub-un6n.onrender.com",
+   "proxy": "http://localhost:3000",
   "type": "module",
   "scripts": {
     "dev": "vite",
