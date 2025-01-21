@@ -5,6 +5,7 @@ import axios from 'axios'
 
 
 export interface AuthState {
+
     allItems:ITEM[] 
     category : CATEGORY[] 
     categoryDetails : ITEM[] 
@@ -31,6 +32,7 @@ export interface AuthState {
 
   // Define the initial value for the slice state
 const initialState: AuthState = {
+
     category : [],
     categoryDetails :[],
     topdeals : [],
@@ -70,17 +72,25 @@ export const fetchAddRecentlyViewed = createAsyncThunk(
 
       export const fetchAddItem = createAsyncThunk(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        'items/fetchUpdateItem', async (data:any) => {
-            const response= await axios.post(`${BASEURL}/add/items`,{data},{ withCredentials: true })
+        'items/fetchAddItem', async (data:any) => {
+            const response= await axios.post(`${BASEURL}/add/item`,{data},{ withCredentials: true })
             console.log(response.data)
             return response.data
           });
+
+          export const fetchAdminAddItem = createAsyncThunk(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            'items/fetchAdminAddItem', async (data:any) => {
+                const response= await axios.post(`${BASEURL}/admin/add/item`,{data},{ withCredentials: true })
+                console.log(response.data)
+                return response.data
+              });
     
       export const fetchUpdateItem = createAsyncThunk(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         'items/fetchUpdateItem', async (data:{id:any, formData:any}) => {
             const {id, formData} = data
-            const response= await axios.post(`${BASEURL}/update/item/${id}`,{formData},{ withCredentials: true })
+            const response= await axios.post(`${BASEURL}/admin/update/item/${id}`,{formData},{ withCredentials: true })
             console.log(response.data)
             return response.data
           });
@@ -90,7 +100,7 @@ export const fetchAddRecentlyViewed = createAsyncThunk(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         'items/fetchDeleteItem', async (item:ITEM) => {
             const itemId = item._id
-            const response= await axios.post(`${BASEURL}/delete/item`,{itemId},{ withCredentials: true })
+            const response= await axios.post(`${BASEURL}/admin/delete/item`,{itemId},{ withCredentials: true })
             console.log(response.data)
             return response.data
           });
@@ -219,6 +229,8 @@ export const itemsSlice = createSlice({
     handleSearchterm : (state, action) => {
       state.searchTerm = action.payload
      }
+
+ 
   },
    extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed

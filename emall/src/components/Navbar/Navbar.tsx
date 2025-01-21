@@ -1,13 +1,13 @@
 
 import "./navbar.css"
-import { Container, Col, Row, Image} from 'react-bootstrap';
+import { Container, Col, Row} from 'react-bootstrap';
 import { useState, useContext, useEffect,  useLayoutEffect} from "react";
  import CartModal from "../Cart/CartModal";
 
 import { FavoriteContext } from "../../Context/wishlist";
 import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
 import { getAuthUser, getIsAuthenticated, fetchAsyncUser, fetchAsyncLogout } from "../../redux/features/auth/authSlice";
-import { getCartItems, getCartBills, getMessage } from "../../redux/features/cart/cartSlice";
+import { getCartItems, fetchCart, getCartBills, getMessage } from "../../redux/features/cart/cartSlice";
 import {Alert} from 'react-bootstrap';
 
 
@@ -17,13 +17,9 @@ import NavSearch from "./NavSearch/NavSearch";
 import { Link } from "react-router-dom";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-import uk from "../icons/uk.png"
+
 import Department from "./Navtabs/Department";
-import Home from "./Navtabs/Home";
-import Product from "./Navtabs/Product";
-import Shop from "./Navtabs/Shop";
-import Pages from "./Navtabs/Pages";
-import Blog from "./Navtabs/Blog";
+
 
 import WishlistModal from "../Wishlist/WishlistModal";
 
@@ -35,8 +31,12 @@ import WishlistModal from "../Wishlist/WishlistModal";
 const Navbar = () => {
 
 
+  const {favoriteItems, state, setState } = useContext(FavoriteContext)
+  const handleCurrency = (e: { preventDefault: () => void; target: { name: string; value: string; }; }) => {
+    e.preventDefault();
+    setState({...state, [e.target.name] : e.target.value})
+     }
     
-
 
   const [show, setShow] = useState(false);
   const [display, setDisplay] = useState(false);
@@ -44,18 +44,24 @@ const Navbar = () => {
   const wishListShow = () => setDisplay(true);
   const cartClose = () => setShow(false);
   const cartShow = () => setShow(true);
-  const {favoriteItems } = useContext(FavoriteContext)
+
 
   
     const [scrolled, setScrolled] = useState(false);
     const dispatch = useAppDispatch()
     const cartItems  = useAppSelector(getCartItems)
     const cartBills = useAppSelector(getCartBills)
-    const updateUser = useAppSelector(getAuthUser)
+    const authUser = useAppSelector(getAuthUser)
     const isAuthenticated = useAppSelector(getIsAuthenticated)
     const cartMessage = useAppSelector(getMessage)
-    console.log(updateUser)
-    console.log(isAuthenticated)
+  
+  
+    useEffect(() => {
+      dispatch(fetchCart())
+    
+      }, [dispatch])
+      
+
     useEffect(() => {
     dispatch(fetchAsyncUser())
   
@@ -93,26 +99,19 @@ const Navbar = () => {
     
     <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul className="navbar-nav me-auto mb-2  mb-lg-0">
-        <li className="nav-item me-3 mt-1">
-         
-        <select className="form-select form-select-sm   shadow-none mb-3 me-3" aria-label="">
-        <option className="text-dark bg-light" value="1"> <Image src={uk} />English</option>
-      <option className="text-dark bg-light" value="2">Italiano</option>
-      <option className="text-dark bg-light" value="3">Francais</option>
-      <option className="text-dark bg-light" value="3">Deutsche</option>
-</select>
-        </li>
+       
         <li className="nav-item mt-1 me-3">
-        <select className="form-select shadow-none form-select-sm" aria-label="Small select example">
-        <option className="text-dark bg-light" value="1">Canadian(CAD $)</option>
-      <option className="text-dark bg-light" value="2">Japan(JPY ¥)</option>
-      <option className="text-dark bg-light" value="3">UK(GBP £ )</option>
-      <option className="text-dark bg-light" value="4">US (USD $)</option>
+        <select className="form-select shadow-none form-select-md" onChange={handleCurrency}  name='currency' >
+        <option className="text-dark bg-light" value='$' >Canadian (CAD $)</option>
+      <option className="text-dark bg-light" value='¥'>Japan (JPY ¥)</option>
+      <option className="text-dark bg-light" value='£'>UK (GBP £ )</option>
+      <option className="text-dark bg-light" value='$' >US (USD $)</option>
 </select>
       
         </li>
         <li className="nav-item my-2  text-light">
           Need Help? +001 123 456 789
+          
         </li>
       </ul>
       <div className="d-flex" >
@@ -145,16 +144,7 @@ const Navbar = () => {
         </li>
       </ul>
       <div className="bg-light d-flex flex-row mb-3 rounded-2">
-       < div className='mt-2' >
-        
-{/* <select className="form-select form-select-sm border border-0 shadow-none mt-0 py-2" aria-label="currencyselect">
-<option className="text-dark bg-light" value="1">All Categories</option>
-      <option className="text-dark bg-light" value="2">Accessories</option>
-      <option className="text-dark bg-light" value="3">Football</option>
-      <option className="text-dark bg-light" value="4">Basketball</option>
-</select>
-      */}
-    </div> 
+       
       {/* <form className="d-flex " role="search">
           <input className="form-control border border-0   shadow-none  me-2 " type="search" placeholder="Search for products" aria-label="Search" />
           <div className=" m-1 border-0 px-2 bg-info rounded-2 border" type="submit"><i className='bx bx-search bx-md  text-light'></i></div>
@@ -164,11 +154,11 @@ const Navbar = () => {
         </div>
        
       <div className="d-flex justify-content-evenly" >
-      {isAuthenticated && updateUser ? ( <div onClick={() => dispatch(fetchAsyncLogout())} className="d-flex flex-row m-3">
+      {isAuthenticated && authUser ? ( <div onClick={() => dispatch(fetchAsyncLogout())} className="d-flex flex-row m-3">
   <div className="px-1"><i className='bx bxs-group bx-lg text-light' ></i></div>
   <div className="d-flex flex-column mb-3">
   <div className=" text-light fs-6">Logout</div>
-  <div className=" text-white ">Hello {updateUser?.firstname.toUpperCase()}</div>
+  <div className=" text-white ">Hello {authUser?.firstname.toUpperCase()}</div>
   
 </div>
 
@@ -183,18 +173,53 @@ const Navbar = () => {
 
 </div></a> 
 ) }
-      
+
+{ isAuthenticated && authUser?.role === 'customer service' && (
+  <a href='/admin/dashboard' className='text-decoration-none'><div className="d-flex flex-row m-3" >
+  <div className="px-1">
+  <div  className=" position-relative" >
+  <i className='bx bx-user-circle bx-lg text-light'></i>
+
+</div>
+    </div>
+
+  <div className="d-flex flex-column mb-3">
+  <div className=" text-light fw-medium">Admin</div>
+  <div className="text-light">Dashboard</div>
+</div>
+</div></a>
+)}
+
+{ isAuthenticated && authUser?.role === 'admin' && (
+  <a href='/admin/dashboard' className='text-decoration-none'><div className="d-flex flex-row m-3" >
+  <div className="px-1">
+  <div  className=" position-relative" >
+  <i className='bx bx-user-circle bx-lg text-light'></i>
+
+</div>
+    </div>
+
+  <div className="d-flex flex-column mb-3">
+  <div className=" text-light fw-medium">ADMIN</div>
+  <div className="text-light">DASHBOARD</div>
+</div>
+</div></a>
+)}  
+
+
 <div className="d-flex flex-row m-3" >
   <div className="px-1">
   <div  className=" position-relative" onClick={wishListShow}>
   <i className='bx bx-heart bx-lg text-light  ' ></i> <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill text-light text-bg-info">{favoriteItems.length}<span className="visually-hidden">unread messages</span></span>
 </div>
     </div>
+
   
   <div className="d-flex flex-column mb-3">
   <div className=" text-light fw-medium">Favorite</div>
   <div className="text-light">My Wishlist</div>
 </div>
+
   <>
       
       <Offcanvas show={display} onHide={wishlistClose} placement={'end'}>
@@ -206,7 +231,9 @@ const Navbar = () => {
         </Offcanvas.Body>
       </Offcanvas>
     </>
+    
 </div>
+
 <div className="d-flex flex-row m-3" >
   <div className="px-1">
   <div   className=" position-relative" onClick={cartShow}>
@@ -216,7 +243,7 @@ const Navbar = () => {
     
     <div className="d-flex flex-column mb-3">
   <div className="text-light">Your Cart  </div>
-  <div className="text-light">${cartBills}</div>
+  <div className="text-light">{state?.currency}{cartBills}</div>
   
 </div>
   <div className="p-1 fs-5 text-light"  >  
@@ -284,11 +311,11 @@ const Navbar = () => {
     </ul>
         <ul className="navbar-nav  justify-content-center flex-grow-1 pe-3">
           <li className="nav-item  d-lg-none  d-xl-block d-xl-none d-xxl-block d-xxl-none">
-          {isAuthenticated && updateUser? ( <div onClick={() => dispatch(fetchAsyncLogout())} className="d-flex flex-row m-3">
+          {isAuthenticated && authUser? ( <div onClick={() => dispatch(fetchAsyncLogout())} className="d-flex flex-row m-3">
 
   <div className="d-flex flex-column ">
   <div className=" text-dark fs-6">Logout</div>
-  <div className=" text-dark ">Hello {updateUser?.firstname.toUpperCase()}</div>
+  <div className=" text-dark ">Hello {authUser?.firstname.toUpperCase()}</div>
   
 </div>
 
@@ -382,7 +409,7 @@ const Navbar = () => {
          </Row>
           </li>
           
-        
+{/*         
           <li className="nav-item ">
             <Shop />
           </li>
@@ -399,13 +426,13 @@ const Navbar = () => {
             <Blog />
           </li>
            
-        
+         */}
         
         </ul>
         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
        
            <li className="nav-item mb-">
-            <a className="nav-link active text-light" aria-current="page" href="#">Sale $20 Off Your First Order</a>
+            <a className="nav-link active text-light" aria-current="page" href="#">Sale {state?.currency}20 Off Your First Order</a>
           </li>
           
          

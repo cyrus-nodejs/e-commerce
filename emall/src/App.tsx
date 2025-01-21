@@ -7,11 +7,9 @@ import {
 
 
 import Home from "./pages/Home/Home";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
 import ErrorPage from "./pages/Errorpage";
 import Login from "./pages/Auth/Login";
-import AssignAdmin from "./pages/Auth/Admin/AddAdmin";
-import AssignCustomerService from "./pages/Auth/Admin/AddCustomerService";
-import AssignReseller from "./pages/Auth/Admin/AddReseller";
 import Register from "./pages/Auth/Register";
 import Cart from "./pages/Cart";
 import UpdateItem from "./pages/UpdateItem";
@@ -37,7 +35,12 @@ const  App = () => {
   const router = createBrowserRouter([
     {
     path: "/",
-    element: <Home />,
+    element: <Home  />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: "/admin/dashboard",
+    element: <AdminDashboard />,
     errorElement: <ErrorPage />
   },
   {
@@ -46,22 +49,7 @@ const  App = () => {
     errorElement: <ErrorPage />
   },
 
-  {
-    path: `/addreseller`,
-    element: <AssignReseller   />,
-    errorElement: <ErrorPage />
-  },
-  {
-    path: `/addadmin`,
-    element: <AssignAdmin   />,
-    errorElement: <ErrorPage />
-  },
-  {
-    path: `/addcustomerservice`,
-    element: <AssignCustomerService   />,
-    errorElement: <ErrorPage />
-  },
-
+  
   {
     path: `/login`,
     element: <Login   />,

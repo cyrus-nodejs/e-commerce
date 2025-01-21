@@ -5,20 +5,21 @@ import { ITEM } from "../utils/@types";
 
 
 import { useParams } from "react-router-dom";
-import {  useEffect } from "react";
+
 
 import { fetchAddCart } from "../redux/features/cart/cartSlice";
 import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
 import { fetchOrderDetails, getOrderDetails, getOrderDetailsItems } from "../redux/features/order/orderSlice";
 import { useAppDispatch, useAppSelector } from "../redux/app/hook";
-
+import {  useEffect, useContext  } from "react";
+import { FavoriteContext } from "../../src/Context/wishlist";
 const OrderDetails = () => {
     const dispatch = useAppDispatch()
     const isAuthenticated = useAppSelector(getIsAuthenticated)
     const user = useAppSelector(getAuthUser)
   const orderDetails = useAppSelector(getOrderDetails)
   const orderDetailsItems =  useAppSelector(getOrderDetailsItems) 
-
+const {state} = useContext(FavoriteContext)
   useEffect(() =>{
     dispatch(fetchAsyncUser())
     
@@ -86,7 +87,7 @@ const OrderDetails = () => {
 <div className="d-flex flex-column ">
      <div className="text-secondary ms-2 my-2 fs-5 text-start ">{items.title}</div>
     <div className="text-secondary ms-2 my-2 fs-5  text-start ">Qty:{items.quantity}</div> 
-    <div className=" text-secondary ms-2 my-2 text-start fs-5 ">${items.price}</div> 
+    <div className=" text-secondary ms-2 my-2 text-start fs-5 ">{state.currency}{items.price}</div> 
     
     
      

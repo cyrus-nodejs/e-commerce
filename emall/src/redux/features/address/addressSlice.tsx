@@ -27,7 +27,6 @@ const BASEURL = import.meta.env.VITE_APP_BASE_URL
 
       export const fetchAddress = createAsyncThunk(
         'auth/fetchAddress', async () => {
-         
             const response= await axios.get(`${BASEURL}/getaddress`,{ withCredentials: true })
             console.log(response.data)
             return response.data
@@ -45,14 +44,9 @@ const BASEURL = import.meta.env.VITE_APP_BASE_URL
               });
 
               export const fetchUpdateAddress = createAsyncThunk(
-                'auth/fetchUpdateAddress', async (data:{firstname:string, lastname:string, mobile:string, mobile2:string, address:string, ordernote:string, nation:string,
-                    province:string, postalcode:string, region:string}) => {
-                        const {firstname, lastname, mobile, mobile2, address, ordernote, nation, postalcode, region, province  } = data
+                'auth/fetchUpdateAddress', async (data) => {
                     const response= await axios.post(`${BASEURL}/updateaddress`, 
-                        {
-                            firstname,lastname, mobile, mobile2, address, ordernote, nation,postalcode, region, province
-                        },
-                        { withCredentials: true })
+                        {data},{ withCredentials: true })
                     console.log(response.data)
                     return response.data
                   });

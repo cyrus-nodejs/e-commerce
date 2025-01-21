@@ -3,18 +3,19 @@ import {Container,     Button,   } from "react-bootstrap"
 
 
 import "../index.css"
-
+import {  useEffect, useContext  } from "react";
+import { FavoriteContext } from "../../src/Context/wishlist";
 
 import Navbar from "../components/Navbar/Navbar"
 import { useAppDispatch, useAppSelector } from "../redux/app/hook"
 
 import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
-import { useEffect } from "react";
+
 import { fetchCurrentOrder, getCurrentOrder } from "../redux/features/order/orderSlice";
 
 const OrderInvoice = () => {
 
-
+const {state} = useContext(FavoriteContext)
 
 const dispatch = useAppDispatch()
 const currentOrder = useAppSelector(getCurrentOrder)
@@ -53,9 +54,9 @@ return (
   <div className="p-1 text-dark fs-5">Order No: {"****" +currentOrder._id.substring(0, 4) + "******"}</div>
   <div className=" fs-6 text-dark">Placed on On: { weekday[new Date(currentOrder.date_added).getDay()]}, {currentOrder.date_added.slice(0,10)}</div>
   <div className="p-1 fs-6 text-dark">Number of items :{currentOrder.items.length}</div>
-  <div className="p-1 fs-6 text-dark">Gift wrapper :${currentOrder.giftwrapper}</div>
-  <div className="p-1 fs-6 text-dark">Delivery Fee :${currentOrder.deliveryfee}</div>
-  <div className="p-1 fs-6 text-dark">Total: ${currentOrder.bill}</div>
+  <div className="p-1 fs-6 text-dark">Gift wrapper :{state.currency}{currentOrder.giftwrapper}</div>
+  <div className="p-1 fs-6 text-dark">Delivery Fee :{state.currency}{currentOrder.deliveryfee}</div>
+  <div className="p-1 fs-6 text-dark">Total: {state.currency}{currentOrder.bill}</div>
   <div className="p-1 fs-5 text-dark">Payment: {currentOrder.payment ? "Payment Successful!" : "Pending" }</div>
   <div className="p-1 fs-6 text-dark"><div className="text-dark">Delivery: {currentOrder.delivered ? "Deivery Completed" : "Pending"}</div> </div>
 </div>

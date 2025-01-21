@@ -2,13 +2,13 @@
 import { useEffect, useState } from 'react';
 
 import { Form, Row, Col, Button, Container } from "react-bootstrap";
-import { useAppDispatch, useAppSelector } from "../redux/app/hook";
-import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
-import { fetchAddItem } from '../redux/features/items/itemSlice';
+import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
+import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../../redux/features/auth/authSlice';
+import { fetchAdminAddItem } from '../../redux/features/items/itemSlice';
+import Navbar from '../../components/Navbar/Navbar';
 
-import Navbar from '../components/Navbar/Navbar';
 
-const Additem = () => {
+const AdminAdditem = () => {
   const  dispatch = useAppDispatch()
 
   const authUser = useAppSelector(getAuthUser)
@@ -98,7 +98,7 @@ setState({...state, [e.target.name] : e.target.value})
         
        
       
-       dispatch(fetchAddItem(formData)).then(response => {
+       dispatch(fetchAdminAddItem(formData)).then(response => {
       alert(response)
       alert("Item saved successfully!")
     })
@@ -112,7 +112,7 @@ setState({...state, [e.target.name] : e.target.value})
    
   return (
     <section className="mx-5 py-2 border ">
-      {isAuthenticated && authUser?.role === "reseller" ? ( <Container fluid>
+      {isAuthenticated && authUser?.role === "customer service" ? ( <Container fluid>
 <Navbar />
         <p className="fs-3 text-center">Upload Item</p>
      <Form encType="multipart/form-data">
@@ -221,10 +221,10 @@ setState({...state, [e.target.name] : e.target.value})
       </Button>
       </div>
     </Form>
-    </Container>) : (<p>Please <a href="/login">Login</a> to Add items</p>)}
+    </Container>) : (<p className='fs-1 text-center'>You do not have require permission!</p>)}
      
         </section>
   )
 }
 
-export default Additem;
+export default AdminAdditem;

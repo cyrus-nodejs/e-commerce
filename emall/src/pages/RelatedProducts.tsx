@@ -3,7 +3,8 @@ import { Row,Col, Image, Button,  } from "react-bootstrap"
 import Nextrrow from "./Home/Trending/Nextrrow";
 import Previosarrow from "./Home/Trending/Previosarrow";
 import Slider from "react-slick"
-import { useEffect } from "react";
+import {  useEffect, useContext  } from "react";
+import { FavoriteContext } from "../../src/Context/wishlist";
 import { useAppDispatch, useAppSelector } from "../redux/app/hook";
 import { fetchAddCart } from "../redux/features/cart/cartSlice";
 
@@ -13,18 +14,25 @@ import { Link } from "react-router-dom";
 import { fetchGetRelated, getRelated } from "../redux/features/items/itemSlice";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const RelatedItems = ({product}: { product: ITEM }) => {
-  const relatedItem =   useAppSelector(getRelated)
-  console.log(relatedItem)
+
+
   const dispatch = useAppDispatch()
-  
-   
+  const relatedItem =   useAppSelector(getRelated)
+  // const authUser=   useAppSelector(getAuthUser)
+  console.log(relatedItem)
     useEffect(() =>{
       dispatch(fetchGetRelated(product))
       
         // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [dispatch])
-  
-
+   
+        // useEffect(() =>{
+        //   dispatch(fetchAsyncUser())
+          
+        //     // eslint-disable-next-line react-hooks/exhaustive-deps
+        //     }, [dispatch])
+      
+const {state} = useContext(FavoriteContext)
 
   const settings = {
     infinite: false,
@@ -114,12 +122,13 @@ const RelatedItems = ({product}: { product: ITEM }) => {
             <div className="d-flex flex-column ">
              <div className="text-primary fw-medium">{items.title.substring(0, 25)}</div>
              <div className="d-inline-flex gap-1 text-dark fs-6">{items.rating}{items.review}</div> 
-            <div className="fw-bold ">${items.price}</div> 
+            <div className="fw-bold ">{state.currency}{items.price}</div> 
             {/* <div className="top-left  fw-bold rounded-1 px-2 text-light bg-info ">{items.status}</div>  */}
            
             <div className="top-left  fw-bold rounded-1 px-2 text-light bg-info ">{items.discount ? (<div>-{items.discount}%</div>) : (<div></div>)}</div>  
              
-             <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div> 
+              <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div>  
+           
              </div>
              
              </Row>

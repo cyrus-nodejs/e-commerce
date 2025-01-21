@@ -1,45 +1,44 @@
+import { fetchAdminAllOrders, getAdminAllOrders } from "../../redux/features/admin/adminSlice"
+import {   fetchAsyncUser } from "../../redux/features/auth/authSlice"
+import { useAppSelector, useAppDispatch } from "../../redux/app/hook"
+import { useEffect, useContext } from "react"
+import { FavoriteContext } from "../../Context/wishlist"
+import { Spinner, Button,  Col,  Row, } from "react-bootstrap"
 
-import {Container, Col, Row, Button,  Image,  } from "react-bootstrap"
-import { useAppDispatch, useAppSelector } from '../redux/app/hook';
-import { ITEM, ORDER } from "../utils/@types";
+import { ORDER } from "../../utils/@types"
 
 
-import { fetchAddCart } from "../redux/features/cart/cartSlice";
-import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
-import {  useEffect, useContext  } from "react";
-import { FavoriteContext } from "../../src/Context/wishlist";
-import { fetchAllOrders, getAllOrder, getOrderItems } from "../redux/features/order/orderSlice";
-// import { CartContext } from "../Context/cart"
-import Navbar from "../components/Navbar/Navbar"
 
-const Order = () => {
+
+const AllOrders = () => {
+    const {state} = useContext(FavoriteContext)
 const dispatch = useAppDispatch()
-const allOrders = useAppSelector(getAllOrder)
-const orderItems = useAppSelector(getOrderItems)
-const user = useAppSelector(getAuthUser)
- const {state} = useContext(FavoriteContext)
-  const isAuthenticated = useAppSelector(getIsAuthenticated)
-  
-  useEffect(() =>{
+const allOrders = useAppSelector(getAdminAllOrders)
+// const isAuthenticated = useAppSelector(getIsAuthenticated)
+// const authUser = useAppSelector(getAuthUser)
+ 
+useEffect(() =>{
     dispatch(fetchAsyncUser())
     
       // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [dispatch])
   
-useEffect(() =>{
-  dispatch(fetchAllOrders())
+      useEffect(() =>{
+        dispatch(fetchAdminAllOrders())
+        
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          }, [dispatch])
+      
   
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch])
-
-
-
   return (
-  
-    <div>
-      <Navbar />
-      <Container >
-      {isAuthenticated && user ?  (<Col >
+    <Row  className='' >
+    {allOrders && allOrders.length > 0  ? (<div>
+      <div>
+  <div className="d-inline-flex p-2 fs-4 border-info  border-bottom">All Orders</div>
+</div>
+    <div  className="row">
+
+    <Col >
        {allOrders ? (<div>{ allOrders?.map((item:ORDER) =>{
      return (
        <Row  className="border border rounded-2 my-4" >
@@ -56,7 +55,7 @@ useEffect(() =>{
   <div className="row">
   <div className="text-secondary text-start fs-5 ">Date: {item.date_added.slice(0,10)}</div> 
   <div className="col-7">
-  { orderItems?.map((item:ITEM) =>{
+  {/* { orderItems?.map((item:ITEM) =>{
     return (
         <div className="d-flex ">
      
@@ -67,7 +66,7 @@ useEffect(() =>{
   <div className="d-flex flex-column ">
          <div className="text-secondary ms-2 text-start ">{item.title}</div>
         <div className="text-secondary ms-2 text-start ">Quantity:{item.quantity}</div> 
-        <div className=" text-secondary ms-12 text-start ">Price:{state.currency}{item.price}</div> 
+        <div className=" text-secondary ms-12 text-start ">Price:${item.price}</div> 
         
         
          
@@ -78,14 +77,11 @@ useEffect(() =>{
 
 </div>
   )
-})}
+})} */}
 </div>
 <div className="col-4">
 <div className="">
 
-  <Button  variant="dark" size="sm" className="rounded-1 px-5 py-2" onClick={() => dispatch(fetchAddCart(item))}>
-  <a  className="text-light text-decoration-none"> BUY AGAIN</a>
-      </Button>
 
   </div> 
   <div className="p-2">
@@ -106,11 +102,18 @@ useEffect(() =>{
 </div>) : (<div className="fs-1 text-center">No Order Found!</div>) }
 
         
-        </Col>) : (<p className='fs-3'>Login required!</p>)}
-        
-        </Container >
-    </div>
+        </Col>
+</div>
+
+    </div>):(<div className="fs-4 text-center"><Spinner animation="border" variant="primary" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner> <p className="fs-4 text-center">Refresh Page</p> </div>)}
+   
+   
+   
+  
+</Row>
   )
 }
 
-export default Order
+export default AllOrders

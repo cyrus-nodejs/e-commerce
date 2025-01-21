@@ -5,8 +5,9 @@
 import { Link } from "react-router-dom";
 
 import Navbar from '../components/Navbar/Navbar';
+import {  useEffect, useContext  } from "react";
+import { FavoriteContext } from "../../src/Context/wishlist";
 
-import {   useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../redux/app/hook';
 import { fetchCategoryDetails, getCategoryDetails } from '../redux/features/items/itemSlice';
 import { fetchAddRecentlyViewed} from '../redux/features/items/itemSlice';
@@ -23,7 +24,7 @@ const Category = () => {
   const categoryDetails = useAppSelector(getCategoryDetails)
   const isAuthenticated = useAppSelector(getIsAuthenticated)
   
-  
+  const {state} = useContext(FavoriteContext)
   const { id } = useParams();
 
     useEffect(() =>{
@@ -56,7 +57,7 @@ const Category = () => {
            <Image  style={{width:'8rem', height:"10rem" }}  rounded src={item.image} />
         <p className="fs-6  tfont  ">{item.title.substring(0, 10) + ".."}</p>
         <p className="fs-6 fw-bold  text-danger  " >
-         ${item.price}
+         {state.currency}{item.price}
         </p>
         </Link>
         </center>

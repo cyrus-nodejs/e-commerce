@@ -8,18 +8,20 @@ import { useParams } from "react-router-dom";
 
 import RelatedItems from "./RelatedProducts";
 import Recentlyviewed from "./Recentlyviewed";
+
 import { useAppDispatch, useAppSelector } from "../redux/app/hook"
 import { fetchAddCart } from "../redux/features/cart/cartSlice";
 import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
-import { useEffect } from "react";
+import {  useEffect, useContext  } from "react";
+import { FavoriteContext } from "../../src/Context/wishlist";
 import { fetchProductDetails, getProductDetails } from "../redux/features/items/itemSlice";
 // import CustomerViewed from "./CustomerViewed";
 const Productdetails = () => {
 
   const dispatch = useAppDispatch()
 const productDetails = useAppSelector(getProductDetails)
-
-const user = useAppSelector(getAuthUser)
+const {state} = useContext(FavoriteContext)
+const authUser = useAppSelector(getAuthUser)
   const isAuthenticated = useAppSelector(getIsAuthenticated)
   
 
@@ -64,7 +66,7 @@ const user = useAppSelector(getAuthUser)
       <div className="fs-4 fw-normal d-inline-flex  ">Category:{product.category}</div>
       <div className="fs-6 text-danger fw-normal  ">Discount: {product.discount ? (product.discount) :(0)}%</div>
       <div className='text-dark fs-4'    >
-      ${product.newprice}<span className="text-secondary mx-2 text-decoration-line-through">{product.discount && (product.price)}</span>
+      {state.currency}{product.newprice}<span className="text-secondary mx-2 text-decoration-line-through">{product.discount && (product.price)}</span>
         </div>
       
      
@@ -73,7 +75,9 @@ const user = useAppSelector(getAuthUser)
 
         <Row className="d-flex">
       <div className="p-2">
-       <Button variant="dark"   onClick={() => (fetchAddCart(product))} >Add to Cart </Button> 
+        <Button variant="dark"   onClick={() => (fetchAddCart(product))} >Add to Cart </Button>  
+       
+      
        </div>
     </Row>
       
@@ -94,7 +98,7 @@ const user = useAppSelector(getAuthUser)
       )}
       
       {/* <CustomerViewed /> */}
-      {user && isAuthenticated && (<Recentlyviewed />)}
+      {authUser && isAuthenticated && (<Recentlyviewed />)}
  
       </Row>
     </Container> 

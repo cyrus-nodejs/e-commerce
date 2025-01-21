@@ -3,26 +3,24 @@ import {Col, Image, Button,  } from "react-bootstrap"
 import { FavoriteContext } from "../../../Context/wishlist";
 import { useContext, useState} from 'react'
 import { Link } from "react-router-dom";
+
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import { useAppDispatch, useAppSelector } from "../../../redux/app/hook";
+import { useAppDispatch,  } from "../../../redux/app/hook";
 import { fetchAddCart } from "../../../redux/features/cart/cartSlice";
-import { fetchAddRecentlyViewed, fetchDeleteItem } from "../../../redux/features/items/itemSlice";
+import { fetchAddRecentlyViewed} from "../../../redux/features/items/itemSlice";
 import { ITEM } from "../../../utils/@types";
 import '../Home.css'
-import { useEffect } from "react";
-import { getAuthUser } from "../../../redux/features/auth/authSlice";
-import { fetchAsyncUser } from "../../../redux/features/auth/authSlice";
+
+
+
 const Product = ({product}: { product: ITEM }) => {
 const dispatch = useAppDispatch()
     const [hidden, setHidden] = useState(false);
-    const authUser = useAppSelector(getAuthUser)
-   const {addTofavorite} = useContext(FavoriteContext)
+   
+   const {addTofavorite, state} = useContext(FavoriteContext)
 
-   useEffect(() =>{
-    dispatch(fetchAsyncUser())
-      }, [dispatch])
- 
+  
   
   return (
       
@@ -81,7 +79,7 @@ const dispatch = useAppDispatch()
 </div>
 <div className=" text-primary fw-medium"> {product.title.substring(0, 25)}</div>
 <div className=" d-inline-flex gap-1 text-dark fs-6"> {product.rating}{product.review}</div>
-<div className=" fw-bold"> ${product.price} </div>
+<div className=" fw-bold"> {state.currency}{product.price} </div>
 
 </div>
 
@@ -91,14 +89,9 @@ const dispatch = useAppDispatch()
       
    
 
-   {authUser?.role === 'customer'  && ( <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(product))}   className="d-block" variant="dark">Add to cart</Button></div> )}  
+   <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(product))}   className="d-block" variant="dark">Add to cart</Button></div> 
   
-   {authUser?.role === 'reseller'  && ( <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(product))}   className="d-block" variant="dark">Add to cart</Button></div> )}  
-     
-   {authUser?.role === 'admin' &&  (    <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchDeleteItem(product))}   className="d-block" variant="dark">Delete Item</Button></div> )}   
-       
-       
-   {authUser?.role === 'customer service' &&  (    <div className="text-center d-grid gap-2"><Link to={`/update/item/${product._id}`}><Button size="sm"   className="d-block" variant="dark">Update Item</Button></Link></div> )}   
+   
        
 
        

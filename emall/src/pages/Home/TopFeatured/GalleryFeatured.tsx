@@ -1,8 +1,8 @@
 
 import { Row, Image, Col } from "react-bootstrap";
 import '../Home.css'
-import {  useEffect  } from "react";
-
+import {  useEffect, useContext  } from "react";
+import { FavoriteContext } from "../../../Context/wishlist";
 import { Link } from "react-router-dom";
 import { ITEM } from "../../../utils/@types";
 
@@ -11,7 +11,7 @@ import { ITEM } from "../../../utils/@types";
 const GalleryFeatured = () => {
   const dispatch = useAppDispatch()
   const topFeaturedGallery = useAppSelector(getTopFeaturedGallery)
-
+const {state} = useContext(FavoriteContext)
     useEffect(() =>{
       dispatch(fetchTopFeaturedGallery())
       
@@ -34,7 +34,7 @@ const GalleryFeatured = () => {
             {/* <div className="d-inline-flex gap-1 text-dark fs-6">{item.rasting}</div> */}
             <div className="d-flex">
   {/* <div className="p-2 flex-fill fw-medium">${item.newprice} <span className="ms-1 text-decoration-line-through text-secondary">{item.price}</span></div> */}
-  <div className="p-2 flex-fill text-danger fs-5 fw-medium">${item.newprice}<span className="text-secondary mx-2 fw-normal text-secondary text-decoration-line-through">${item.price}</span></div>
+  <div className="p-2 flex-fill text-danger fs-5 fw-medium">{state.currency}{item.newprice}<span className="text-secondary mx-2 fw-normal text-secondary text-decoration-line-through">{state.currency}{item.price}</span></div>
 </div> 
  {item.discount && (<div className="top-left  fw-bold rounded-1 px-2 text-light bg-success">{item.discount}%</div>)}
             

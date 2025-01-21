@@ -3,7 +3,7 @@
 import {Container, Row, Col,  Button, Form, Image , Table} from "react-bootstrap"
 import { ITEM } from "../utils/@types"
 
-import  { useState,  useEffect} from 'react'
+
 import Navbar from "../components/Navbar/Navbar"
  import { Link } from "react-router-dom"
 
@@ -15,6 +15,9 @@ import {
 
 import { useAppSelector, useAppDispatch } from "../redux/app/hook"
 import { getAddress, fetchCreateAddress } from "../redux/features/address/addressSlice"
+import {  useEffect, useState, useContext  } from "react";
+import { FavoriteContext } from "../../src/Context/wishlist"
+import { fetchAddress } from "../redux/features/address/addressSlice"
 import {  fetchDeleteFromCart, getCartItems, fetchClearCart, 
   fetchReduceCartQTY, fetchAddCartQty, getCartBills,   } from "../redux/features/cart/cartSlice"
 import { addGiftWrap } from "../redux/features/order/orderSlice"
@@ -34,6 +37,7 @@ const gift = useAppSelector(getGift)
 // const clientSecret = useAppSelector(getClientSecret)
 const shipping = useAppSelector(getShipping)
 const updateUser = useAppSelector(getAuthUser)
+const {state} = useContext(FavoriteContext)
 
 
   
@@ -47,14 +51,14 @@ const updateUser = useAppSelector(getAuthUser)
  console.log(date.toDateString())
   
     const [country, setCountry] = useState<string>('');
-    const [state, setState] = useState<string>('');
+    const [State, setState] = useState<string>('');
     const [city, setCity] = useState<string>();
     const [isLoading, setLoading] = useState(false);
     
    
     const { cityList, stateList, countryList } = useGetCountry({
       country,
-      state,
+      State,
       city,
     });
 
@@ -83,7 +87,10 @@ const updateUser = useAppSelector(getAuthUser)
     };
 
 
- 
+    useEffect(() => {
+     dispatch(fetchAddress())
+    }, [dispatch]);
+       console.log(destination)
 
     
     
@@ -104,9 +111,11 @@ setData({...data, [e.target.name] : e.target.value})
   const province = data.city
   const postalcode = data.postalcode
   
-  
+  useEffect(() => {
+    
+  }, []);
  
-
+console.log(destination)
 
  useEffect(() => {
   function simulateNetworkRequest() {
@@ -302,7 +311,7 @@ setData({...data, [e.target.name] : e.target.value})
   <div className="p-2 flex-fill">
   <div className="d-flex flex-column mb-3">
   <div className="p-2"><p className="text-primary fw-medium">{item.title}</p></div>
-  <div className="p-2"><p className="text-gray-600">${item.price}</p></div>
+  <div className="p-2"><p className="text-gray-600">{state.currency}{item.price}</p></div>
    </div>  </div>   </div>
           </td>
           <td>
@@ -353,7 +362,7 @@ setData({...data, [e.target.name] : e.target.value})
       {isLoading ? 'Loading…' : 'ADD GIFT WRAP'}
       </Button>
       <div><i className='bx bx-gift'></i> Do you want a gift wrap?
-      Only $3.00</div>
+      Only {state.currency}3.00</div>
       </div>
       
 </div>
@@ -406,13 +415,13 @@ Arriving at {destination?.address} {destination?.province} between {date.toDateS
   <div className="p-2">
   <div className="d-flex ">
   <div className="p-2 fw-bold">Delivery Fees:</div>
-  <div className="ms-auto p-2 fw-bold">${shipping}</div>
+  <div className="ms-auto p-2 fw-bold">{state.currency}{shipping}</div>
   </div>
   </div>
   <div className="p-2">
   <div className="d-flex ">
   <div className="p-2 fw-bold">Item total({cartItems?.length}):</div>
-  <div className="ms-auto p-2 fw-bold">${cartBills}</div>
+  <div className="ms-auto p-2 fw-bold">{state.currency}{cartBills}</div>
 </div>
   </div>
   <div className="p-2">
@@ -420,7 +429,7 @@ Arriving at {destination?.address} {destination?.province} between {date.toDateS
     <div className="d-flex ">
   <div className="p-2 fw-bold">Gift wrap:
   </div>
-  <div className="ms-auto p-2 fw-bold">${gift}</div>
+  <div className="ms-auto p-2 fw-bold">{state.currency}{gift}</div>
 </div>) : (null) }
   </div>
   {cartItems?.length > 0 ? (
@@ -428,14 +437,14 @@ Arriving at {destination?.address} {destination?.province} between {date.toDateS
     <div className="d-flex mb-3">
   <div className="p-2 fw-bold">Total:
   </div>
-  <div className="ms-auto p-2 fw-bold">${  gift + shipping + cartBills }</div></div>
+  <div className="ms-auto p-2 fw-bold">{state.currency}{  gift + shipping + cartBills }</div></div>
     </div>
   
     
   ): (<div className="p-2">
     <div className="d-flex mb-3">
     <div className="p-2"> Total:</div>
-    <div className="ms-auto text-success p-2 fw-medium">$0</div>
+    <div className="ms-auto text-success p-2 fw-medium">{state.currency}0</div>
   </div>
     </div>) }
   

@@ -78,7 +78,7 @@ export interface USER {
   lastname:string,
   token:string,
   username: string,
-  register_date: string
+  register_date: string,
   role:string,
   __v: number
 }
@@ -115,10 +115,15 @@ export type cartType = {
   export type renderType = {
     render: (arg0: RENDER) => void
   }
+  export interface CURRENCY {
+    currency:string,
+  }
   export type favoriteType = {
     favoriteItems:ITEM,
     deleteFromfavorite:(arg0: ITEM) => void,
     addTofavorite:(arg0: ITEM) => void,
+    state:CURRENCY
+    setState:React.Dispatch<React.SetStateAction<CURRENCY>>
   };
 
 

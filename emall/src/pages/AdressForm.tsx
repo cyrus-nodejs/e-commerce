@@ -5,7 +5,7 @@ import {Container, Row, Col,  Button, Form, } from "react-bootstrap"
 
 import  { useState,  useEffect} from 'react'
 import Navbar from "../components/Navbar/Navbar"
- import { Link } from "react-router-dom"
+import { fetchAddress } from "../redux/features/address/addressSlice";
 
 import { useGetCountry } from 'react-country-list';
 import {
@@ -13,23 +13,17 @@ import {
 
 } from 'react';
 
-import { getCartBills, getCartItems } from "../redux/features/cart/cartSlice"
+
 import { getAddress, fetchUpdateAddress } from "../redux/features/address/addressSlice"
-import { getShipping } from "../redux/features/order/orderSlice"
 
 import { useAppSelector, useAppDispatch } from "../redux/app/hook"
 const AddressForm = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  let biodata;
+  
   const dispatch = useAppDispatch()
 
   const destination  = useAppSelector(getAddress)
   
-  const cartBills  = useAppSelector(getCartBills)
-  const cartItems = useAppSelector(getCartItems)
-  const shipping = useAppSelector(getShipping)
-  
-    
+ 
 
     const [country, setCountry] = useState<string>('');
     const [state, setState] = useState<string>('');
@@ -43,6 +37,13 @@ const AddressForm = () => {
     });
 
     
+    useEffect(() => {
+      dispatch(fetchAddress())
+      setData(destination)
+     }, [destination, dispatch]);
+        console.log(destination)
+ 
+     
     const [data, setData] = useState({
       firstname:"",
       lastname:"",
@@ -74,20 +75,44 @@ const AddressForm = () => {
  // eslint-disable-next-line @typescript-eslint/no-explicit-any
  const handleChange = (e: { preventDefault: () => void; target: { name: any; value: any } }) => {
 e.preventDefault();
-setData({...data, [e.target.name] : e.target.value})
+// setData({...data, [e.target.name] : e.target.value})
+setData((prevState)=>({...prevState, [e.target.name] : e.target.value}))
  }
-  const firstname =  data.firstname
-  const lastname =  data.lastname
-  const mobile = data.mobile
-  const mobile2 = data.mobile2
-  const address =  data.address
-  const ordernote = data.ordernote
-  const nation =  data.country
-  const region =  data.region
-  const province = data.city
-  const postalcode = data.postalcode
-  
-  
+
+ 
+ const handleSubmit = async (e: { preventDefault: () => void; }) => {
+  e.preventDefault();
+ 
+  setLoading(true)
+ 
+ 
+ 
+  const formData = new FormData;
+  formData.append("firstname", data.firstname)
+  formData.append("lastname", data.lastname)
+    formData.append("mobile", data.mobile);
+ formData.append("mobile2", data.mobile2)
+   formData.append("address", data.address)
+   formData.append("ordernote", data.ordernote)
+      formData.append("region",  data.region)
+      formData.append("postalcode", data.postalcode)
+     
+      
+     
+dispatch(fetchUpdateAddress(formData))
+  .then(response => {
+    alert(response)
+    alert("Item saved successfully!")
+  })
+  .catch(err =>{
+    console.log(err)
+    alert('Not saved!')
+  })
+}
+
+ 
+
+
 
  useEffect(() => {
   function simulateNetworkRequest() {
@@ -116,23 +141,23 @@ setData({...data, [e.target.name] : e.target.value})
     
     <Form.Group as={Col} controlId="formGridEmail">
       <Form.Label>Firstname</Form.Label>
-      <Form.Control onChange={handleChange} type="text" name="firstname" placeholder={destination?.firstname}    />
+      <Form.Control required  onChange={handleChange} type="text" name="firstname" placeholder={destination?.firstname}    />
     </Form.Group>
 
     <Form.Group as={Col} controlId="formGridPassword">
       <Form.Label>Lastname</Form.Label>
-      <Form.Control  onChange={handleChange} type="text" name="lastname" placeholder={destination?.lastname} />
+      <Form.Control required   onChange={handleChange} type="text" name="lastname" placeholder={destination?.lastname} />
     </Form.Group>
   </Row>
   <Row className="mb-3">
   <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
     <Form.Label>Mobile</Form.Label>
-    <Form.Control  onChange={handleChange} name="mobile" placeholder={destination?.mobile} />
+    <Form.Control required  onChange={handleChange} name="mobile" placeholder={destination?.mobile} />
   </Form.Group>
 
   <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
     <Form.Label>Additional Mobile</Form.Label>
-    <Form.Control  onChange={handleChange} name="mobile2" placeholder={destination?.mobile2} />
+    <Form.Control required  onChange={handleChange} name="mobile2" placeholder={destination?.mobile2} />
   </Form.Group>
   </Row>
   
@@ -207,25 +232,24 @@ setData({...data, [e.target.name] : e.target.value})
   <Row className="mb-3">
   <Form.Group as={Col} className="mb-3" controlId="exampleForm.ControlInput1">
     <Form.Label>Zip/Postal Code</Form.Label>
-    <Form.Control onChange={handleChange}  type="text" name="postalcode" className="shadow-none" placeholder={destination?.postalcode} />
+    <Form.Control onChange={handleChange} required  type="text" name="postalcode" className="shadow-none" placeholder={destination?.postalcode} />
   </Form.Group>
   <Form.Group as={Col} className="mb-3" controlId="formGridAddress2">
     <Form.Label>Address </Form.Label>
-    <Form.Control onChange={handleChange}  name="address" placeholder={destination?.address} />
+    <Form.Control onChange={handleChange} required  name="address" placeholder={destination?.address} />
   </Form.Group>
   </Row>
 
 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
     <Form.Label>Additional Information</Form.Label>
-    <Form.Control onChange={handleChange}  name="ordernote" as="textarea" className="shadow-none" placeholder={destination?.ordernote} rows={4} />
+    <Form.Control onChange={handleChange} required  name="ordernote" as="textarea" className="shadow-none" placeholder={destination?.ordernote} rows={4} />
   </Form.Group>
 
 
   <div className="d-flex">
     <div className="ms-auto p-2" >
-  <Button onClick={() => dispatch(fetchUpdateAddress(biodata={firstname,
-        lastname, mobile, mobile2, address,ordernote,nation,province,region, postalcode}))} variant="dark"    type="submit">
-  {isLoading ? 'Loading…' : 'Save'}
+  <Button onClick={handleSubmit} variant="dark"    type="submit">
+  {isLoading ? 'Loading…' : 'Update Address'}
   </Button>
   </div>
   </div> 
@@ -236,64 +260,7 @@ setData({...data, [e.target.name] : e.target.value})
     
        
         </Col>
-        <Col sm={3} className="">
-        <div className="d-flex flex-column mb-3 border border-info p-3">
-          <p>Order Summary</p>
-
-
-  <div className="p-2">
-  <div className="d-flex mb-3">
-  <div className="p-2 fw-bold">Item total({cartItems?.length}):
-  </div>
-  <div className="ms-auto p-2 fw-bold">${cartBills}</div>
-</div>
-  </div>
-  
-  
-  
-  {cartItems?.length > 0 && (
-    <div className="d-grid gap-2 p-2">
-    <div className="d-flex mb-3">
-  <div className="p-2 fw-bold">Delivery Fees:
-  </div>
-  <div className="ms-auto p-2 fw-bold">${shipping}</div></div>
-    </div>
-  
-    
-  ) }
-  </div>
-  <div className="p-2">
-  
-  </div>
-
-  <div className="d-flex mb-3">
-  <div className="p-2"> Total:</div>
-  <div className="ms-auto text-success p-2 fw-medium">${cartBills + shipping}</div>
-  </div>
-  <div className="p-2">Taxes and shipping calculated at checkout</div>
-  <div className="p-2">
-  <Form.Check aria-label="option 1" label="I agree with Terms & Conditions" /> 
-  </div>
-  <div className="d-grid gap-2 p-2">
-      <Button variant="dark" className="shadow-none rounded-1" size="lg"  type="submit" >
-      <Link to="/cart" className="text-decoration-none text-light">
-       Confirm Order
-       </Link>
-      </Button>
-      
-    </div>
-  
-
-        <div className="d-flex mb-3">
-        
- 
-  
-</div>
-<div className="p-2">
-
-    </div>
-  
-        </Col>
+       
       </Row>
      
     </Container> 

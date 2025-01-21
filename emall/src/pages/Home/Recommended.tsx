@@ -1,6 +1,7 @@
 
 import { Row, Image, Button,  } from "react-bootstrap"
-import { useEffect } from "react";
+import {  useEffect, useContext  } from "react";
+import { FavoriteContext } from "../../Context/wishlist";
 import { ITEM } from "../../utils/@types";
 
 import { Link } from "react-router-dom";
@@ -11,14 +12,14 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useAppSelector, useAppDispatch } from "../../redux/app/hook";
-import { getRecommended, fetchRecommended, fetchDeleteItem } from "../../redux/features/items/itemSlice";
+import { getRecommended, fetchRecommended } from "../../redux/features/items/itemSlice";
 import { fetchAddRecentlyViewed } from "../../redux/features/items/itemSlice";
 import { fetchAddCart } from "../../redux/features/cart/cartSlice";
-import { getAuthUser, fetchAsyncUser } from "../../redux/features/auth/authSlice";
+// import { getAuthUser, fetchAsyncUser } from "../../redux/features/auth/authSlice";
 const Recommended = () => {
 const dispatch = useAppDispatch()
 const recommended = useAppSelector(getRecommended)
-const authUser = useAppSelector(getAuthUser)
+const {state} = useContext(FavoriteContext)
   const settings = {
     infinite: false,
     speed: 0,
@@ -85,10 +86,10 @@ const authUser = useAppSelector(getAuthUser)
   
     }, [dispatch])
     
-    useEffect(() =>{
-      dispatch(fetchAsyncUser())
+    // useEffect(() =>{
+    //   dispatch(fetchAsyncUser())
       
-        }, [dispatch])
+    //     }, [dispatch])
         
   return (
     
@@ -108,20 +109,12 @@ const authUser = useAppSelector(getAuthUser)
         <div className="d-flex flex-column ">
          <div className="text-primary fw-medium">{items.title.substring(0, 25)}</div>
         {/* <div className="d-inline-flex gap-1 text-dark fs-6">{items.rating}{items.review}</div> */}
-        <div className="fw-bold ">${items.price}</div> 
+        <div className="fw-bold ">{state.currency}{items.price}</div> 
         <div className="top-left  fw-bold rounded-1 px-2 text-light bg-info ">{items.status}</div> 
        {/* < div className="top-left  fw-bold rounded-1 px-2 text-light bg-success ">{items.discount}</div>  */}
          
-         {/* <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div>  */}
-         {authUser?.role === 'customer'  && ( <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div> )}  
-  
-  {authUser?.role === 'reseller'  && ( <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div> )}  
-    
-  {authUser?.role === 'admin' &&  (    <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchDeleteItem(items))}   className="d-block" variant="dark">Delete Item</Button></div> )}   
-      
-      
-  {authUser?.role === 'customer service' &&  (    <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Update Item</Button></div> )}   
-         </div>
+          <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div>  
+      </div>
          
          </Row>
          )

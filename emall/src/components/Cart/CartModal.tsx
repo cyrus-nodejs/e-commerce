@@ -6,12 +6,12 @@ import {  Image, Button } from 'react-bootstrap'
 
 import { Link } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from "../../redux/app/hook";
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import {fetchCart,  fetchDeleteFromCart, fetchAddCartQty, fetchReduceCartQTY, fetchClearCart, getCartItems, getCartBills } from "../../redux/features/cart/cartSlice";
-
+import { FavoriteContext } from '../../Context/wishlist';
 
 const CartModal = () => {
-   
+  const {state} = useContext(FavoriteContext)
   const dispatch = useAppDispatch()
   const cartItems= useAppSelector(getCartItems)
   const cartBills= useAppSelector(getCartBills)
@@ -37,7 +37,7 @@ const CartModal = () => {
   <div className="p-2 flex-fill">
   <div className="d-flex flex-column mb-3">
   <div className="p-2"><h6 className="text-primary fw-medium">{item.title}</h6></div>
-  <div className="p-2"><p className="text-gray-600">${item.price}</p></div>
+  <div className="p-2"><p className="text-gray-600">{state.currency}{item.price}</p></div>
   <div className="p-2"><div className="d-flex">
   <div className="p-2 flex-fill"><Button
               className="border "

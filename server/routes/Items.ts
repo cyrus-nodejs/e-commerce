@@ -30,11 +30,8 @@ router.get("/getitem/:id",  getItembyId );
 router.get("/allitems", getAllItems);
 
 
-router.post("/add/item", userAuthorization, verifyRole(['customer service']), upload.single("image"), addItem);
+router.post("/add/item", userAuthorization, verifyRole(['reseller']), upload.single("image"), addItem);
 router.post("/addviewed", userAuthorization,  addViewedItem  );
-router.put("/update/item/:id", userAuthorization, verifyRole([' customer service']), updateItem);
-router.delete("/delete/item/:id", userAuthorization, verifyRole(['admin']),  deleteItem);
-
 
 
 

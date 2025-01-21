@@ -1,5 +1,5 @@
 import "../Home/Home.css"
-import { Container,   } from "react-bootstrap"
+import { Container   } from "react-bootstrap"
 import Banner from "./Banner"
 import TrendingProduct from "./Trending/TrendingProduct"
 import Categories from "./Category/Categories"
@@ -15,17 +15,21 @@ import Clearance from "./Clearance"
 import { useEffect } from "react"
 
 const Home = () => {
+  
+  
   const dispatch = useAppDispatch()
   const user = useAppSelector(getAuthUser)
   const isAuthenticated = useAppSelector(getIsAuthenticated)
   console.log(user)
   console.log(isAuthenticated)
+
   useEffect(() =>{
     dispatch(fetchAsyncUser())
     
       }, [dispatch])
   return (
     <Container className="home  " fluid >
+      
 
       <div className="px-3">
           <Navbar />

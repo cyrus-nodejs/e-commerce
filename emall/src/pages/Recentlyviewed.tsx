@@ -1,12 +1,14 @@
  
-import { Row, Image,   } from "react-bootstrap"
+import { Row, Image, Button, Col } from "react-bootstrap"
 
 
 import { ITEM } from "../utils/@types";
+import { fetchAddCart } from "../redux/features/cart/cartSlice";
 
 import { useAppDispatch, useAppSelector } from "../redux/app/hook";
 import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
-import { useEffect } from "react";
+import {  useEffect, useContext  } from "react";
+import { FavoriteContext } from "../../src/Context/wishlist";
 import { fetchRecentlyViewed, getRecentlyViewedItem } from "../redux/features/items/itemSlice";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -16,10 +18,10 @@ const Recentlyviewed = () => {
   const dispatch = useAppDispatch()
   const recentlyViewed = useAppSelector(getRecentlyViewedItem)
   
-  const user = useAppSelector(getAuthUser)
+  const authUser = useAppSelector(getAuthUser)
     const isAuthenticated = useAppSelector(getIsAuthenticated)
     
-   
+   const {state} = useContext(FavoriteContext)
     useEffect(() =>{
       dispatch(fetchAsyncUser())
       
@@ -37,7 +39,7 @@ const Recentlyviewed = () => {
            
            
       <Row  className='' >
-         {user && isAuthenticated && (
+         {authUser && isAuthenticated && (
           <div>
            <div>
            <div className="d-inline-flex p-2 fs-4 border-info  border-bottom">Recently Viewed</div>
@@ -46,11 +48,11 @@ const Recentlyviewed = () => {
              {/* <div  className="slider-container">
            <Slider   {...settings}>   */}
            <div className="">
-            <div className="row">
+            <div className="">
 
-            {recentlyViewed && recentlyViewed.length > 0 ? (<div> {recentlyViewed?.reverse().map((items:ITEM, id) =>{
+      <div className="row"> {recentlyViewed?.map((items:ITEM, id) =>{
           return (
-            <Row key={id} className=" d-flex  flex-column position-relative  mb-3" style={{width:"200px", }}>
+            <Col key={id} className=" d-flex  flex-column position-relative  mb-3" style={{width:"200px", }}>
              <Link  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> 
            
              <Image  src={items.image} width="150px" height="200px"  className="" />
@@ -58,17 +60,20 @@ const Recentlyviewed = () => {
              <div className="d-flex flex-column ">
               <div className="text-primary text-truncate fw-medium">{items.title}</div>
              {/* <div className="d-inline-flex gap-1 text-dark fs-6">{items.rating}{items.review}</div> */}
-             <div className="fw-bold ">${items.price}</div> 
+             <div className="fw-bold ">{state.currency}{items.price}</div> 
              <div className="top-left  fw-bold rounded-1 px-2 text-light bg-info ">{items.discount ? (<div>-{items.discount}%</div>) : (<div></div>)}</div> 
              
              {/* < div className="top-left  fw-bold rounded-1 px-2 text-light bg-success ">{items.discount}</div>   */}
             
               {/* <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => addToCart(items)}   className="d-block" variant="dark">Add to cart</Button></div>  */}
+              <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div> 
+  
+  
               </div>
               
-              </Row>
+              </Col>
               )
-       })}</div>) : ('')}
+       })}</div> 
             
       
        </div>

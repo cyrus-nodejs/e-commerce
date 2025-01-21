@@ -72,127 +72,7 @@ errorElement: <ErrorPage />
 path: `/register`,
 element: <Register   />,
 errorElement: <ErrorPage />
-},
-
-{
-path: `/addreseller`,
-element: <AssignReseller   />,
-errorElement: <ErrorPage />
-},
-
-{
-path: `/addadmin`,
-element: <AssignAdmin   />,
-errorElement: <ErrorPage />
-},
-
-{
-path: `/addcustomerservice`,
-element: <AssignCustomerService   />,
-errorElement: <ErrorPage />
-},
-
-{
-path: `/login`,
-element: <Login   />,
-errorElement: <ErrorPage />
-},
-
-{
-path: `/wishlist`,
-element: <Wishlist  />,
-errorElement: <ErrorPage />
-},
-
-{  
- path: `/additem`,
-element:<Additem /> ,
-errorElement: <ErrorPage />
-},
-
-{
-path: "/category/:id",
-element: <Category   />,
-errorElement: <ErrorPage />
-},
-
-{  
- path: `/payment`,
-element:<Payment   /> ,
-errorElement: <ErrorPage />
-},
-
-{  
- path: `/completion`,
-element:<Completion    /> ,
-errorElement: <ErrorPage />
-},
-
-{
-path: `/cart`,
-element: <Cart  />,
-errorElement: <ErrorPage />
-},
-
-{  
- path: `/update/item/:id`,
-element:<UpdateItem /> ,
-errorElement: <ErrorPage />
-},
-
-{  
- path: `/orderdetails/:id`,
-element:<OrderDetails  /> ,
-errorElement: <ErrorPage />
-},
-
-{  
- path: `/orderinvoice`,
-element:<OrderInvoice  /> ,
-errorElement: <ErrorPage />
-},
-
-{  
- path: `/orders`,
-element:<Order  /> ,
-errorElement: <ErrorPage />
-},
-
-{  
- path: `/editaddress`,
-element:<AddressForm   /> ,
-errorElement: <ErrorPage />
-},
-
-{
-path: "/product/:id",
-element: <Productdetails     />,
-errorElement: <ErrorPage />
-},
-
-{
-path: "/retrievepayment",
-element: < RetrievePayment />,
-errorElement: <ErrorPage />
-},
-
-{
-path: "/forgotpassword",
-element: < ForgotPassword />,
-errorElement: <ErrorPage />
-},
-
-{
-path: `/resetpassword/:id`,
-element: < ResetPassword />,
-errorElement: <ErrorPage />
-},
-
-{
-path: "/updatepassword",
-element: < UpdatePassword />,
-errorElement: <ErrorPage />
-},
+}...
 
 ])
 );
@@ -246,58 +126,7 @@ state.status = 'pending'
       .addCase(fetchAddCart.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message;
-      })
-      .addCase(fetchReduceCartQTY.pending, (state) => {
-        state.status = 'pending'
-        })
-        .addCase(fetchReduceCartQTY.fulfilled, (state, action) => {
-             state.message = action.payload.message
-      state.status = 'succeeded'
-
-
-        })
-        .addCase(fetchReduceCartQTY.rejected, (state, action) => {
-          state.status = 'failed'
-          state.error = action.error.message;
-        })
-        .addCase(fetchAddCartQty.pending, (state) => {
-      state.status = 'pending'
-
-      })
-      .addCase(fetchAddCartQty.fulfilled, (state, action) => {
-        state.status = 'succeeded'
-        state.message= action.payload.message
-      })
-      .addCase(fetchAddCartQty.rejected, (state, action) => {
-        state.status = 'failed'
-        state.error = action.error.message;
-      })
-      .addCase(fetchDeleteFromCart.pending, (state) => {
-        state.status = 'pending'
-        })
-        .addCase(fetchDeleteFromCart.fulfilled, (state, action) => {
-          state.status = 'succeeded'
-
-          state.message = action.payload.message
-        })
-        .addCase(fetchDeleteFromCart.rejected, (state, action) => {
-          state.status = 'failed'
-          state.error = action.error.message;
-
-
-        })
-        .addCase(fetchClearCart.pending, (state) => {
-          state.status = 'pending'
-          })
-          .addCase(fetchClearCart.fulfilled, (state, action) => {
-            state.status = 'succeeded'
-            state.message= action.payload.message
-          })
-          .addCase(fetchClearCart.rejected, (state, action) => {
-            state.status = 'failed'
-            state.error = action.error.message;
-
-          })
+      })...
 
 },
 })
@@ -323,31 +152,19 @@ state.status = 'pending'
     category:{type:String,required:true,},price:{type:Number, required:true,},
     newprice:{ type:Number, required:true,},
     status:{ type:String,},review:{type:Number},
-    rating:{type:Number, },
-    discount:{type:Number,},
-    unit: {type:Number,default:1,} ,
-    quantity: {type:Number, default:1} ,
-    image:{type:String, required:true, unique:true,},
-    trending:{type:Boolean,required:true,},
-    recommended:{type:Boolean, required:true,},
-    topfeatured:{type:Boolean,required:true,},
-    topdeals:{type:Boolean,},
-    date_added:{type:Date,default:Date.now},
+    rating:{type:Number, }...
     })
 
 export const Item:any = mongoose.model("Item", ItemSchema);
 
 Authentication & Authorization Middleware
-
 Passport-mongoose-local is used for session authentication
-
-JWT is used to protect routes.
+JWT is used to protect routes(Authorization).
 Admin routes are protected with a VERIFYROLE middleware that checks if the user is an admin.
 
+copy
 //Verify User Role
-
 export const verifyRole = (roles: string | any[]) => {
-
 return (req:any, res:any, next:any) => {
 if (!roles.includes(req.user?.role)) {
 return res.json({success:false, message: `Access denied. ${req.user.role } access level required!` });
@@ -359,7 +176,6 @@ next()
 //Authorize Users
 
 export const userAuthorization = (req:Request, res:Response,next:NextFunction) => {
-
 const eToken = req.cookies.eToken
 console.log(`verifytoken => ${eToken}`)
 if (!eToken){
@@ -378,21 +194,21 @@ next()
 6.  Admin Panel
 
     The admin panel allows the admin user to manage the e-commerce application:
-
     Product Management: Add, edit, or remove products.
     Order Management: View and manage customer orders.
     User Management: View all users and their details.
+
     Admin Routes
-    POST /api/additem: Add a new product.
-    PUT /api/update/item/:id: Update an existing product.
-    DELETE /api/delete/item/:id: Delete a product.
+    POST /api/admin/add/item: Add a new product.
+    PUT /api/admin/update/item/:id: Update an existing product.
+    DELETE /api/admin/delete/item/:id: Delete a product.
 
 7.  Authentication & Authorization
 
         User Registration:
         Collect user information like email, password, and role.
         Hash the password using passpor-local-mongoose and save the user in the database.
-        js
+
 
         const UserSchema = new Schema({
 
@@ -456,18 +272,12 @@ console.log(error)
     We will integrate Stripe to handle payments.
     Install Stripe package:
 
-bash
 Copy
 npm install stripe
-
 Backend Route for Stripe Payment:
-js
-Copy
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-
 app.post('/api/create-payment-intent', async (req, res) => {
-
 const owner = req.user?.id
 const {gift, shipping, cartBills} = req.body
 try{
@@ -513,12 +323,17 @@ res.json({success:false, message:"Something went wrong"})
 
 Frontend Deployment:
 You can deploy the frontend using platforms like Netlify or Vercel.
+
 Backend Deployment:
 Deploy the backend on platforms like Render, Digital DigitalOcean, or AWS.
-Use MongoDB Atlas for hosting the MongoDB database. 10. Conclusion
-This MERN-based e-commerce application provides a solid foundation for building an online store with essential features like cart management, payment processing, and admin privileges. By following this documentation, you can easily expand and customize the application to fit your business needs.
+
+Use MongoDB Atlas for hosting the MongoDB database.
+
+10. Conclusion
+    This MERN-based e-commerce application provides a solid foundation for building an online store with essential features like cart management, payment processing, and admin privileges. By following this documentation, you can easily expand and customize the application to fit your business needs.
 
 Feel free to ask if you need further clarification or additional features!
+
 PREREQUISITES
 Node.js ( version v21.1.0 or later )
 MongoDB installed and running locally
@@ -529,7 +344,24 @@ Backend: http://localhost:3000
 Frontend: http://localhost:5173
 Bonus
 
+<!-- s -->
+
+Test Login credentials
+
+ADMIN LOGIN TEST DETAILS
+admin level
+login: Admin@gmail.com
+password: Admin123
+
+customer service admin level
+login customerservice@gmail.com
+password: customerservice123
+
+NON ADMIN LOGIN TEST DETAILS
+Login : customer@gmail.com
+password: Customer123
+
 Don't forget to star the repository and share your feedback!✨
 
 Author
-@cyrus
+@King_Cyrus

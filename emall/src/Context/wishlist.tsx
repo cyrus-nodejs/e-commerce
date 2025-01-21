@@ -5,7 +5,10 @@ export const FavoriteContext = createContext<favoriteType  >(null!)
 
 export const FavoriteProvider = ({ children}:{ children: React.ReactNode } ) => {
   const [favoriteItems, setFavoriteItems] = useState(localStorage.getItem('favoriteItems') ? JSON.parse(localStorage.getItem('favoriteItems') || '') : [])
-
+  const [state, setState] = useState({
+    currency:"$",
+  })
+    
   const addTofavorite = (item:ITEM) => {
     const isItemInfavorite = favoriteItems.find((favoriteItem:ITEM) => favoriteItem._id === item._id);
 
@@ -70,6 +73,8 @@ export const FavoriteProvider = ({ children}:{ children: React.ReactNode } ) => 
         favoriteItems,
         deleteFromfavorite,
         addTofavorite,
+        state,
+        setState
       }}
     >
       {children}

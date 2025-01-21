@@ -7,6 +7,7 @@ import cartReducer from "../features/cart/cartSlice"
 import checkoutReducer from "../features/checkout/checkoutSlice"
 import itemsReducer from "../features/items/itemSlice"
 import orderReducer from "../features/order/orderSlice"
+import adminReducer from "../features/admin/adminSlice"
 
 
 
@@ -17,7 +18,8 @@ export const store = configureStore({
     cart:cartReducer,
     checkout:checkoutReducer,
     items:itemsReducer,
-    order:orderReducer
+    order:orderReducer,
+    admin:adminReducer,
    
   }
 })
