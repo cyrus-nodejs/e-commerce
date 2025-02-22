@@ -29,7 +29,6 @@ function AdminDashboard () {
     const allorders = useAppSelector(getAdminAllOrders)
     const alladmins = useAppSelector(getAdminAllAdmins)
     const allresellers = useAppSelector(getAdminAllResellers)
-
 const allAdmins = useAppSelector(getAdminAllAdmins)
  const isAuthenticated = useAppSelector(getIsAuthenticated)
 const authUser =  useAppSelector(getAuthUser)

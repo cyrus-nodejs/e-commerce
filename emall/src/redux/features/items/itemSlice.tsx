@@ -244,6 +244,26 @@ state.message = action.payload.message
 state.status = 'failed'
 state.error = action.error.message;
 })
+builder.addCase(fetchAddItem.pending, (state) => {
+  state.status = 'pending'
+  })
+  .addCase(fetchAddItem.fulfilled, (state, action) => {
+  state.message = action.payload.message
+  })
+  .addCase(fetchAddItem.rejected, (state, action) => {
+  state.status = 'failed'
+  state.error = action.error.message;
+  })
+  builder.addCase(fetchAdminAddItem.pending, (state) => {
+    state.status = 'pending'
+    })
+    .addCase(fetchAdminAddItem.fulfilled, (state, action) => {
+    state.message = action.payload.message
+    })
+    .addCase(fetchAdminAddItem.rejected, (state, action) => {
+    state.status = 'failed'
+    state.error = action.error.message;
+    })
 builder.addCase(fetchUpdateItem.pending, (state) => {
   state.status = 'pending'
   })

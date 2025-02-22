@@ -63,7 +63,7 @@ app.get("/", (req, res)=>{
 		store: MongoStore.create({mongoUrl:process.env.MONGO_URL }),
      cookie: {
        maxAge: 24 * 60 * 60 * 1000, 
-       httpOnly: true, sameSite: "none", secure: true 
+      //  httpOnly: true, sameSite: "none", secure: true 
     },
 		saveUninitialized: false ,//required
     resave: false, //required

@@ -158,9 +158,9 @@ export const getAdminAllCustomers = (state:RootState) => state.admin.allCustomer
 export const getAdminAllCustomerService = (state:RootState) => state.admin.allCustomerServices
 export const getAdminAllResellers = (state:RootState) => state.admin.allResellers
 export const getAdminAllOrders = (state:RootState) => state.admin.allOrders
-export const getMessage =(state:RootState) => state.order.message
-export const getCheckoutror = (state:RootState) => state.order.error
-export const getCheckoutStatus = (state:RootState) => state.order.status
+export const getMessage =(state:RootState) => state.admin.message
+export const getAdminerror = (state:RootState) => state.admin.error
+export const getAdminStatus = (state:RootState) => state.admin.status
 
 
 // Export the slice reducer for use in the store configuration

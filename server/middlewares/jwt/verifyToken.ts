@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import { Request, Response, Errback, NextFunction  } from "express";
 
 //Verify User Role
-export const verifyRole = (roles) => {
+export const verifyRole = (roles: string | any[]) => {
     return (req:any, res:any, next:any) => {
       if (!roles.includes(req.user?.role)) {
         return res.json({success:false, message: `Access denied. ${req.user.role } access level required!` });
@@ -12,6 +12,9 @@ export const verifyRole = (roles) => {
       next();
     };
   };
+
+
+  
   //Authorize Users
  export const userAuthorization = (req:Request,  res:Response, next:NextFunction) => {
     const eToken = req.cookies.eToken
