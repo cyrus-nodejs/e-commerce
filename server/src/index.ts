@@ -37,34 +37,30 @@ app.use(express.urlencoded({ extended: true }));
  app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
  
 
-
-
-  // const corsOptions = process.env.NODE_ENV === 'development' ? {
-  //   origin: process.env!.FRONTEND_URL,
-  //  credentials: true, 
-  //  optionSuccessStatus: 200,
-  //  methods: ['GET', 'PUT', 'POST', 'DELETE'],
-  
-  // } : {
-
-  //     origin: process.env!.FRONTEND_URL2,
-  //    credentials: true, 
-  //    optionSuccessStatus: 200,
-  //    methods: ['GET', 'PUT', 'POST', 'DELETE'],
-  // }
-  
-  
-  const corsOptions = {
-    origin: process.env!.FRONTEND_URL2,
-    credentials: true, 
-    optionSuccessStatus: 200,
-    methods: ['GET', 'PUT', 'POST', 'DELETE'],
-   
-  }
-  
-  
+ 
+// Example allowed origins for production
+const allowedOrigins = [process.env!.FRONTEND_URL, process.env!.FRONTEND_URL2];
+ const corsOptions = process.env.NODE_ENV !== 'development'
+  ? {
+      origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+      credentials: true, // If you're using cookies or sessions
+    }
+  : {
+      origin: true, // Allow all origins in development
+      credentials: true,
+    };
 
 app.use(cors(corsOptions));
+
+
+
+
 
  
 
