@@ -8,8 +8,9 @@ import {Elements} from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm'
 import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
 import {loadStripe} from '@stripe/stripe-js';
-import { getClientSecret, fetchConfig,  getStripePromise } from "../../redux/features/checkout/checkoutSlice";
-import OrderInvoice from "../OrderInvoice";
+import { getClientSecret, fetchConfig, getStripePromise  } from "../../redux/features/checkout/checkoutSlice";
+import OrderInvoice from "../Order/OrderInvoice";
+
 
 function Payment() {
   
@@ -17,11 +18,15 @@ const dispatch = useAppDispatch()
   const clientSecret = useAppSelector(getClientSecret)
   const stripePromise = useAppSelector(getStripePromise)
   const stripe = loadStripe(stripePromise)
-  
+  console.log(clientSecret)
   useEffect(() =>{
     dispatch(fetchConfig())
       }, [dispatch])
 
+      useEffect(() =>{
+        clientSecret
+          }, [clientSecret, dispatch])
+    
    
   return (
     <Container fluid>

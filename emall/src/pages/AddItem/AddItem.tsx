@@ -2,11 +2,11 @@
 import { useEffect, useState } from 'react';
 
 import { Form, Row, Col, Button, Container } from "react-bootstrap";
-import { useAppDispatch, useAppSelector } from "../redux/app/hook";
-import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
-import { fetchAddItem } from '../redux/features/items/itemSlice';
+import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
+import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../../redux/features/auth/authSlice';
+import { fetchAddItem } from '../../redux/features/items/itemSlice';
 
-import Navbar from '../components/Navbar/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 
 const Additem = () => {
   const  dispatch = useAppDispatch()
@@ -34,7 +34,7 @@ const Additem = () => {
           topfeatured:"",
          topdeals:"",
          discount:"",
-         status:"",
+   
         
          
    })
@@ -94,7 +94,7 @@ setState({...state, [e.target.name] : e.target.value})
         formData.append("topfeatured", state.topfeatured)
         formData.append("topdeals", state.topdeals)
         formData.append("discount", state.discount)
-        formData.append("status", state.status)
+   
         
        
       
@@ -112,7 +112,7 @@ setState({...state, [e.target.name] : e.target.value})
    
   return (
     <section className="mx-5 py-2 border ">
-      {isAuthenticated && authUser?.role === "reseller" ? ( <Container fluid>
+      {isAuthenticated && authUser?.role === "customer service" ? ( <Container fluid>
 <Navbar />
         <p className="fs-3 text-center">Upload Item</p>
      <Form encType="multipart/form-data">
@@ -155,21 +155,22 @@ setState({...state, [e.target.name] : e.target.value})
        
       */}
 
-      <Form.Group as={Col} controlId="Status">
+      {/* <Form.Group as={Col} controlId="Status">
           <Form.Label>Status</Form.Label>
           
           <Form.Control size="sm" type="text" placeholder="Status"  onChange={handleChange}  name="status"  />
         </Form.Group>
-       
-        </Row >
-     
-
-      <Row className="mb-3">
-        <Form.Group as={Col} controlId="Price">
+        */}
+         <Form.Group as={Col} controlId="Price">
           <Form.Label>Price</Form.Label>
           <Form.Control size="sm" type="text" placeholder="Price"   name="price" onChange={handleChange}  />
         </Form.Group>
 
+        </Row >
+     
+
+      <Row className="mb-3">
+       
         
         <Form.Group as={Col} controlId="Quantity">
           <Form.Label>Quantity</Form.Label>

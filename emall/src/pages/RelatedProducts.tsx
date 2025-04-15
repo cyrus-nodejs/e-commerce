@@ -1,5 +1,5 @@
 import { ITEM } from "../utils/@types";
-import { Row,Col, Image, Button,  } from "react-bootstrap"
+import { Row,Col, Button,  } from "react-bootstrap"
 import Nextrrow from "./Home/Trending/Nextrrow";
 import Previosarrow from "./Home/Trending/Previosarrow";
 import Slider from "react-slick"
@@ -7,7 +7,8 @@ import {  useEffect, useContext  } from "react";
 import { FavoriteContext } from "../../src/Context/wishlist";
 import { useAppDispatch, useAppSelector } from "../redux/app/hook";
 import { fetchAddCart } from "../redux/features/cart/cartSlice";
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
@@ -111,13 +112,13 @@ const {state} = useContext(FavoriteContext)
           <div className="d-inline-flex p-2 fs-4 border-info  border-bottom">Related Products</div>
         </div>
           
-            <div  className="slider-container m-3">
+            <div  className="slider-container ">
           <Slider   {...settings}>  
       {relatedItem.map((items:ITEM) =>{
          return (
-           <Row  className=" d-flex  flex-column position-relative  mb-3" style={{width:"200px", }}>
+           <Row  className=" d-flex  flex-column position-relative  mb-3" >
             <Link  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> 
-            <Image loading="lazy" src={items.image} width="150px" height="200px"  className="" />
+            <LazyLoadImage effect="blur" src={items.image}  style={{ width: '100%', height: 'auto' }}  className="" />
             </Link>
             <div className="d-flex flex-column ">
              <div className="text-primary fw-medium">{items.title.substring(0, 25)}</div>

@@ -1,6 +1,7 @@
 
-import { Row, Image, Button, Spinner } from "react-bootstrap"
-
+import { Row,  Button, Spinner } from "react-bootstrap"
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 
 import { ITEM } from "../../utils/@types";
@@ -46,7 +47,7 @@ const {state} = useContext(FavoriteContext)
           {
             breakpoint: 1400,
             settings: {
-              slidesToShow: 5,
+              slidesToShow: 7,
               slidesToScroll: 1,
               infinite: true,
               
@@ -88,7 +89,7 @@ const {state} = useContext(FavoriteContext)
           {
             breakpoint: 576,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 1,
               slidesToScroll: 1
             }
           }
@@ -108,14 +109,15 @@ const {state} = useContext(FavoriteContext)
   <Slider   {...settings}>  
 {clearance?.map((items:ITEM, id) =>{
  return (
-   <Row key={id} className=" d-flex  flex-column position-relative  mb-3" style={{width:"200px", }}>
-   <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items)) }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> <Image src={items.image}  width="150px" height="200px"  className=""  /></Link> 
+   <Row key={id} className=" d-flex  flex-column position-relative  mb-3" >
+   <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items)) }}  to={`/product/${items.title}`} className="text-decoration-none text-reset"> <LazyLoadImage src={items.image}   style={{ width: '100%', height: 'auto' }}   
+               effect="blur"   className=""  /></Link> 
     <div className="d-flex flex-column ">
      <div className="text-primary fw-medium">{items.title.substring(0, 25)}</div>
     {/* <div className="d-inline-flex gap-1 text-dark fs-6">{items.rating}{items.review}</div> */}
     <div className="fw-bold ">{state.currency}{items.price}</div> 
     <div className="top-left  fw-bold rounded-1 px-2 text-light bg-info ">{items.status}</div> 
-   {/* < div className="top-left  fw-bold rounded-1 px-2 text-light bg-success ">{items.discount}</div>  */}
+    < div className="top-left  fw-bold rounded-1 px-2 text-light bg-success ">-{items.discount}%</div>  
      
   
 

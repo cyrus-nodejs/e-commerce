@@ -2,7 +2,7 @@
 // @ts-nocheck
 import {Container, Row, Col,  Button, Form, } from "react-bootstrap"
 
-
+import "../index.css"
 import  { useState,  useEffect} from 'react'
 import Navbar from "../components/Navbar/Navbar"
 import { fetchAddress } from "../redux/features/address/addressSlice";
@@ -130,7 +130,7 @@ dispatch(fetchUpdateAddress(formData))
    
     <section>
       <Navbar />
-       <Container fluid>
+       <Container className='home' fluid>
 
       <Row className="px-5">
         <Col  sm={9}>

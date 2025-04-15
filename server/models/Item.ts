@@ -2,33 +2,7 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const ViewSchema = new Schema({
 
-    owner : {
-        type: String,
-         required: true,
-         ref: 'User'
-       },
-       items:{
-        type: Array,
-         ref: 'Item' 
-    },
-  });
-
-const CategorySchema = new Schema({
-    category: {
-        type:String,
-     },
-    avatar:{
-        type:String,
-     },
-     item:[{
-         type: Array,
-          ref: 'Item' 
-        }],
-    
-     
-  });
 
 const ItemSchema = new Schema({
     title:{
@@ -51,26 +25,15 @@ const ItemSchema = new Schema({
         required:true,
     },
 
-    newprice:{
-        type:Number,
-        required:true,
-    },
-   
-   
-    status:{
-        type:String,
-    
-    },
-    review:{
-        type:Number,
-        
-    },
-    rating:{
-        type:Number,
-    
-    },
+     reviews:[{
+              type: mongoose.Schema.Types.ObjectId,
+               default: [],
+               ref: 'Reviews' 
+             }],
+
     discount:{
         type:Number,
+        default:0
     },
     unit: {
         type:Number,
@@ -79,7 +42,7 @@ const ItemSchema = new Schema({
          
  quantity: {
     type:Number,
-    default:1
+    default:50
 } ,
     image:{
         type:String,
@@ -91,21 +54,25 @@ const ItemSchema = new Schema({
     trending:{
         type:Boolean,
         required:true,
+        default:false
        
     },
      recommended:{
          type:Boolean,
          required:true,
+         default:false
         
      },
     topfeatured:{
         type:Boolean,
         required:true,
+        default:false
 
     },
 
     topdeals:{
         type:Boolean,
+        default:false
     },
 
     date_added:{
@@ -115,7 +82,7 @@ const ItemSchema = new Schema({
 })
 
 export const Item:any = mongoose.model("Item", ItemSchema);
-export const Category:any = mongoose.model("Category", CategorySchema);
-export const View:any = mongoose.model("View", ViewSchema);
+
+
 
 

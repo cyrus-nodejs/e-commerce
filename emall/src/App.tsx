@@ -5,26 +5,27 @@ import {
 
 } from "react-router-dom";
 
-
-import Home from "./pages/Home/Home";
+// import Footer from "./components/Footer";
+// import Home from "./pages/Home/Home";
+import Index from "./pages/Home/Index";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import ErrorPage from "./pages/Errorpage";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
-import Cart from "./pages/Cart";
+import Cart from './pages/Cart/Cart';
 import UpdateItem from "./pages/UpdateItem";
 // import Wishlist from "./components/Wishlist/Wishlist";
-import Additem from "./pages/AddItem";
+import Additem from "./pages/AddItem/AddItem";
  import AddressForm from "./pages/AdressForm";
 import Payment from "./pages/Checkout/Payment";
 import Completion from "./pages/Checkout/Completion";
-import OrderInvoice from "./pages/OrderInvoice";
+import OrderInvoice from "./pages/Order/OrderInvoice";
 import Productdetails from "./pages/Productdetails";
 
 import Category from "./pages/Category";
-import Order from "./pages/Order";
-import OrderDetails from "./pages/orderDetails";
-import RetrievePayment from "./pages/RetrievePayment";
+import Order from "./pages/Order/Order";
+import OrderDetails from "./pages/Order/orderDetails";
+import RetrievePayment from "./pages/Checkout/RetrievePayment"
 // import UpdatePassword from "./pages/Auth/UpdatePassword";
 import ResetPassword from "./pages/Auth/ResetPassword";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
@@ -35,7 +36,7 @@ const  App = () => {
   const router = createBrowserRouter([
     {
     path: "/",
-    element: <Home  />,
+    element: <Index  />,
     errorElement: <ErrorPage />
   },
   {
@@ -157,6 +158,7 @@ const  App = () => {
   return (
     <section  >
     <RouterProvider router={router}  />
+
     </section>
   )
 }

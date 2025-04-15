@@ -54,11 +54,12 @@ import {  useState } from 'react';
     <section>
     <Container fluid>
 
-<div className=" d-flex ">
- <div className="ms-auto col-3  me-auto" >
+<div className=" d-flex justify-content-center my-3">
+ <div className="" >
             
-                
-  <p className="text-center  fs-5 fw-medium">Forgot Your Password?No problem! We'll send you instructions on how to reset your password.</p>
+ <p className="text-center  fs-5 fw-medium">Forgot  Password</p>            
+  <p className="text-center  ">No problem! We'll send you instructions on how to reset your password.</p>
+  
   <Form onSubmit={formik.handleSubmit}>
       <Form.Control size="lg" className="shadow-none"  required  value={formik.values.email} onChange={formik.handleChange} style={{}} name="email"   type="email" placeholder="Email" />
       {formik.touched.email && formik.errors.email && (

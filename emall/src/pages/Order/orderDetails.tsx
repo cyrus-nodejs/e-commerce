@@ -1,18 +1,18 @@
 
 import { Col, Row,Button, Container, Image} from "react-bootstrap"
-import Navbar from "../components/Navbar/Navbar"
-import { ITEM } from "../utils/@types";
+import Navbar from "../../components/Navbar/Navbar"
+import { ITEM } from "../../utils/@types";
 
-
+import  "../../index.css"
 import { useParams } from "react-router-dom";
 
 
-import { fetchAddCart } from "../redux/features/cart/cartSlice";
-import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
-import { fetchOrderDetails, getOrderDetails, getOrderDetailsItems } from "../redux/features/order/orderSlice";
-import { useAppDispatch, useAppSelector } from "../redux/app/hook";
+import { fetchAddCart } from "../../redux/features/cart/cartSlice";
+import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../../redux/features/auth/authSlice';
+import { fetchOrderDetails, getOrderDetails, getOrderDetailsItems } from "../../redux/features/order/orderSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
 import {  useEffect, useContext  } from "react";
-import { FavoriteContext } from "../../src/Context/wishlist";
+import { FavoriteContext } from "../../Context/wishlist";
 const OrderDetails = () => {
     const dispatch = useAppDispatch()
     const isAuthenticated = useAppSelector(getIsAuthenticated)
@@ -53,7 +53,7 @@ const {state} = useContext(FavoriteContext)
   return (
     <div>
     <Navbar />
-    <Container >
+    <Container className='home' >
     {isAuthenticated && user ? (<div><Col >
   
     {orderDetails ? (<div><div className="text-dark text-start my-3 fs-4">Order Details</div>

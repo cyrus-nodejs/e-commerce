@@ -2,16 +2,18 @@
 import { useEffect, useState } from 'react';
 
 import { Form, Row, Col, Button, Container } from "react-bootstrap";
-import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
-import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../../redux/features/auth/authSlice';
-import { fetchAdminAddItem } from '../../redux/features/items/itemSlice';
-import Navbar from '../../components/Navbar/Navbar';
+import { useAppDispatch, useAppSelector } from "../../../redux/app/hook";
+import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../../../redux/features/auth/authSlice';
+import axios from 'axios';
 
+import Navbar from '../../../components/Navbar/Navbar';
+const BASEURL = import.meta.env.VITE_APP_BASE_URL   
 
 const AdminAdditem = () => {
   const  dispatch = useAppDispatch()
 
   const authUser = useAppSelector(getAuthUser)
+  const [message, setMessage] = useState("");
  
   const isAuthenticated = useAppSelector(getIsAuthenticated)
   
@@ -34,7 +36,7 @@ const AdminAdditem = () => {
           topfeatured:"",
          topdeals:"",
          discount:"",
-         status:"",
+         
         
          
    })
@@ -94,18 +96,16 @@ setState({...state, [e.target.name] : e.target.value})
         formData.append("topfeatured", state.topfeatured)
         formData.append("topdeals", state.topdeals)
         formData.append("discount", state.discount)
-        formData.append("status", state.status)
-        
-       
-      
-       dispatch(fetchAdminAddItem(formData)).then(response => {
-      alert(response)
-      alert("Item saved successfully!")
-    })
-    .catch(err =>{
-      console.log(err)
-      alert('Not saved!')
-    })
+ 
+        const response = await axios.post(`${BASEURL}/admin/add-item`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+         withCredentials:true,
+        });
+  
+        console.log('server response:', response.data);
+        setMessage(response.data.message)
   }
 
    
@@ -128,15 +128,12 @@ setState({...state, [e.target.name] : e.target.value})
         <Form.Group as={Col} controlId="Category">
           <Form.Label>Category</Form.Label>
           <Form.Select size="sm" defaultValue="Select category"  onChange={handleChange}  name="category"  >
-            <option>Smartphones & Tablets</option>
-            <option>Fashion & Clothing</option>
-            <option>Decor & Furniture</option>
-            <option>Home & Kitchen</option>
-            <option>Tv & Audios</option>
-            <option>Watches & Eyewear</option>
-            <option>Camera & Photo</option>
-            <option>Computer & Desktop</option>
-            <option>Groceries</option>
+            <option>Phones & Tablets</option>
+            <option>Electronics</option>
+            <option>Fashion</option>
+            <option>Supermarket</option>
+            <option>Computing</option>
+            <option>Health & Beauty</option>
           </Form.Select>
         </Form.Group>
        
@@ -154,23 +151,24 @@ setState({...state, [e.target.name] : e.target.value})
       </Form.Group>
        
       */}
-
+{/* 
       <Form.Group as={Col} controlId="Status">
           <Form.Label>Status</Form.Label>
           
           <Form.Control size="sm" type="text" placeholder="Status"  onChange={handleChange}  name="status"  />
         </Form.Group>
-       
-        </Row >
-     
-
-      <Row className="mb-3">
-        <Form.Group as={Col} controlId="Price">
+        */}
+         <Form.Group as={Col} controlId="Price">
           <Form.Label>Price</Form.Label>
           <Form.Control size="sm" type="text" placeholder="Price"   name="price" onChange={handleChange}  />
         </Form.Group>
 
         
+        </Row >
+     
+
+      <Row className="mb-3">
+       
         <Form.Group as={Col} controlId="Quantity">
           <Form.Label>Quantity</Form.Label>
           <Form.Control size="sm" type="text" placeholder="Quantity"   name="quantity" onChange={handleChange}  />
@@ -214,10 +212,10 @@ setState({...state, [e.target.name] : e.target.value})
 
        
       </Row>
-
+      <p className='text-danger text-end '>{message} <i className='bx bx-check'></i></p>
       <div className="d-grid gap-2 col-2 mx-auto">
       <Button className="" onClick={handleSubmit}      variant="outline-dark" type="submit">
-      {isLoading ? 'Loading…' : 'Click to add item'}
+      {isLoading ? 'Loading…' : ' Add item'}
       </Button>
       </div>
     </Form>

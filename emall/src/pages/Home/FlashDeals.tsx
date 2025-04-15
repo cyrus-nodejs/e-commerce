@@ -1,6 +1,7 @@
 
-import { Row, Image, Button,  } from "react-bootstrap"
-
+import { Row, Button,  } from "react-bootstrap"
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { ITEM } from "../../utils/@types";
 import {  useEffect, useContext } from "react";
 import { FavoriteContext } from "../../Context/wishlist";
@@ -102,7 +103,7 @@ const {state} = useContext(FavoriteContext)
   {flashdeals?.map((items:ITEM, id) =>{
      return (
        <Row key={id} className=" d-flex  flex-column position-relative  mb-3" style={{width:"200px", }}>
-       <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items))}}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> <Image src={items.image}  width="150px" height="200px"  className=""  /></Link> 
+       <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items))}}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> <LazyLoadImage   effect="blur" src={items.image}  width="150px" height="200px"  className=""  /></Link> 
         <div className="d-flex flex-column ">
          <div className="text-primary fw-medium">{items.title.substring(0, 25)}</div>
         {/* <div className="d-inline-flex gap-1 text-dark fs-6">{items.rating}{items.review}</div> */}

@@ -10,7 +10,7 @@ import { contactEmail } from "../utils/nodemailer"
 
 //Save  & register User to database
 export const Register = async (req: any, res: any, next: NextFunction) => {
-  console.log(req.body.role)
+  console.log(req.body)
   try {
     User.register(new User({ email: req.body.email, username: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, role:req.body.role}), req.body.password, function (err: string, user: Express.User) {
       if (err) {
@@ -61,12 +61,7 @@ export const Login = async (req: any, res: any) => {
                 } else {
                   console.log(`Login my ${req.user}`)
                   const eToken = createSecretToken(user);
-                  res.cookie("eToken", eToken, {
-                    withCredentials: true,
-                    sameSite:"none",
-                      httpOnly:true,
-                      secure:true
-                  });
+                  res.cookie("eToken", eToken, process.env.NODE_ENV === 'production' ? {withCredentials:true, httpOnly:true, secure:true, sameSite:"none" } : {withCredentials:true, httpOnly:false });
                   res.json({ success: true, message: "Authentication successful", user:user });
                 }
               })

@@ -28,7 +28,7 @@ export const getCart = async (req:any, res: any) =>{
     
 // Add itemms to Cart
 export const addToCart = async (req:any, res:any ) => {
-    const owner = req.user?.id
+     const owner = req.user?.id
     const {itemId}= req.body
     console.log(itemId, owner)
       try{

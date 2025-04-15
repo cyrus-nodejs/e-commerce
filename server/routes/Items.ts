@@ -30,7 +30,7 @@ router.get("/getitem/:id",  getItembyId );
 router.get("/allitems", getAllItems);
 
 
-router.post("/add/item", userAuthorization, verifyRole(['reseller']), upload.single("image"), addItem);
+router.post("/add/item", userAuthorization, verifyRole(['customer service']), upload.single("image"), addItem);
 router.post("/addviewed", userAuthorization,  addViewedItem  );
 
 

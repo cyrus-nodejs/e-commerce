@@ -1,6 +1,6 @@
 import {Col, Nav,Row, Tab, Container } from 'react-bootstrap'
 import { useEffect } from 'react';
-
+import './admin.css'
 // import Home from '../Home/Home';
 import Navbar from '../../components/Navbar/Navbar'
 import AllProducts from './AllProducts';
@@ -9,10 +9,11 @@ import AllResellers from './AllResellers';
 import AllOrders from './AllOrders';
 import AllCustomerService from './AllCustomerServices';
 import AllAdmins from './AllAdmins';
-import AssignAdmin from '../Auth/Admin/AddAdmin';
-import AssignReseller from '../Auth/Admin/AddReseller';
-import AssignCustomerService from '../Auth/Admin/AddCustomerService';
-import AdminAdditem from './AdminAddProduct';
+import AssignAdmin from './AssignRole/AddAdmin';
+import AssignReseller from './AssignRole/AddReseller';
+import AssignCustomerService from './AssignRole/AddCustomerService';
+import AdminAdditem from './AddItem/AddProduct';
+import AddCategory from './AddItem/AddCategory';
 import { fetchAsyncUser, getAuthUser, getIsAuthenticated } from '../../redux/features/auth/authSlice';
 import { getAllItems } from '../../redux/features/items/itemSlice';
 import { getAdminAllAdmins, getAdminAllOrders,  getAdminAllCustomers,
@@ -41,7 +42,7 @@ useEffect(() =>{
       }, [dispatch])
   
   return (
-    <section>
+    <section className='home'>
       <Navbar />
        <Container fluid>
        {isAuthenticated && authUser?.role === 'admin' || isAuthenticated && authUser?.role === 'customer service'  ? (
@@ -51,9 +52,7 @@ useEffect(() =>{
           <Row>
             <Col sm={3}>
               <Nav variant="pills" className="flex-column">
-                <Nav.Item>
-                  <Nav.Link eventKey="first">All Products ({allproducts.length}) </Nav.Link>
-                </Nav.Item>
+          
                 <Nav.Item>
                   <Nav.Link eventKey="second">All Customers ({allcustomers.length})</Nav.Link>
                 </Nav.Item>
@@ -82,13 +81,19 @@ useEffect(() =>{
                 <Nav.Link eventKey="ninth" >Assign  Customer service role</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="tenth">Add a product </Nav.Link>
+                  <Nav.Link eventKey="tenth">Add a Product</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="eleventh">Add a Category </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="first">All Products ({allproducts.length}) </Nav.Link>
                 </Nav.Item>
               </Nav>
             </Col>
             <Col sm={9}>
               <Tab.Content>
-                <Tab.Pane eventKey="first"><AllProducts /></Tab.Pane>
+              
                 <Tab.Pane eventKey="second"><AllCustomers /></Tab.Pane>
                 <Tab.Pane eventKey="third"><AllResellers /></Tab.Pane>
                 <Tab.Pane eventKey="fourth"><AllOrders /></Tab.Pane>
@@ -98,6 +103,8 @@ useEffect(() =>{
                 <Tab.Pane eventKey="eighth"><AssignReseller/></Tab.Pane>
                 <Tab.Pane eventKey="ninth"><AssignCustomerService /></Tab.Pane>
                 <Tab.Pane eventKey="tenth"><AdminAdditem /></Tab.Pane>
+                <Tab.Pane eventKey="eleventh"><AddCategory /></Tab.Pane>
+                <Tab.Pane eventKey="first"><AllProducts /></Tab.Pane>
               </Tab.Content>
             </Col>
           </Row>

@@ -1,5 +1,6 @@
-
-import { Row, Col, Image, ProgressBar, Button } from "react-bootstrap"
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import { Row, Col,  ProgressBar, Button } from "react-bootstrap"
 import {  useEffect, useContext  } from "react";
 import { FavoriteContext } from "../../Context/wishlist";
 import { ITEM } from "../../utils/@types";
@@ -65,27 +66,20 @@ const topdeals = useAppSelector(getTopdeals)
       
        {topdeals?.map((items:ITEM) => {
            return (
-               <Col  style={{margin:"20px"}}>
+               <Col  style={{margin:""}}>
                    <Row className="bg-white border-light border rounded-2  position-relative">
-                <Col className="p-5" > <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items))   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"><Image src={items.image} width="150px" height="200px" loading="lazy" /></Link></Col>
+                <Col className="p-5" > <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items))   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"><LazyLoadImage src={items.image} style={{ width: '100%', height: 'auto' }}     effect="blur" /></Link></Col>
                <Col className="bg-white">
                <div className="d-flex flex-column mb-3 bg-white">
  <div className="p-2 fw-medium text-primary">{items.title.substring(0, 25)}</div>
  {/* <div className="d-inline-flex gap-1 p-2 text-warning">{items.rating}{items.review}</div> */}
- <div className="p-2 text-danger fs-5 fw-normal">{state.currency}{items.newprice}<span className="text-secondary mx-2 fw-normal fs-5 text-decoration-line-through">{state.currency}{items.price}</span></div>
+ <div className="p-2 text-danger fs-5 fw-normal">{state.currency}{items.price}<span className="text-secondary mx-2 fw-normal fs-5 text-decoration-line-through">{state.currency}{items.price}</span></div>
  <div className="p-2 fs-6">{items.description.substring(0, 100)}</div>
  <div className=""> <ProgressBar variant="" className='progressbar' now={5} /></div>
  <div className="p-2">Sold: {5}/{items.quantity} products</div>
  {items.discount && (<div className="top-left  fw-bold rounded-1 px-2 text-light bg-success">{items.discount}%</div>)}
   <div className="text-center d-grid gap-2"><Button size="sm" className="d-block" variant="dark" onClick={() => dispatch(fetchAddCart(items))} >Add to cart</Button></div>  
- {/* {authUser?.role === 'customer'  && ( <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div> )}  
-  
-  {authUser?.role === 'reseller'  && ( <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div> )}  
-    
-  {authUser?.role === 'admin' &&  (    <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchDeleteItem(items))}   className="d-block" variant="dark">Delete Item</Button></div> )}   
-      
-      
-  {authUser?.role === 'customer service' &&  (    <div className="text-center d-grid gap-2"><Link to={`/update/item/${items._id}`}><Button size="sm"   className="d-block" variant="dark">Update Item</Button></Link></div> )}    */}
+
     
 </div>
                

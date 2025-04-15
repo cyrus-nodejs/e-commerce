@@ -1,9 +1,10 @@
 
-import { Row, Image, Button,  } from "react-bootstrap"
+import { Row,  Button,  } from "react-bootstrap"
 import {  useEffect, useContext  } from "react";
 import { FavoriteContext } from "../../Context/wishlist";
 import { ITEM } from "../../utils/@types";
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Link } from "react-router-dom";
 import Nextrrow from "./Trending/Nextrrow";
 import Previosarrow from "./Trending/Previosarrow";
@@ -74,7 +75,7 @@ const {state} = useContext(FavoriteContext)
       {
         breakpoint: 576,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
           slidesToScroll: 1
         }
       }
@@ -104,8 +105,8 @@ const {state} = useContext(FavoriteContext)
       <Slider   {...settings}>  
   {recommended?.map((items:ITEM, id) =>{
      return (
-       <Row key={id} className=" d-flex  flex-column position-relative  mb-3" style={{width:"200px", }}>
-       <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items))   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> <Image src={items.image} width="150px" height="200px"  className="" /></Link> 
+       <Row key={id} className=" d-flex  flex-column position-relative  mb-3" style={{width:"200px" }}>
+       <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items))   }}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> <LazyLoadImage src={items.image} effect="blur" style={{ width: '100%', height: 'auto' }}  className="" /></Link> 
         <div className="d-flex flex-column ">
          <div className="text-primary fw-medium">{items.title.substring(0, 25)}</div>
         {/* <div className="d-inline-flex gap-1 text-dark fs-6">{items.rating}{items.review}</div> */}

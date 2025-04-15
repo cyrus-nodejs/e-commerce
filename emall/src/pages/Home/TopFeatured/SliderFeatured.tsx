@@ -1,7 +1,8 @@
 
-import { Row, Image , Col,  Button } from "react-bootstrap";
+import { Row,   Col,  Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import Nextrrow from "../Trending/Nextrrow"
 import Previosarrow from "../Trending/Previosarrow"
 import "slick-carousel/slick/slick.css";
@@ -105,7 +106,7 @@ const {state} = useContext(FavoriteContext)
 
     <Row  className=" d-flex flex-row">
                                   
-      <Col className="container" >    <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(product)) }}  to={`/product/${product.title}`} className="p-2 text-decoration-none text-reset"><Image src={product.image}  width="150px" height="200px"   className="" />    </Link></Col>
+      <Col className="container" >    <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(product)) }}  to={`/product/${product.title}`} className="p-2 text-decoration-none text-reset"><LazyLoadImage src={product.image} style={{ width: '100%', height: 'auto' }}   effect="blur"     className="" />    </Link></Col>
       
       <Col >
       <div className="d-flex flex-column">

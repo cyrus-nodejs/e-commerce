@@ -83,8 +83,8 @@ const Categories = () => {
     const category = useAppSelector(getCategory)
     console.log(category)
   return (
-    <Row className="my-3">
-{category && category.length > 0  ?  (<div><div className="mb-4">
+    <Row className="mx-5">
+{category && category.length > 0  &&  (<div><div className="mb-4">
       <div className="d-inline-flex p-2 fs-4 border-info  border-bottom">Popular Categories</div>
     </div>
     
@@ -92,7 +92,7 @@ const Categories = () => {
     <Slider {...settings}>
     {category?.map((product:CATEGORY)=> <Product  product={product}/>   )}
     </Slider>
-    </div></div>) : (<div className="fs-4 my-2 text-center"></div>)}
+    </div></div>)}
       
     </Row>
   )

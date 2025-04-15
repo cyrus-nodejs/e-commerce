@@ -1,16 +1,16 @@
 
 import {Container, Col, Row, Button,  Image,  } from "react-bootstrap"
-import { useAppDispatch, useAppSelector } from '../redux/app/hook';
-import { ITEM, ORDER } from "../utils/@types";
+import { useAppDispatch, useAppSelector } from '../../redux/app/hook';
+import { ITEM, ORDER } from "../../utils/@types";
+import "../../index.css"
 
-
-import { fetchAddCart } from "../redux/features/cart/cartSlice";
-import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
+import { fetchAddCart } from "../../redux/features/cart/cartSlice";
+import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../../redux/features/auth/authSlice';
 import {  useEffect, useContext  } from "react";
-import { FavoriteContext } from "../../src/Context/wishlist";
-import { fetchAllOrders, getAllOrder, getOrderItems } from "../redux/features/order/orderSlice";
+import { FavoriteContext } from "../../Context/wishlist";
+import { fetchAllOrders, getAllOrder, getOrderItems } from "../../redux/features/order/orderSlice";
 // import { CartContext } from "../Context/cart"
-import Navbar from "../components/Navbar/Navbar"
+import Navbar from "../../components/Navbar/Navbar"
 
 const Order = () => {
 const dispatch = useAppDispatch()
@@ -38,7 +38,7 @@ useEffect(() =>{
   
     <div>
       <Navbar />
-      <Container >
+      <Container className='home' >
       {isAuthenticated && user ?  (<Col >
        {allOrders ? (<div>{ allOrders?.map((item:ORDER) =>{
      return (

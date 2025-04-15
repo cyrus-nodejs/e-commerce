@@ -13,7 +13,7 @@ const dispatch = useAppDispatch()
 const allAdmins = useAppSelector(getAdminAllAdmins)
 // const isAuthenticated = useAppSelector(getIsAuthenticated)
 const authUser = useAppSelector(getAuthUser)
- console.log(allAdmins)
+ 
 useEffect(() =>{
     dispatch(fetchAsyncUser())
     

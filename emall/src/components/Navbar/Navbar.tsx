@@ -10,8 +10,11 @@ import { getAuthUser, getIsAuthenticated, fetchAsyncUser, fetchAsyncLogout } fro
 import { getCartItems, fetchCart, getCartBills, getMessage } from "../../redux/features/cart/cartSlice";
 import {Alert} from 'react-bootstrap';
 
-
-
+// import Pages from "./Navtabs/Pages";
+// import Shop from "./Navtabs/Shop";
+// import Home from "./Navtabs/Home";
+// import Blog from "./Navtabs/Blog";
+// import Product from "./Navtabs/Product";
 
 import NavSearch from "./NavSearch/NavSearch";
 import { Link } from "react-router-dom";
@@ -89,7 +92,7 @@ const Navbar = () => {
 
   return (
  
-    <  Container  className="mainnav fixed-top  " fluid>
+    <  Container  className="mainnav w-full fixed-top  " fluid>
      {cartMessage && ( <Alert   className=" bg-danger " dismissible >
        <div className="text-light text-center   "> {cartMessage}  </div>
         </Alert>)}
@@ -140,7 +143,7 @@ const Navbar = () => {
     <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item ">
-        <a className="navbar-brand webtitle text-white fs-3" href="/">ShopHere</a>
+        <a className="navbar-brand webtitle text-white fs-3" href="/">Web-Mall</a>
         </li>
       </ul>
       <div className="bg-light d-flex flex-row mb-3 rounded-2">
@@ -338,18 +341,18 @@ const Navbar = () => {
           
         <div className="d-flex     ">
         <div className=" flex-fill     "> 
-        <Link to="/category/Computer & Desktop" className="text-decoration-none text-rest"><div className="bg-white   d-flex   text-black fw-medium">
+        <Link to="/category/Computing" className="text-decoration-none text-rest"><div className="bg-white   d-flex   text-black fw-medium">
         <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-laptop'></i></span><span>Computing</span></div>
         {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
           </div>
           </Link>
-                <Link to="/category/Groceries" className="text-decoration-none text-reset"> 
+                <Link to="/category/Supermarket" className="text-decoration-none text-reset"> 
                 <div className="bg-white   d-flex   text-black fw-medium">
-        <div className="p-1 mt-2 "><span className="me-1"><i className='bx bx-store'></i></span><span>Groceries</span></div>
+        <div className="p-1 mt-2 "><span className="me-1"><i className='bx bx-store'></i></span><span>Supermarket</span></div>
         {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
           </div>
                  </Link> 
-                <Link to="/category/Fashion & Clothing" className="text-decoration-none text-reset"> 
+                <Link to="/category/Fashion" className="text-decoration-none text-reset"> 
                 <div className="bg-white   d-flex   text-black fw-medium">
         <div className="p-1 mt-2"><span className="me-1"><i className='bx bxs-dryer'></i></span><span>Fashion</span></div>
         {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
@@ -357,44 +360,28 @@ const Navbar = () => {
                  </Link>
                 <Link to="/category/Smartphones & Tablets" className="text-decoration-none text-rest">  
                 <div className="bg-white   d-flex   text-black fw-medium">
-        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-devices'></i></span><span>Mobile</span></div>
+        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-devices'></i></span><span>Phones & Tablets</span></div>
         {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
           </div>
                  </Link>
-                <Link to="/category/Home & Kitchen" className="text-decoration-none text-rest">  
+                <Link to="/category/Electronics" className="text-decoration-none text-rest">  
                 <div className="bg-white   d-flex   text-black fw-medium">
-        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-selection'></i></span><span>Appliances</span></div>
+        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-selection'></i></span><span>Electronics</span></div>
         {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
           </div>
                 </Link>
-                <Link to="/category/Tv & Audios" className="text-decoration-none text-rest">  
+                <Link to="/category/Health & Beauty" className="text-decoration-none text-rest">  
                 <div className="bg-white   d-flex   text-black fw-medium">
-        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-tv'></i></span><span>Electronics</span></div>
+        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-tv'></i></span><span>Health & Beauty</span></div>
         {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
           </div>
                 </Link>
-                <Link to="/category/Smartphones & Tablets" className="text-decoration-none text-rest">  
-                <div className="bg-white   d-flex   text-black fw-medium">
-        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-devices'></i></span><span>Mobile</span></div>
-        {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
-          </div>
-                 </Link>
-                <Link to="/category/Home & Kitchen" className="text-decoration-none text-rest">  
-                <div className="bg-white   d-flex   text-black fw-medium">
-        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-selection'></i></span><span>Appliances</span></div>
-        {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
-          </div>
-                </Link>
-                <Link to="/category/Tv & Audios" className="text-decoration-none text-rest">  
-                <div className="bg-white   d-flex   text-black fw-medium">
-        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-tv'></i></span><span>Electronics</span></div>
-          </div>
-                </Link>
+                
                 <li className="nav-item ms-2  mt-2 d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none">
                 <Link to='/wishlist' className="text-decoration-none text-dark"><p className="text-outline-primary fw-bold">Wishlist({favoriteItems.length})</p> </Link>
           </li>
           <li className="nav-item mt-2 ms-2 d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none">
-          <Link to='/cart' className="text-decoration-none text-dark" > <p className="text-outline-primary fw-bold"> Cart({cartItems?.length})</p> </Link>
+          <Link to='/cart' className="text-decoration-none text-dark" > <p className="text-outline-primary fw-bold"> Cart({cartItems ? (cartItems?.length) : (0)})</p> </Link>
           </li>
           <li className="nav-item ms-2 mt-2 d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none">
            <Link className="text-decoration-none text-dark" to='/orders'><p className="text-outline-primary fw-bold"> Track Orders</p></Link>
@@ -408,8 +395,9 @@ const Navbar = () => {
         
          </Row>
           </li>
+       {scrolled && <NavSearch />}   
           
-{/*         
+{/*               
           <li className="nav-item ">
             <Shop />
           </li>
@@ -425,8 +413,8 @@ const Navbar = () => {
            <li className="nav-item">
             <Blog />
           </li>
-           
-         */}
+            */}
+        
         
         </ul>
         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">

@@ -2,7 +2,11 @@
 .home{
     background-color:	#F8F8FF;
     
+      padding-top: 15rem;
+    
 }
+
+
 .nextprevious{
 visibility: hidden;
 }

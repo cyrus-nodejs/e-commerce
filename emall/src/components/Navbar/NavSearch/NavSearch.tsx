@@ -19,7 +19,7 @@ useEffect(() =>{
   return (
     <div className="d-flex  " >
         <a href="/">
-          <div className="py-2">
+          <div className="py-3">
           <i className='bx bx-home  bx-sm text-light'></i>
           </div>
           </a>

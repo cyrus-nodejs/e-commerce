@@ -1,5 +1,7 @@
 
-import { Category, Item, View} from "../models/Item";
+import { Item} from "../models/Item";
+import { Category } from "../models/Category";
+import { View } from "../models/Viewed";
 import { verifyRole } from "../middlewares/jwt/verifyToken";
 //Retrieve all items from database
   export const  getAllItems = async (req:any, res:any ) => {
@@ -8,23 +10,46 @@ console.log(`My ${req.user}`)
     
    }
 
+   //Add Category to Databse
+   export  const addCategory = async  (req:any, res:any ) => {
+    const {title} = req.body
+      console.log(req.body)
+      if (!req.file) {
+        // No file was uploaded
+        return res.status(400).json({ error: "No file uploaded" });
+      }
+    
+      const image = req.file.path
+       console.log(title, image)
+       const newCategoryData = {
+        title,
+         image,
+       }
+        const newItem = new Category(newCategoryData)
+      
+      newItem.save()
+      .then(() => res.json({message:"Item saved to Database"}), res.status(200).json)
+        .catch((err: string) => res.json(err))
+       }
+      
    // Add items to database
  export  const addItem = async  (req:any, res:any ) => {
-
-const {title, description, category, price, discount, status,
+  console.log(req.body)
+const {title, description, category, price, discount, 
   trending, quantity, recommended, topfeatured, topdeals } = req.body
+
   if (!req.file) {
     // No file was uploaded
     return res.status(400).json({ error: "No file uploaded" });
   }
 
-  
+  //Retrieve image cloudinary url
   const image = req.file.path
    
-console.log(req.body)
-const discountAmount= discount * 0.01 * price
-const newprice = Math.round(price - discountAmount)
-   const newItemData = {
+
+try {
+  //Create new Item
+  const newItemData = {
     title,
     description,
      image,
@@ -33,23 +58,28 @@ const newprice = Math.round(price - discountAmount)
        recommended,
        topfeatured,
        topdeals,
-       newprice,
      price,
      quantity,
      discount,
-     status,
-   }
+   
+  }
+  const newItem = new Item(newItemData)
+  if (!newItem) {
+    return res.json({ message: 'Item not saved to database!' });
+  }
   
-    const newItem = new Item(newItemData)
-    const filter = {category: category }
+  //Add item to Category schema
+    const filter = {title: category }
     const update = {$addToSet:{item : newItem}}
-     const doc = await Category.findOneAndUpdate(filter, update, 
-      {new:true, upsert:true,  includeResultMetadata: true})
-      doc.save
-  newItem.save()
-  .then(() => res.json(newItem), res.status(200).json)
-    .catch((err: string) => res.json(err))
-   }
+     const doc = await Category.findOneAndUpdate(filter, update, {new:true, upsert:true,  includeResultMetadata: true})
+      newItem.save()
+     
+      res.json({success:true, message:"Item saved to database!"})
+
+} catch (error) {
+  res.json({ message: 'Server Error', error });
+}  
+    }
   
 
  //Retrieve  items by its Id
@@ -146,7 +176,7 @@ export const getCategory = async (req:any, res:any ) => {
        // Get items in slide
  export  const topFeaturedSlide = async (req:any, res:any ) => {
 
-    await Item.find({topfeatured:"true", status:"New" }).sort({ _id: -1 }).limit(4).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
+    await Item.find({topfeatured:"true" }).sort({ _id: -1 }).limit(4).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
      }
  
      //Get gallery items

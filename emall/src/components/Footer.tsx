@@ -1,16 +1,32 @@
-import { Container } from "react-bootstrap"
+
 
 const Footer = () => {
   return (
-<Container fluid className="">
-    <div className="d-flex bg-dark p-3">
+<div>
+    <div className="d-flex bg-secondary p-3 ">
   <div className="me-auto text-white">
   <div className="d-flex align-items-center">
   <div className="flex-shrink-0">
   <i className='bx bxs-truck'></i>
   </div>
+  <div className="flex-grow-1 ms-3 ">
+    Chat with us
+  </div>
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bxs-truck'></i>
+  </div>
   <div className="flex-grow-1 ms-3">
-    Free delivery
+    Help Center
+  </div>
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bxs-truck'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+    Contact us
   </div>
 </div>
     </div>
@@ -20,8 +36,23 @@ const Footer = () => {
   <i className='bx bx-chat'></i>
   </div>
   <div className="flex-grow-1 ms-3">
-  24/7 Help Center
-  Dedicated 24/7 support
+ About us
+  </div>
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bx-chat'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+ Shope-here Careers
+  </div>
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bx-chat'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+Shop-here express
   </div>
 </div>
   </div>
@@ -31,7 +62,23 @@ const Footer = () => {
   <i className='bx bx-credit-card'></i>
   </div>
   <div className="flex-grow-1 ms-3">
-    Safe Payment
+  Sell on Shope-here
+  </div>
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bx-credit-card'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+    Vendor hub
+  </div>
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bx-credit-card'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+    Becom a Sales Consultant
   </div>
 </div>
   </div>
@@ -41,13 +88,141 @@ const Footer = () => {
   <i className='bx bxs-shopping-bags'></i>
   </div>
   <div className="flex-grow-1 ms-3">
-  Shop With Confidence
-  If goods have problems
+  South Africa
   </div>
+  
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bxs-shopping-bags'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+Algeria
+  </div>
+  
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bxs-shopping-bags'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+Egypt
+  </div>
+  
 </div>
   </div>
 </div>
-</Container>
+<div className="d-flex bg-dark p-3 ">
+  <div className="me-auto text-white">
+  <div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bxs-truck'></i>
+  </div>
+  <div className="flex-grow-1 ms-3 ">
+    Chat with us
+  </div>
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bxs-truck'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+    Help Center
+  </div>
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bxs-truck'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+    Contact us
+  </div>
+</div>
+    </div>
+  <div className="me-auto text-white">
+  <div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bx-chat'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+ About us
+  </div>
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bx-chat'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+ Shope-here Careers
+  </div>
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bx-chat'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+Shop-here express
+  </div>
+</div>
+  </div>
+  <div className="me-auto p-2 text-white">
+  <div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bx-credit-card'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+  Sell on Shope-here
+  </div>
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bx-credit-card'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+    Vendor hub
+  </div>
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bx-credit-card'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+    Becom a Sales Consultant
+  </div>
+</div>
+  </div>
+  <div className=" p-2 text-white">
+  <div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bxs-shopping-bags'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+  South Africa
+  </div>
+  
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bxs-shopping-bags'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+Algeria
+  </div>
+  
+</div>
+<div className="d-flex align-items-center">
+  <div className="flex-shrink-0">
+  <i className='bx bxs-shopping-bags'></i>
+  </div>
+  <div className="flex-grow-1 ms-3">
+Egypt
+  </div>
+  
+</div>
+  </div>
+</div>
+
+</div>
   )
 }
 

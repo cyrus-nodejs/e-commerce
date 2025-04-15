@@ -87,15 +87,16 @@ interface FormValues {
      <Container fluid>
     
  
- <div   className="d-flex">
+ <div   className="d-flex justify-content-center my-3">
   
- <div className="ms-auto  me-auto" >
+ <div className="" >
  {isAuthenticated && user &&(
           <Navigate to="/" replace={true} />
         )}
                  
-   <p className="text-center  fs-2 fw-medium">Login</p>
+   <p className="text-center  fs-2 ">Login</p>
    <Form onSubmit={formik.handleSubmit}>
+   <Form.Group controlId="formName">
       <Form.Control size="lg" className='shadow-none' required  value={formik.values.username} onChange={formik.handleChange} style={{}} name="username"   type="email" placeholder="Email" />
       {formik.touched.username && formik.errors.username && (
             <div className="error ">{formik.errors.username}</div>
@@ -110,7 +111,10 @@ interface FormValues {
                 <div className="d-grid gap-2">
              <Button type="submit" disabled={submitting}  variant="outline-primary" style={{margin:"20px 0px"}} size="lg"  >Sign in</Button>
                </div> 
-
+               </Form.Group>
+               <Form.Control.Feedback type="invalid">
+      {message}
+    </Form.Control.Feedback>
                </Form>
                <div className="d-flex mb-3">
            <div className="p-2"><a href="/forgotpassword" style={{color:'red', textDecoration:'none'}}><p style={{color:'red', textDecoration:'none'}}>Forgot password?</p></a></div>
@@ -121,8 +125,8 @@ interface FormValues {
              
               
           
-          <p className="text-danger mt-2 fs-5 text-center">{message}</p>  
-     
+          {/* <p className="text-danger mt-2 fs-5 text-center">{message}</p>  
+      */}
  </div>
  </div>
  

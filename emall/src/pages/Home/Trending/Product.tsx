@@ -1,9 +1,9 @@
 
-import {Col, Image, Button,  } from "react-bootstrap"
+import {Col,  Button,  } from "react-bootstrap"
 import { FavoriteContext } from "../../../Context/wishlist";
 import { useContext, useState} from 'react'
 import { Link } from "react-router-dom";
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { useAppDispatch,  } from "../../../redux/app/hook";
@@ -33,7 +33,7 @@ const dispatch = useAppDispatch()
 
 <div className="position-relative my-3">
   
-      <Image  src={product.image} height="200" width="200" alt={product.image}   className="px-2" />
+      <LazyLoadImage style={{ width: '100%', height: 'auto' }} src={product.image}    effect="blur" alt={product.image}   className="" />
   { hidden && <div>
     <OverlayTrigger
           

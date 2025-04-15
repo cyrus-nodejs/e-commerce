@@ -77,20 +77,14 @@ export const fetchAddRecentlyViewed = createAsyncThunk(
             console.log(response.data)
             return response.data
           });
-
-          export const fetchAdminAddItem = createAsyncThunk(
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            'items/fetchAdminAddItem', async (data:any) => {
-                const response= await axios.post(`${BASEURL}/admin/add/item`,{data},{ withCredentials: true })
-                console.log(response.data)
-                return response.data
-              });
+       
+        
     
       export const fetchUpdateItem = createAsyncThunk(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         'items/fetchUpdateItem', async (data:{id:any, formData:any}) => {
             const {id, formData} = data
-            const response= await axios.post(`${BASEURL}/admin/update/item/${id}`,{formData},{ withCredentials: true })
+            const response= await axios.post(`${BASEURL}/admin/update-item/${id}`,{formData},{ withCredentials: true })
             console.log(response.data)
             return response.data
           });
@@ -100,7 +94,7 @@ export const fetchAddRecentlyViewed = createAsyncThunk(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         'items/fetchDeleteItem', async (item:ITEM) => {
             const itemId = item._id
-            const response= await axios.post(`${BASEURL}/admin/delete/item`,{itemId},{ withCredentials: true })
+            const response= await axios.post(`${BASEURL}/admin/delete-item`,{itemId},{ withCredentials: true })
             console.log(response.data)
             return response.data
           });
@@ -254,16 +248,7 @@ builder.addCase(fetchAddItem.pending, (state) => {
   state.status = 'failed'
   state.error = action.error.message;
   })
-  builder.addCase(fetchAdminAddItem.pending, (state) => {
-    state.status = 'pending'
-    })
-    .addCase(fetchAdminAddItem.fulfilled, (state, action) => {
-    state.message = action.payload.message
-    })
-    .addCase(fetchAdminAddItem.rejected, (state, action) => {
-    state.status = 'failed'
-    state.error = action.error.message;
-    })
+ 
 builder.addCase(fetchUpdateItem.pending, (state) => {
   state.status = 'pending'
   })

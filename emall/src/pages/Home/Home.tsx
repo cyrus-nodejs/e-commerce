@@ -7,6 +7,7 @@ import TopDeals from "./TopDeals"
 import TopFeatured from "./TopFeatured/TopFeatured"
 import Recommended from "./Recommended"
 import Navbar from "../../components/Navbar/Navbar"
+// import Footer from "../../components/Footer"
 import Recentlyviewed from "../Recentlyviewed"
 import { useAppDispatch, useAppSelector } from "../../redux/app/hook"
 import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from "../../redux/features/auth/authSlice"
@@ -31,7 +32,7 @@ const Home = () => {
     <Container className="home  " fluid >
       
 
-      <div className="px-3">
+      <div className=" home-index">
           <Navbar />
 
           <Banner />
@@ -42,6 +43,7 @@ const Home = () => {
              <TopDeals />
              <TopFeatured />
             <Recommended />
+            {/* <Footer  /> */}
      
       {user && isAuthenticated && (< Recentlyviewed />)}
       

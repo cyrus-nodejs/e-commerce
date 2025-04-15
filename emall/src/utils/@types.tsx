@@ -23,8 +23,8 @@ export interface ITEM {
 }
 
 export interface CATEGORY {
-  category: string,
-avatar:string,
+  title: string,
+image:string,
  item:ITEM[]
 }
 

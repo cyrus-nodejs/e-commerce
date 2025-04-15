@@ -2,16 +2,16 @@
 import {Container,     Button,   } from "react-bootstrap"
 
 
-import "../index.css"
+import "../../index.css"
 import {  useEffect, useContext  } from "react";
-import { FavoriteContext } from "../../src/Context/wishlist";
+import { FavoriteContext } from "../../Context/wishlist";
 
-import Navbar from "../components/Navbar/Navbar"
-import { useAppDispatch, useAppSelector } from "../redux/app/hook"
+import Navbar from "../../components/Navbar/Navbar"
+import { useAppDispatch, useAppSelector } from "../../redux/app/hook"
 
-import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
+import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../../redux/features/auth/authSlice';
 
-import { fetchCurrentOrder, getCurrentOrder } from "../redux/features/order/orderSlice";
+import { fetchCurrentOrder, getCurrentOrder } from "../../redux/features/order/orderSlice";
 
 const OrderInvoice = () => {
 
@@ -43,7 +43,7 @@ useEffect(() =>{
 return (
     <section>
         <Navbar />
-    <Container >
+    <Container className='home' >
   
     
              {isAuthenticated && user ? (<div className="p-3">

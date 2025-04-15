@@ -16,59 +16,44 @@ const Department = () => {
       {hidden ? <Row   className="z-3  w-25 position-absolute ">
         <div className="d-flex     ">
         <div className=" flex-fill border  rounded-2  "> 
-        <Link to="/category/Computer & Desktop" className="text-decoration-none text-rest"><div className="bg-white   d-flex   text-black fw-medium">
+        <Link to="/category/Computing" className="text-decoration-none text-rest"><div className="bg-white   d-flex   text-black fw-medium">
         <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-laptop'></i></span><span>Computing</span></div>
         {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
           </div>
           </Link>
-                <Link to="/category/Groceries" className="text-decoration-none text-reset"> 
+                <Link to="/category/Supermarket" className="text-decoration-none text-reset"> 
                 <div className="bg-white   d-flex   text-black fw-medium">
-        <div className="p-1 mt-2 "><span className="me-1"><i className='bx bx-store'></i></span><span>Groceries</span></div>
+        <div className="p-1 mt-2 "><span className="me-1"><i className='bx bx-store'></i></span><span>Supermarket</span></div>
         {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
           </div>
                  </Link> 
-                <Link to="/category/Fashion & Clothing" className="text-decoration-none text-reset"> 
+                <Link to="/category/Fashion" className="text-decoration-none text-reset"> 
                 <div className="bg-white   d-flex   text-black fw-medium">
         <div className="p-1 mt-2"><span className="me-1"><i className='bx bxs-dryer'></i></span><span>Fashion</span></div>
         {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
           </div>
                  </Link>
-                <Link to="/category/Smartphones & Tablets" className="text-decoration-none text-rest">  
+                <Link to="/category/Phones & Tablets" className="text-decoration-none text-rest">  
                 <div className="bg-white   d-flex   text-black fw-medium">
-        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-devices'></i></span><span>Mobile</span></div>
+        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-devices'></i></span><span>Phones & tablets</span></div>
         {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
           </div>
                  </Link>
-                <Link to="/category/Home & Kitchen" className="text-decoration-none text-rest">  
+                <Link to="/category/Electronics" className="text-decoration-none text-rest">  
                 <div className="bg-white   d-flex   text-black fw-medium">
-        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-selection'></i></span><span>Appliances</span></div>
+        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-selection'></i></span><span>Electronics</span></div>
         {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
           </div>
                 </Link>
-                <Link to="/category/Tv & Audios" className="text-decoration-none text-rest">  
+               
+               
+                <Link to="/category/Health & Beauty" className="text-decoration-none text-rest">  
                 <div className="bg-white   d-flex   text-black fw-medium">
-        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-tv'></i></span><span>Electronics</span></div>
+        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-selection'></i></span><span>Health & Beauty</span></div>
         {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
           </div>
                 </Link>
-                <Link to="/category/Smartphones & Tablets" className="text-decoration-none text-rest">  
-                <div className="bg-white   d-flex   text-black fw-medium">
-        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-devices'></i></span><span>Mobile</span></div>
-        {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
-          </div>
-                 </Link>
-                <Link to="/category/Home & Kitchen" className="text-decoration-none text-rest">  
-                <div className="bg-white   d-flex   text-black fw-medium">
-        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-selection'></i></span><span>Appliances</span></div>
-        {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
-          </div>
-                </Link>
-                <Link to="/category/Tv & Audios" className="text-decoration-none text-rest">  
-                <div className="bg-white   d-flex   text-black fw-medium">
-        <div className="p-1 mt-2"><span className="me-1"><i className='bx bx-tv'></i></span><span>Electronics</span></div>
-        {/* <div className="p-2 ms-auto"><i className='bx bx-chevron-right bx-md ms-5'></i></div> */}
-          </div>
-                </Link>
+               
              </div> 
 </div>
        

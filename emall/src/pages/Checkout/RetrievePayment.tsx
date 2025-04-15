@@ -2,7 +2,7 @@
 
 
  import {Container, Button} from 'react-bootstrap'
- import Login from './Auth/Login';
+ import Login from  '../Auth/Login';
  
  
  import Form from 'react-bootstrap/Form';
@@ -10,9 +10,9 @@
  import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useState, useEffect } from 'react';
- import { useAppDispatch, useAppSelector } from "../redux/app/hook";
- import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
- import { fetchRetrievePayment, getMessage } from '../redux/features/order/orderSlice';
+ import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
+ import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../../redux/features/auth/authSlice';
+ import { fetchRetrievePayment, getMessage } from '../../redux/features/order/orderSlice';
  
 
  const RetrievePayment = () => {

@@ -1,6 +1,7 @@
  
-import { Row, Image, Button, Col } from "react-bootstrap"
-
+import { Row, Button, Col } from "react-bootstrap"
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { ITEM } from "../utils/@types";
 import { fetchAddCart } from "../redux/features/cart/cartSlice";
@@ -55,7 +56,7 @@ const Recentlyviewed = () => {
             <Col key={id} className=" d-flex  flex-column position-relative  mb-3" style={{width:"200px", }}>
              <Link  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> 
            
-             <Image  src={items.image} width="150px" height="200px"  className="" />
+             <LazyLoadImage effect="blur"  src={items.image} width="150px" height="200px"  className="" />
              </Link> 
              <div className="d-flex flex-column ">
               <div className="text-primary text-truncate fw-medium">{items.title}</div>

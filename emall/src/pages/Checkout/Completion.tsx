@@ -9,7 +9,7 @@ import {  Button, Container } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
 
-import { useAppSelector, useAppDispatch } from '../../redux/app/hook';
+import {  useAppDispatch, useAppSelector } from '../../redux/app/hook';
 import {fetchConfig,  getStripePromise } from '../../redux/features/checkout/checkoutSlice';
 import { fetchConfirmPayment } from '../../redux/features/order/orderSlice';
 function Completion() {
@@ -17,10 +17,8 @@ function Completion() {
   
   const [paymentIntent, setPaymentIntent] = useState("")
   const dispatch = useAppDispatch()
-  
-
-
-const stripePromise  = useAppSelector(getStripePromise)
+  const stripePromise = useAppSelector(getStripePromise)
+console.log(stripePromise)
 const stripe = loadStripe(stripePromise)
 useEffect(() =>{
  dispatch(fetchConfig())

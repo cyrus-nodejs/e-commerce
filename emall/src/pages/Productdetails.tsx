@@ -1,9 +1,10 @@
 
-import { Col, Row,Button, Container, Image} from "react-bootstrap"
+import { Col, Row,Button, Container} from "react-bootstrap"
 import Navbar from "../components/Navbar/Navbar"
-
+import "../index.css"
 import { ITEM } from "../utils/@types";
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useParams } from "react-router-dom";
 
 import RelatedItems from "./RelatedProducts";
@@ -50,7 +51,7 @@ const authUser = useAppSelector(getAuthUser)
           
        
   return (
-    <Container fluid>
+    <Container className='home' fluid>
     < Navbar />
     <Row style={{margin:"20px 20px"}} >
     
@@ -58,29 +59,17 @@ const authUser = useAppSelector(getAuthUser)
     <div>
       <Row  style={{ margin:"20px"}} >
     
-      <Col  >
-    <Image   fluid  src={product.image} />
+      <Col  sm={6} className='px-5' >
+    <LazyLoadImage effect="blur" style={{ width: '100%', height: 'auto' }}  width='300px' height='400px' src={product.image} />
     </Col>
-      <Col className=""   >
+      <Col  sm={6} className=""   >
       <div className="fs-4 fw-normal d-inline-flex  text-dark">{product.title}</div>
       <div className="fs-4 fw-normal d-inline-flex  ">Category:{product.category}</div>
-      <div className="fs-6 text-danger fw-normal  ">Discount: {product.discount ? (product.discount) :(0)}%</div>
+      <div className="fs-6 text-danger fw-normal  ">Discount:  {product.discount === 0 ? (<span className="  fw-bold rounded-1 px-2  ">Nil</span>) : ((<span className="top-left  fw-bold rounded-1 px-2 text-dark ">{product.discount}%</span>))}</div>
       <div className='text-dark fs-4'    >
-      {state.currency}{product.newprice}<span className="text-secondary mx-2 text-decoration-line-through">{product.discount && (product.price)}</span>
+      {state.currency}{product.price}
         </div>
-      
-     
-        
-        
-
-        <Row className="d-flex">
-      <div className="p-2">
         <Button variant="dark"   onClick={() => (fetchAddCart(product))} >Add to Cart </Button>  
-       
-      
-       </div>
-    </Row>
-      
       </Col>
       <div className='fs-6  my-5'>
         <div className="text-start border-bottom fs-3">Product Description</div>

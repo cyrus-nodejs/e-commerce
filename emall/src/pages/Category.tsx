@@ -1,7 +1,8 @@
 
-
- 
- import{Row, Col, Image, Container, } from 'react-bootstrap';
+import "../index.css"
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+ import{Row, Col,  Container, } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
 import Navbar from '../components/Navbar/Navbar';
@@ -43,28 +44,27 @@ const Category = () => {
 
     return (
         <section className="" style={{background:""}}>
-        <Container fluid>
+        <Container className='home' fluid>
         
         <Navbar />
 
+         
             <Row className="p-2  " style={{borderRadius:"5px", marginTop:"", background:"", color:'black', justifyContent:""}}><p className="fs-3 fw-normal sb   text-center" >{id} Deals</p></Row>
+      <Row>
       {categoryDetails?.map((item:ITEM )=> 
-        <Row  key={item._id} style={{width: '11.5rem', display:"inline-flex", height:"15rem", margin:"10px"}}>
+        <Col  key={item._id} style={{}}>
                
-           <Col  className="frame"  style={{border:"1px solid white", borderRadius:"10px", width:"11rem", height:"15rem", backgroundColor:"#FFFFFF",}}       >
-           <center>
            <Link to={`/product/${item.title}`} onClick={() =>{dispatch(fetchAddRecentlyViewed(item))}} className="p-2 text-decoration-none text-reset"> 
-           <Image  style={{width:'8rem', height:"10rem" }}  rounded src={item.image} />
+           <LazyLoadImage   width="150px" height="200px"   effect="blur"  src={item.image} />
         <p className="fs-6  tfont  ">{item.title.substring(0, 10) + ".."}</p>
         <p className="fs-6 fw-bold  text-danger  " >
          {state.currency}{item.price}
         </p>
         </Link>
-        </center>
+   
     </Col>
-    </Row>
      )}
-      
+      </Row>
           {user && isAuthenticated && (<Recentlyviewed />)}
           
         </Container>

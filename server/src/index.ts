@@ -21,7 +21,7 @@ import cookieParser from 'cookie-parser';
 
 
 
-const app = express();
+ const app = express();
 
 
 
@@ -38,16 +38,38 @@ app.use(express.urlencoded({ extended: true }));
  
 
 
-console.log(process.env!.FRONTEND_URL)
 
- const corsOptions = {
-   origin: process.env!.FRONTEND_URL,
-  credentials: true, 
-  optionSuccessStatus: 200,
-  methods: ['GET', 'PUT', 'POST', 'DELETE'],
+  // const corsOptions = process.env.NODE_ENV === 'development' ? {
+  //   origin: process.env!.FRONTEND_URL,
+  //  credentials: true, 
+  //  optionSuccessStatus: 200,
+  //  methods: ['GET', 'PUT', 'POST', 'DELETE'],
+  
+  // } : {
 
-}
-app.use(cors(corsOptions))
+  //     origin: process.env!.FRONTEND_URL2,
+  //    credentials: true, 
+  //    optionSuccessStatus: 200,
+  //    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+  // }
+  
+  
+  const corsOptions = {
+    origin: process.env!.FRONTEND_URL2,
+    credentials: true, 
+    optionSuccessStatus: 200,
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+   
+  }
+  
+  
+
+app.use(cors(corsOptions));
+
+ 
+
+ 
+
 
 app.get("/", (req, res)=>{
   console.log(`User is login ${req.user}`)
@@ -60,7 +82,7 @@ app.get("/", (req, res)=>{
 	session({
     name:process.env.SESSION_NAME!,
 		secret:process.env.SESSION_SECRET!, //pick a random string to make the hash that is generated secure
-		store: MongoStore.create({mongoUrl:process.env.MONGO_URL }),
+		store: MongoStore.create({mongoUrl:process.env.MONGO_URL}),
      cookie: {
        maxAge: 24 * 60 * 60 * 1000, 
       //  httpOnly: true, sameSite: "none", secure: true 
@@ -84,23 +106,22 @@ app.use(passport.session());
  app.use("/", addressRoutes)
  app.use("/", adminRoutes)
 
-
- const server = app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`))
- 
-   server.keepAliveTimeout = 110 * 1000;
-   server.headersTimeout = 120 * 1000;
-   
-
+console.log(process.env.MONGO_URL)
+const MONGO_URL = process.env.MONGO_URL
  const startServer  = async () => {
-    try{
-  // eslint-disable-next-line no-undef
-  await connectDB(process.env.MONGO_URL);
-
+  try{
+await connectDB('mongodb+srv://admin-bakerr:N0qmGOCBDkSPKQYC@cluster0.pdu7dww.mongodb.net/web-mall');
 }catch (err){
-    console.log(err)
+  console.log(err)
 }
 
 
 }
 
-startServer();
+ startServer();
+
+ app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`))
+ 
+  
+
+ export default app;

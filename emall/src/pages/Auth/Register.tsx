@@ -24,6 +24,7 @@ const Register = ( ) => {
     username:string;
     password: string;
     confirmPassword: string;
+    role:string
   }
   
   useEffect(() =>{
@@ -42,6 +43,7 @@ const Register = ( ) => {
      .min(2, 'Name must be minimum 2')
      .max(100, 'Name must not be more than 100 characters')
      .required('Name is required'),
+     role: Yup.string().required('Please select role'),
      email: Yup.string().email('Invalid email').required('Email is required'),
      password: Yup.string()
       .min(6, 'Password must be at least 6 characters')
@@ -73,6 +75,7 @@ const Register = ( ) => {
         email: '',
         password: '',
         confirmPassword: '',
+        role: '',
       },
       validationSchema,
       onSubmit: handleSubmit,
@@ -85,8 +88,8 @@ const Register = ( ) => {
     <section>
     <Container fluid>
 
-<div className=" d-flex ">
- <div className="ms-auto  me-auto" >
+<div className="d-flex justify-content-center my-3">
+ <div className="" >
             
   <p className='text-center fs-3  fw-medium'>Create an account</p>
   
@@ -111,7 +114,7 @@ const Register = ( ) => {
             <div className="error ">{formik.errors.email}</div>
           )}
       <br />
-   {/* {authUser?.role === 'super admin' &&  (<div><Form.Select size="lg" required className="shadow-none" value={formik.values.role}  onChange={formik.handleChange}  name="role"  >
+   <div><Form.Select size="lg" required className="shadow-none" value={formik.values.role}  onChange={formik.handleChange}  name="role"  >
            
             <option>customer service</option>
             <option>admin</option>
@@ -122,8 +125,8 @@ const Register = ( ) => {
             <div className="error ">{formik.errors.role}</div>
           )}
           </div>
-    )}
-    */}
+  
+
       
       
       <Form.Control size="lg" className="shadow-none"  required   value={formik.values.password}  onChange={formik.handleChange} style={{}} name="password"     type="password" placeholder="Password" />

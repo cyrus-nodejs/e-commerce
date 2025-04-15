@@ -71,8 +71,8 @@ interface FormValues {
     <section>
     <Container fluid>
    
-<center>
-<div   className="d-inline-flex px-5 mx-5">
+
+<div   className="d-flex justify-content-center my-3">
 <div >
          
 <p className="text-center text-dark fs-4 fw-normal">Reset your password.</p>           
@@ -105,7 +105,7 @@ interface FormValues {
 </div>
 
 
-</center>
+
 </Container>
 
     </section>

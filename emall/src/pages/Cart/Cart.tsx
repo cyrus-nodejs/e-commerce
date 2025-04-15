@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import {Container, Row, Col,  Button, Form, Image , Table} from "react-bootstrap"
-import { ITEM } from "../utils/@types"
+import { ITEM } from "../../utils/@types"
+import "../../index.css"
 
-
-import Navbar from "../components/Navbar/Navbar"
+import Navbar from "../../components/Navbar/Navbar"
  import { Link } from "react-router-dom"
 
 import { useGetCountry } from 'react-country-list';
@@ -13,18 +13,18 @@ import {
 
 } from 'react';
 
-import { useAppSelector, useAppDispatch } from "../redux/app/hook"
-import { getAddress, fetchCreateAddress } from "../redux/features/address/addressSlice"
+import { useAppSelector, useAppDispatch } from "../../redux/app/hook"
+import { getAddress, fetchCreateAddress } from "../../redux/features/address/addressSlice"
 import {  useEffect, useState, useContext  } from "react";
-import { FavoriteContext } from "../../src/Context/wishlist"
-import { fetchAddress } from "../redux/features/address/addressSlice"
+import { FavoriteContext } from "../../../src/Context/wishlist"
+import { fetchAddress } from "../../redux/features/address/addressSlice"
 import {  fetchDeleteFromCart, getCartItems, fetchClearCart, 
-  fetchReduceCartQTY, fetchAddCartQty, getCartBills,   } from "../redux/features/cart/cartSlice"
-import { addGiftWrap } from "../redux/features/order/orderSlice"
+  fetchReduceCartQTY, fetchAddCartQty, getCartBills,   } from "../../redux/features/cart/cartSlice"
+import { addGiftWrap } from "../../redux/features/order/orderSlice"
   // import { getClientSecret,   } from "../redux/features/checkout/checkoutSlice"
-  import { getShipping, getGift } from "../redux/features/order/orderSlice"
-  import { fetchCreatePayment } from "../redux/features/checkout/checkoutSlice"
-  import { getAuthUser} from "../redux/features/auth/authSlice"
+  import { getShipping, getGift } from "../../redux/features/order/orderSlice"
+  import { fetchCreatePayment } from "../../redux/features/checkout/checkoutSlice"
+  import { getAuthUser} from "../../redux/features/auth/authSlice"
 const Cart = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -133,7 +133,7 @@ console.log(destination)
    
     <section>
       <Navbar />
-       <Container fluid>
+       <Container className='home' fluid>
         <p className="text-center fs-2">Place your Order</p>
       <Row className="px-5">
         <Col  sm={9}>
