@@ -8,7 +8,7 @@
     "build": "tsc",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
-    "test": ""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "pre-commit": [
     "ts.check",
