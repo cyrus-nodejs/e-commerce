@@ -1,22 +1,25 @@
 
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
+import { fetchAddRecentlyViewed } from '../../../redux/features/items/itemSlice';
 
 import { useAppDispatch } from "../../../redux/app/hook";
 import { ITEM } from "../../../utils/@types";
-import {  Image,   } from "react-bootstrap"
-
-
+import {   Col,   } from "react-bootstrap"
+import { Link } from 'react-router-dom';
+import { FavoriteContext } from '../../../Context/wishlist';
 
 import {  useAppSelector } from "../../../redux/app/hook";
 
 import { fetchSearchResult, getSearchResult,   getSearchTerm } from '../../../redux/features/items/itemSlice'
-import { useEffect } from 'react'
+import { useEffect, useContext} from 'react'
 
 const  NavSearchResults = () => {
   const dispatch = useAppDispatch()
   const searchResult = useAppSelector(getSearchResult)
   const searchterm = useAppSelector(getSearchTerm)
- 
+ const {state} = useContext(FavoriteContext)
   useEffect(() =>{
     dispatch(fetchSearchResult(searchterm))
         }, [dispatch, searchterm])
@@ -30,21 +33,25 @@ const  NavSearchResults = () => {
           <div>
            <div className="d-flex mb-3">
 
-           <div className="d-inline-flex my-3 fs-4 border-info  border-bottom">Search Results</div>
+           <div className="d-inline-flex my-3 fs-4 border-info text-dark  border-bottom">Search Results</div>
    
   </div>
         
             <div className="row   ">
-       {searchResult?.slice(0, 20).map((item:ITEM) =>{
+       {searchResult?.slice(0, 5).map((item:ITEM) =>{
           return (
-        
+            <Col  key={item._id} style={{width:"150px"}}>
+               
+           <Link to={`/product/${item.title}`} onClick={() =>{dispatch(fetchAddRecentlyViewed(item))}} className="p-2 text-decoration-none text-reset">   </Link>
+           <LazyLoadImage   width="150px" height="200px"   effect="blur"  src={item.image} />
+        <p className="fs-6  text-dark  ">{item.title.substring(0, 10) + ".."}</p>
+        <p className="fs-6 fw-bold  text-dark " >
+         {state.currency}{item.price}
+        </p>
+       
+    </Col>
           
-  <div className="position-relative m-2" style={{width:"180px", height:"150px"}} >
-                
-                <Image src={item.image} width="180" height="150"   rounded />
-              
-                 <div className="figure-caption text-light  ">{item.title}</div> 
-              </div>
+
               )
        })}
 

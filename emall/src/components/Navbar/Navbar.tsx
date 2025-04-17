@@ -15,7 +15,7 @@ import {Alert} from 'react-bootstrap';
 // import Home from "./Navtabs/Home";
 // import Blog from "./Navtabs/Blog";
 // import Product from "./Navtabs/Product";
-
+import NavbarSearch from "./NavbarSearch";
 import NavSearch from "./NavSearch/NavSearch";
 import { Link } from "react-router-dom";
 import Offcanvas from 'react-bootstrap/Offcanvas';
@@ -148,11 +148,8 @@ const Navbar = () => {
       </ul>
       <div className="bg-light d-flex flex-row mb-3 rounded-2">
        
-      {/* <form className="d-flex " role="search">
-          <input className="form-control border border-0   shadow-none  me-2 " type="search" placeholder="Search for products" aria-label="Search" />
-          <div className=" m-1 border-0 px-2 bg-info rounded-2 border" type="submit"><i className='bx bx-search bx-md  text-light'></i></div>
-        </form> */}
-        <NavSearch />
+   
+        <NavbarSearch />
         <div className=" m-1 border-0 px-2 bg-info rounded-2 border" ><i className='bx bx-search bx-md  text-light'></i></div>
         </div>
        

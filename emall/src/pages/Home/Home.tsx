@@ -14,13 +14,15 @@ import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from "../../redux/fea
 import FlashDeals from "./FlashDeals"
 import Clearance from "./Clearance"
 import { useEffect } from "react"
-
+import NavSearchResults from "../../components/Navbar/NavSearch/NavSearchResults"
+import { getSearchTerm } from "../../redux/features/items/itemSlice"
 const Home = () => {
   
   
   const dispatch = useAppDispatch()
   const user = useAppSelector(getAuthUser)
   const isAuthenticated = useAppSelector(getIsAuthenticated)
+  const searchTerm = useAppSelector(getSearchTerm)
   console.log(user)
   console.log(isAuthenticated)
 
@@ -36,6 +38,7 @@ const Home = () => {
           <Navbar />
 
           <Banner />
+          {!searchTerm ? (<div className="">
             <TrendingProduct />
              <Categories />
              <FlashDeals />
@@ -43,8 +46,12 @@ const Home = () => {
              <TopDeals />
              <TopFeatured />
             <Recommended />
-            {/* <Footer  /> */}
-     
+            
+            </div>
+      ) : 
+      (<div>
+        <NavSearchResults />
+      </div>) } 
       {user && isAuthenticated && (< Recentlyviewed />)}
       
       </div>

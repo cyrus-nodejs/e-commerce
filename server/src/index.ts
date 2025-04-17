@@ -106,7 +106,7 @@ console.log(process.env.MONGO_URL)
 const MONGO_URL = process.env.MONGO_URL
  const startServer  = async () => {
   try{
-await connectDB('mongodb+srv://admin-bakerr:N0qmGOCBDkSPKQYC@cluster0.pdu7dww.mongodb.net/web-mall');
+await connectDB(MONGO_URL);
 }catch (err){
   console.log(err)
 }

@@ -18,7 +18,7 @@ const Recentlyviewed = () => {
   
   const dispatch = useAppDispatch()
   const recentlyViewed = useAppSelector(getRecentlyViewedItem)
-  
+  console.log(recentlyViewed)
   const authUser = useAppSelector(getAuthUser)
     const isAuthenticated = useAppSelector(getIsAuthenticated)
     
@@ -43,7 +43,7 @@ const Recentlyviewed = () => {
          {authUser && isAuthenticated && (
           <div>
            <div>
-           <div className="d-inline-flex p-2 fs-4 border-info  border-bottom">Recently Viewed</div>
+           {recentlyViewed && (<div className="d-inline-flex p-2 fs-4 border-info  border-bottom"> Recently Viewed </div>)}   
          </div>
            
              {/* <div  className="slider-container">

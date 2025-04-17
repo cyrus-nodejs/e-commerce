@@ -65,6 +65,7 @@ export const fetchAddRecentlyViewed = createAsyncThunk(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     'items/fetchAddRecentlyViewed', async (item:ITEM) => {
         const itemId = item._id
+        console.log(itemId)
         const response= await axios.post(`${BASEURL}/addviewed`,{itemId},{ withCredentials: true })
         console.log(response.data)
         return response.data
@@ -208,7 +209,7 @@ export const fetchAddRecentlyViewed = createAsyncThunk(
                                       export const fetchSearchResult = createAsyncThunk(
                                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                         'items/fetchSearchResult',  async (searchQuery:any) => {
-                                            const response= await axios.get(`${BASEURL}/search?q=${searchQuery}`,{ withCredentials: true })
+                                            const response= await axios.get(`${BASEURL}/search?query=${searchQuery}`,{ withCredentials: true })
                                             console.log(response.data)
                                             return response.data
                                           });
@@ -423,6 +424,17 @@ state.message= action.payload.message
 state.status = 'failed'
 state.error = action.error.message;
 })
+.addCase(fetchSearchResult.pending, (state) => {
+  state.status = 'pending'
+  })
+  .addCase(fetchSearchResult.fulfilled, (state, action) => {
+  state.searchResult=action.payload
+  state.message= action.payload.message
+  })
+  .addCase(fetchSearchResult.rejected, (state, action) => {
+  state.status = 'failed'
+  state.error = action.error.message;
+  })
      
     
   },

@@ -105,7 +105,7 @@ export const  updateItem = async (req:any, res:any ) => {
   }
 } 
 
-//Remove selected item fro database
+//Remove selected item from database
 export const deleteItem = async (req:any, res:any ) => {
  
   const {itemId}= req.body
@@ -130,8 +130,25 @@ try{
 
 // Search Items
 export const searchItem = async (req:any, res:any ) => {
-const searchitem = req.query
-await Item.find({ title: { $regex: `${searchitem}`, $options: "i" }}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
+
+const {query}= req.query
+
+// await Item.find({ title: { $regex: `${searchitem}`, $options: "i" }}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
+
+try {
+  const regex = new RegExp(query, 'i'); // 'i' for case-insensitive
+  const results = await Item.find({
+    $or: [
+      { title: { $regex: regex } },
+      { description: { $regex: regex } }
+    ]
+  });
+
+  res.json(results);
+} catch (err) {
+  console.error(err);
+  res.status(500).json({ error: 'Server error' });
+}
 
 }
 

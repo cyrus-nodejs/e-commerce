@@ -23,9 +23,8 @@ useEffect(() =>{
           <i className='bx bx-home  bx-sm text-light'></i>
           </div>
           </a>
-        <div className="p-2 col-12 ">
-    
-<Form.Control  onChange = {(e) => dispatch(handleSearchterm(e.target.value))}  type="text" className="text-dark shadow-none border border-0  w-100 h-100  rounded-2  shadow-none " placeholder="Search Products" />
+        <div className="p-2 d-flex  ">
+<Form.Control  onChange = {(e) => dispatch(handleSearchterm(e.target.value))}  type="text" className="text-dark shadow-none border border-0 w-100 h-100  rounded-2  shadow-none " placeholder="Search Products" />
 </div> 
 
 

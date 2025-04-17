@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 import {Cart} from '../models/Cart'
 import {User} from '../models/User'
 import { Item } from '../models/Item'
-
+import {describe, expect, test, it} from '@jest/globals';
 import { createSecretToken } from '../middlewares/jwt/createSecretToken'
 const user =  User.create({ email: 'goat@gmail.com', firstname: 'laver', lastname:'pork' });
 
@@ -41,7 +41,7 @@ describe('GET /getcart', () => {
         itemId: item._id,
       };
     
-      const response = await request(app).post('/addtocart').send(newCart);
+      const response = await request(app).post('/addtocart').set("Authorization", `Bearer ${token}`).send(newCart);
       expect(response.status).toBe(200);
       
     });

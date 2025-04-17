@@ -8,7 +8,9 @@ import {Link} from "react-router-dom";
 
 import { fetchAllItems, getAllItems } from '../../redux/features/items/itemSlice';
 
+
 import { useAppSelector, useAppDispatch } from '../../redux/app/hook';
+
 const NavbarSearch = () => {
     const dispatch = useAppDispatch()
     const allItems = useAppSelector(getAllItems)
@@ -42,11 +44,11 @@ const NavbarSearch = () => {
       console.log('Focused')
     }
   
-    const formatResult = (item: { title: string | number | boolean  | null | undefined; image: unknown; }) => {
+    const formatResult = (item: { title: string ; image: string; }) => {
       return (
         <>
          <Link to={`/product/${item.title}`} className="p-2 text-decoration-none text-reset"> 
-        <span className="me-3" style={{ display: 'flex', textAlign: 'left' }}><span ><Image src={`https://shoppinghub-un6n.onrender.com/items/${item.image}`} className="ms-3" width="25" height="25"/> </span>{item.title}</span></Link>
+        <span className="me-3" style={{ display: 'flex', textAlign: 'left' }}><span ><Image src={item.image} className="ms-3" width="25" height="25"/> </span>{item.title}</span></Link>
         </>
       )
     }
