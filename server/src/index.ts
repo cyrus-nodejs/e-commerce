@@ -1,6 +1,6 @@
 
 import 'dotenv/config'
-
+import dotenv from 'dotenv';
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import express from "express"
@@ -19,7 +19,7 @@ import adminRoutes from '../routes/Admin'
 import passport from "../middlewares/passport/index"
 import cookieParser from 'cookie-parser';
 
-
+dotenv.config()
 
  const app = express();
 
