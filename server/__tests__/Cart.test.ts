@@ -1,14 +1,47 @@
 import request from 'supertest'
 import app from '../src'
 import mongoose from 'mongoose'
-import {Cart} from '../models/Cart'
+import jwt from 'jsonwebtoken'
 import {User} from '../models/User'
 import { Item } from '../models/Item'
-import {describe, expect, test, it} from '@jest/globals';
+import {describe, expect, test, it, beforeAll, afterAll} from '@jest/globals';
 import { createSecretToken } from '../middlewares/jwt/createSecretToken'
-const user =  User.create({ email: 'goat@gmail.com', firstname: 'laver', lastname:'pork' });
 
-const token =  createSecretToken(user)
+
+let token;
+let user;
+let product;
+
+const test_db_url :any =process.env.TEST_DB_URI
+
+beforeAll(async () => {
+  await mongoose.connect(test_db_url);
+
+  user = new User({ email: "test@gmail.com", password: "test123", firstname:"firsttest", lastname:'secondtest'});
+  await user.save();
+
+  product = new Item({ title: 'Item1',
+    price: 10,
+    description:'Item description',
+    category: 'goat',
+    unit:1,
+    image: 'test.jpg',
+    trending: false,
+    recommended: false,
+    topfeatured: false,
+    topdeals: false,});
+  await product.save();
+
+  
+  token = createSecretToken(user)
+});
+
+afterAll(async () => {
+  await User.deleteMany({});
+  await Item.deleteMany({});
+  await mongoose.disconnect();
+});
+
 
 describe('GET /getcart', () => {
     it('should return owner cart', async () => {
@@ -29,7 +62,7 @@ describe('GET /getcart', () => {
         category: 'goat',
         unit:1,
         image: 'test.jpg',
-        trending: false,
+        trending: true,
         recommended: false,
         topfeatured: false,
         topdeals: false,

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const CartSchema = new Schema({
     owner : {
-        type: String,
+        type:  mongoose.Schema.Types.ObjectId,
          required: true,
          ref: 'User'
        },

@@ -13,7 +13,7 @@ export const getCart = async (req:any, res: any) =>{
       try{
         let cart = await Cart.findOne({owner:owner});
         if(cart && cart.items.length > 0){
-        
+           console.log(cart)
           res.json({ success: true, message: "View cart!", cart:cart });
         }
         else{

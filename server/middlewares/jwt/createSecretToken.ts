@@ -1,4 +1,4 @@
-import 'dotenv/config'
+
 import jwt from 'jsonwebtoken'
 
  export const createSecretToken = (data:any) => {

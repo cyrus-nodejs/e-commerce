@@ -2,6 +2,7 @@
 // @ts-nocheck
 import {Container, Row, Col,  Button, Form, } from "react-bootstrap"
 
+
 import "../index.css"
 import  { useState,  useEffect} from 'react'
 import Navbar from "../components/Navbar/Navbar"
@@ -14,7 +15,7 @@ import {
 } from 'react';
 
 
-import { getAddress, fetchUpdateAddress } from "../redux/features/address/addressSlice"
+import { getAddress,  getMessage, fetchUpdateAddress } from "../redux/features/address/addressSlice"
 
 import { useAppSelector, useAppDispatch } from "../redux/app/hook"
 const AddressForm = () => {
@@ -22,13 +23,16 @@ const AddressForm = () => {
   const dispatch = useAppDispatch()
 
   const destination  = useAppSelector(getAddress)
+  const message  = useAppSelector(getMessage)
   
+
  
 
     const [country, setCountry] = useState<string>('');
     const [state, setState] = useState<string>('');
     const [city, setCity] = useState<string>();
     const [isLoading, setLoading] = useState(false);
+    
     
     const { cityList, stateList, countryList } = useGetCountry({
       country,
@@ -163,6 +167,8 @@ dispatch(fetchUpdateAddress(formData))
   
 
   <Row className="mb-3">
+
+
   <Form.Group as={Col} className="mb-3" controlId="country">
     <Form.Label>Country</Form.Label>
     <Form.Select 
@@ -247,6 +253,7 @@ dispatch(fetchUpdateAddress(formData))
 
 
   <div className="d-flex">
+    <div className="text-dark">{message}</div>
     <div className="ms-auto p-2" >
   <Button onClick={handleSubmit} variant="dark"    type="submit">
   {isLoading ? 'Loading…' : 'Update Address'}

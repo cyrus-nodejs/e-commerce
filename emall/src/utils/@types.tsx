@@ -7,12 +7,10 @@ export interface ITEM {
      description:string;
      category:string;
      price:number,
-     newprice:number,
-     status:string;
      review:string;
      rating:number;
      discount:number;
-     unit:string;
+     unit:number;
   quantity:number;
      image:string;
      trending:string;
@@ -43,7 +41,7 @@ export interface ADDRESSITEM {
 }
 
 export interface CARTITEM {
-  id:string,
+    id:string,
     itemId:string;
     title:string;
     image:string;
@@ -52,6 +50,8 @@ export interface CARTITEM {
 }
 
 export interface ORDERITEM {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [x: string]: any;
     length: ReactNode;
     id:string,
     itemId:string;
@@ -130,7 +130,7 @@ export type cartType = {
 
   export interface ORDER {
     _id:string,
-    owner:string,
+    owner:USER,
     items:ORDERITEM,
     giftwrapper:number;
     deliveryfee:number;
@@ -143,7 +143,7 @@ export type cartType = {
     
     export interface CART {
       _id:string,
-      owner:string,
+      owner:USER,
       items:CARTITEM,
       bill:number;
       timestamps: string;

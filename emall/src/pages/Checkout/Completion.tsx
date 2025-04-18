@@ -9,20 +9,18 @@ import {  Button, Container } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
 
-import {  useAppDispatch, useAppSelector } from '../../redux/app/hook';
-import {fetchConfig,  getStripePromise } from '../../redux/features/checkout/checkoutSlice';
+import {  useAppDispatch } from '../../redux/app/hook';
+
 import { fetchConfirmPayment } from '../../redux/features/order/orderSlice';
+const STRIPE = import.meta.env.VITE_APP_STRIPE_PUBLISHABLE_KEY
 function Completion() {
   const [ messageBody, setMessageBody ] = useState(null);
   
   const [paymentIntent, setPaymentIntent] = useState("")
   const dispatch = useAppDispatch()
-  const stripePromise = useAppSelector(getStripePromise)
-console.log(stripePromise)
-const stripe = loadStripe(stripePromise)
-useEffect(() =>{
- dispatch(fetchConfig())
-   }, [dispatch])
+
+console.log(STRIPE)
+ const stripe = loadStripe(STRIPE)
 
  
   useEffect(() => {

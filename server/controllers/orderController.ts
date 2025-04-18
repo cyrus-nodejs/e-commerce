@@ -126,6 +126,7 @@ export const config = async (req:any, res:any ) => {
 // Create Payment intent with Stripes
 export const createPayment = async (req:any, res: any) => {
     const owner  = req.user?.id
+    console.log(req.body)
     const {gift, shipping,  cartBills} = req.body
 try{
      const bill = gift + shipping + cartBills

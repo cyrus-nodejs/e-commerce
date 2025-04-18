@@ -14,10 +14,10 @@ import {
 } from 'react';
 
 import { useAppSelector, useAppDispatch } from "../../redux/app/hook"
-import { getAddress, fetchCreateAddress } from "../../redux/features/address/addressSlice"
+import { getAddress, getMessage, fetchAddress, fetchCreateAddress } from "../../redux/features/address/addressSlice"
 import {  useEffect, useState, useContext  } from "react";
 import { FavoriteContext } from "../../../src/Context/wishlist"
-import { fetchAddress } from "../../redux/features/address/addressSlice"
+
 import {  fetchDeleteFromCart, getCartItems, fetchClearCart, 
   fetchReduceCartQTY, fetchAddCartQty, getCartBills,   } from "../../redux/features/cart/cartSlice"
 import { addGiftWrap } from "../../redux/features/order/orderSlice"
@@ -39,7 +39,7 @@ const shipping = useAppSelector(getShipping)
 const updateUser = useAppSelector(getAuthUser)
 const {state} = useContext(FavoriteContext)
 
-
+const message  = useAppSelector(getMessage)
   
   
  const date = new Date()
@@ -280,6 +280,7 @@ console.log(destination)
 
 
       <div className="d-flex">
+      <div className="text-dark">{message}</div>
         <div className="ms-auto p-2" >
       <Button onClick={() => dispatch(fetchCreateAddress(orderdata={firstname,
         lastname, mobile, mobile2, address,ordernote,nation,province,region, postalcode}))} variant="dark"    type="submit">

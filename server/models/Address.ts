@@ -45,7 +45,6 @@ const AddressSchema = new Schema({
         },
         province: {
             type: String ,
-            required: true,
         },
         ordernote: {
             type: String ,

@@ -88,7 +88,8 @@ const Register = ( ) => {
     <section>
     <Container fluid>
 
-<div className="d-flex justify-content-center my-3">
+<div className="d-flex justify-content-between my-3">
+  <div></div>
  <div className="" >
             
   <p className='text-center fs-3  fw-medium'>Create an account</p>
@@ -152,6 +153,7 @@ const Register = ( ) => {
     </Stack>
   
 </div>
+<div></div>
  </div>
 </Container>
 
