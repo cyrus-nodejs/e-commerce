@@ -102,7 +102,7 @@ app.use(passport.session());
  app.use("/", addressRoutes)
  app.use("/", adminRoutes)
 
-console.log(process.env.MONGO_URL)
+
 const MONGO_URL = process.env.MONGO_URL
  const startServer  = async () => {
   try{
