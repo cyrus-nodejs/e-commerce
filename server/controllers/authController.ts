@@ -1,6 +1,5 @@
 
 import { NextFunction } from "express";
-import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken'
 import { User } from '../models/User'
 import passport from "../middlewares/passport/index"
@@ -61,7 +60,7 @@ export const Login = async (req: any, res: any) => {
                 } else {
                   console.log(`Login my ${req.user}`)
                   const eToken = createSecretToken(user);
-                  res.cookie("eToken",  {withCredentials:true, httpOnly:true, secure:true, sameSite:"none" } );
+                  res.cookie("eToken", eToken, process.env.NODE_ENV === 'development' ? {withCredentials:true, httpOnly:false } : {withCredentials:true, httpOnly:true, secure:true, sameSite:"none" });
                   res.json({ success: true, message: "Authentication successful", token:eToken });
                 }
               })

@@ -37,27 +37,23 @@ app.use(express.urlencoded({ extended: true }));
  app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
  
 
- 
-// Example allowed origins for production
-const allowedOrigins = [process.env!.FRONTEND_URL];
- const corsOptions = process.env.NODE_ENV === 'production'
-  ? {
-      origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-          callback(null, true);
-        } else {
-          callback(new Error('Not allowed by CORS'));
-        }
-      },
-      credentials: true, // If you're using cookies or sessions
-    }
-  : {
-      origin: true, // Allow all origins in development
-      credentials: true,
-    };
+// Cors configuration for server  Local host & web hosting services
+const corsOptions = process.env.NODE_ENV === 'development' ? {
+  origin: process.env!.FRONTEND_URL,
+ credentials: true, 
+ optionSuccessStatus: 200,
+ methods: ['GET', 'PUT', 'POST', 'DELETE'],
+
+} : {
+
+    origin: process.env!.FRONTEND_URL2,
+   credentials: true, 
+   optionSuccessStatus: 200,
+   methods: ['GET', 'PUT', 'POST', 'DELETE'],
+}
 
 app.use(cors(corsOptions));
-
+ // 
 
 
 
