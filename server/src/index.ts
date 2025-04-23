@@ -39,7 +39,7 @@ app.use(express.urlencoded({ extended: true }));
 
  
 // Example allowed origins for production
-const allowedOrigins = [process.env!.FRONTEND_URL, process.env!.FRONTEND_URL2];
+const allowedOrigins = [process.env!.FRONTEND_URL];
  const corsOptions = process.env.NODE_ENV !== 'development'
   ? {
       origin: function (origin, callback) {

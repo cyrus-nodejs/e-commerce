@@ -42,7 +42,6 @@ const ItemSchema = new Schema({
          
  quantity: {
     type:Number,
-    default:50
 } ,
     image:{
         type:String,

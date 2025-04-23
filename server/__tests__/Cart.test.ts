@@ -1,10 +1,13 @@
 import request from 'supertest'
 import app from '../src'
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
+import {MongoMemoryServer} from 'mongodb-memory-server'
+
+
 import jwt from 'jsonwebtoken'
 import {User} from '../models/User'
 import { Item } from '../models/Item'
-import {describe, expect, test, it, beforeAll, afterAll} from '@jest/globals';
+import {describe, expect, test, it, beforeAll, afterEach, beforeEach, afterAll} from '@jest/globals';
 import { createSecretToken } from '../middlewares/jwt/createSecretToken'
 
 
@@ -12,70 +15,97 @@ let token;
 let user;
 let product;
 
-const test_db_url :any =process.env.TEST_DB_URI
-
+// const test_db_url :any =process.env.TEST_DB_URI
+let mongoServer;
 beforeAll(async () => {
-  await mongoose.connect(test_db_url);
+  mongoServer = await MongoMemoryServer.create();
+  const uri = mongoServer.getUri();
+  await mongoose.connect(uri);
 
-  user = new User({ email: "test@gmail.com", password: "test123", firstname:"firsttest", lastname:'secondtest'});
-  await user.save();
+  // Create a user
+  user = await User.create({ email: 'test@example.com', password: 'hashedpassword' });
 
-  product = new Item({ title: 'Item1',
-    price: 10,
-    description:'Item description',
-    category: 'goat',
-    unit:1,
-    image: 'test.jpg',
-    trending: false,
-    recommended: false,
-    topfeatured: false,
-    topdeals: false,});
-  await product.save();
+  // Simulate login (or signup)
+  // Simulate login (or signup)
+  const loginRes = await request(app)
+    .post('/auth/login')
+    .send({ email: 'test@example.com', password: 'hashedpassword' });
+
+  token = loginRes.body.token; // Assuming your /auth/login returns { token: "JWT" }
 
   
-  token = createSecretToken(user)
-});
+}, 30000);
 
 afterAll(async () => {
-  await User.deleteMany({});
-  await Item.deleteMany({});
+  await mongoose.connection.dropDatabase();
+  await mongoose.connection.close();
+  await mongoServer.stop();
+
   await mongoose.disconnect();
-});
+}, 3000);
 
 
-describe('GET /getcart', () => {
-    it('should return owner cart', async () => {
-      const response = await request(app).get('/getcart').set("Authorization", `Bearer ${token}`);
-      expect(response.status).toBe(200);
 
-    });
-  });
-
+afterEach(async () => {
+  await Promise.all([
+    User.deleteMany({}),
+  Item.deleteMany({}),
+  ]);
+},30000);
 
 
   describe('POST /addtocart', () => {
-    it('should create a new product', async () => {
-     const  newitem ={
-        title: 'Item1',
+    let user;
+    let product;
+   
+  beforeEach(async () => {
+    user = await User.create({ email: 'test@example.com', password: 'hashedpassword' });
+    product = await Item.create({ title: 'Item1',
         price: 10,
         description:'Item description',
         category: 'goat',
         unit:1,
         image: 'test.jpg',
-        trending: true,
+        trending: false,
         recommended: false,
         topfeatured: false,
         topdeals: false,
-     
-        }
-    const item = await Item.create(newitem);
-    const user =  User.create({ email: 'goat@gmail.com', password:"labasd", firstname: 'laver', lastname:'pork' });
-      const newCart = {
-        itemId: item._id,
-      };
+  })
+})
+  test('Add to cart and create order', async () => {
+    // Add to cart
+    const addToCartRes = await request(app)
+      .post('/cart/addtocart').set("Authorization", `Bearer ${token}`)
+      .send({
+        itemId: user._id,
+      });
     
-      const response = await request(app).post('/addtocart').set("Authorization", `Bearer ${token}`).send(newCart);
-      expect(response.status).toBe(200);
-      
+    expect(addToCartRes.statusCode).toBe(200);
+    expect(addToCartRes.body.cart.items.length).toBe(1);
+    const cartRes = await request(app)
+    .get('/getcar').set("Authorization", `Bearer ${token}`)
+    .send({
+      userId: user._id
     });
+  
+  expect(cartRes.statusCode).toBe(201);
+  expect(cartRes.body.items.lengh).toBe(200); // 2 * 100
+  
+  const updatedProduct = await Item.findById(product._id);
+  expect(updatedProduct.stock).toBe(8); // Stock reduced
+  
+ 
   });
+
+  
+})
+
+
+  // describe('GET /getcart', () => {
+  //   it('should return owner cart', async () => {
+  //     const response = await request(app).get('/getcart').set("Authorization", `Bearer ${token}`);
+  //     expect(response.status).toBe(200);
+
+  //   });
+  // })
+

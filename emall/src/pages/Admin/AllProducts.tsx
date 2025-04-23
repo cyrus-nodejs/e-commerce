@@ -45,7 +45,7 @@ useEffect(() =>{
      <div className="text-primary fw-medium">{items.title.substring(0, 25)}</div>
     {/* <div className="d-inline-flex gap-1 text-dark fs-6">{items.rating}{items.review}</div> */}
     <div className="fw-bold ">${items.price}</div> 
-    <div className="top-left  fw-bold rounded-1 px-2 text-light bg-info ">{items.status}</div> 
+    
    {/* < div className="top-left  fw-bold rounded-1 px-2 text-light bg-success ">{items.discount}</div>  */}
      
  

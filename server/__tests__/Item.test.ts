@@ -2,11 +2,11 @@ import request from 'supertest'
 import app from '../src/index'
 
 import { Item } from '../models/Item'
+import {describe, expect, test, it} from '@jest/globals';
 
 
 
-
-
+let token;
 
 
 
@@ -61,3 +61,10 @@ import { Item } from '../models/Item'
   });
 
 
+  describe('GET /getcart', () => {
+    it('should return owner cart', async () => {
+      const response = await request(app).get('/getcart').set("Authorization", `Bearer ${token}`);
+      expect(response.status).toBe(200);
+
+    });
+  });

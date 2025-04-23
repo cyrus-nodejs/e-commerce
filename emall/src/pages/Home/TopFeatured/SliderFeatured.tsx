@@ -113,7 +113,7 @@ const {state} = useContext(FavoriteContext)
        <div className="text-primary fw-medium">{product.title}</div>
       {/* <div className="d-inline-flex gap-1 text-dark fs-6">{product.rating}{product.review}</div> */}
       <div className="fw-bold ">{state.currency}{product.price}</div> 
-      <div className="top-left rounded-1 px-2 text-light bg-info">{product.status}</div>
+  
       <div className="">{product.description.substring(0, 100)}</div>
         <div className="text-center d-grid gap-2"><Button size="sm" className="d-block" onClick={() => dispatch(fetchAddCart(product))}  variant="outline-dark">Add to cart</Button></div>  
       
