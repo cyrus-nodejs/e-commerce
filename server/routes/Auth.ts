@@ -15,7 +15,7 @@ router.post("/logout", Logout );
   router.post('/forgotpassword',  ForgotPassword )
   router.post('/resetpassword',  ResetPassword  )
   router.post('/updatepassword',  UpdatePassword  )
-  router.post('/', userAuthorization,  getAuthUser  )
+  router.get('/user', userAuthorization,  getAuthUser  )
 
 
 
