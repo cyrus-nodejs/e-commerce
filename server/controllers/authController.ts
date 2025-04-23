@@ -61,7 +61,7 @@ export const Login = async (req: any, res: any) => {
                   console.log(`Login my ${req.user}`)
                   const eToken = createSecretToken(user);
                   res.cookie("eToken", eToken,  {withCredentials:true, httpOnly:true, secure:true, sameSite:"none" } );
-                  res.json({ success: true, message: "Authentication successful", token:eToken });
+                  res.json({ success: true, message: "Authentication successful",  user: req.user  });
                 }
               })
             }
