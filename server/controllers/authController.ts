@@ -1,6 +1,6 @@
 
 import { NextFunction } from "express";
-import 'dotenv/config'
+import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken'
 import { User } from '../models/User'
 import passport from "../middlewares/passport/index"
