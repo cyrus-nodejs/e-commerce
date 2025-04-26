@@ -116,7 +116,7 @@ const Register = ( ) => {
           )}
       <br />
    
-    <div><Form.Select size="lg" required className="shadow-none" value={formik.values.role}  onChange={formik.handleChange}  name="role"  >
+    {/* <div><Form.Select size="lg" required className="shadow-none" value={formik.values.role}  onChange={formik.handleChange}  name="role"  >
            
             <option>customer service</option>
             <option>admin</option>
@@ -127,7 +127,7 @@ const Register = ( ) => {
             <div className="error ">{formik.errors.role}</div>
           )}
           </div> 
-   
+    */}
 
       
       

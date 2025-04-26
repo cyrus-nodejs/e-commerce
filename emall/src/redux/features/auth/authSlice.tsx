@@ -30,7 +30,7 @@ const initialState: AuthState = {
   
 export const fetchAsyncUser = createAsyncThunk(
     'auth/fetchAsyncUser', async () => {
-        const response= await axios.post(`${BASEURL}`,{},{ withCredentials: true })
+        const response= await axios.get(`${BASEURL}/user`, { withCredentials: true })
         console.log(response.data)
         return response.data
       });
