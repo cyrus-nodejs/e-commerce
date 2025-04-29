@@ -33,7 +33,7 @@ const dispatch = useAppDispatch()
 
 <div className="position-relative my-3">
   
-      <LazyLoadImage style={{ width: '100%', height: 'auto' }} src={product.image}    effect="blur" alt={product.image}   className="" />
+      <LazyLoadImage style={{ width: '100%', height: 'auto',  }} src={product.image}    effect="blur" alt={product.image}   className="" />
   { hidden && <div>
     <OverlayTrigger
           

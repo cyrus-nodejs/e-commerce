@@ -203,8 +203,9 @@ export const getCategory = async (req:any, res:any ) => {
    
       // Get flash deals
        export  const flashDeals = async (req:any, res:any ) => {
-
-        await Item.find({status:"New",}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
+       
+        //find({   date_added:{  $lt: Date.now() }})
+        await Item.find().sort({ date_added: -1 }).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
          }
     
          export  const clearance = async (req:any, res:any ) => {

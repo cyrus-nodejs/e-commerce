@@ -70,7 +70,7 @@ export const addToCart = async (req:any, res:any ) => {
            return total + curr.unit * curr.price
          }, 0)
           await cart.save();
-         res.json({ success: true, message: "Item added to Cart!" , });
+         res.json({ success: true, message: "Item added to Cart!" , itemId });
           }
          
          
@@ -81,7 +81,6 @@ export const addToCart = async (req:any, res:any ) => {
              items:[item],
              bill: unit * price
          })
-        
          return  res.json({ success: true, message: "Item added to Cart!" }) ;
       }
      }catch (err){

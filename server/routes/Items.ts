@@ -4,7 +4,7 @@ import { getAllItems, addItem, getItemDetails, getCategory,
 trending, topFeaturedGallery, topFeaturedSlide, topDeals,
  searchItem, deleteItem,getItembyId,
 updateItem, typeCategory, recommended,
-addViewedItem, getViewedItems, relatedItem, flashDeals, clearance } from "../controllers/itemControllers";
+addViewedItem, getViewedItems, relatedItem, flashDeals, clearance } from "../controllers/Item";
  import { userAuthorization } from "../middlewares/jwt/verifyToken";
  import { verifyRole } from "../middlewares/jwt/verifyToken";
 import { upload } from "../utils/storage";

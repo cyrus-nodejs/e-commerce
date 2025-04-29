@@ -27,7 +27,7 @@ const Categories = () => {
         breakpoint: 1400,
         settings: {
           slidesToShow: 4,
-          slidesToScroll: 6,
+          slidesToScroll: 1,
           infinite: true,
           
         }
@@ -36,7 +36,7 @@ const Categories = () => {
         breakpoint: 1200,
         settings: {
           slidesToShow: 4,
-          slidesToScroll: 6,
+          slidesToScroll: 1,
           infinite: true,
           dots: true
         }
@@ -45,7 +45,7 @@ const Categories = () => {
         breakpoint: 1024,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 6,
+          slidesToScroll: 1,
           infinite: true,
           dots: true
         }
@@ -54,14 +54,14 @@ const Categories = () => {
         breakpoint: 992,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 6,
+          slidesToScroll: 1,
           
         }
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1
         }
       },

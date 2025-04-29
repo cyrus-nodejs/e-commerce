@@ -26,6 +26,7 @@ export const verifyRole = (roles: string | any[]) => {
         if(err){
             return res.json({success:false,  message:`Invalid or expired token!`})
         }
+        req.user = user;
            next()
             
     })

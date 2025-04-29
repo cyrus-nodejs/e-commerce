@@ -143,7 +143,7 @@ const Navbar = () => {
     <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item ">
-        <a className="navbar-brand webtitle text-white fs-3" href="/">Web-Mall</a>
+        <a className="navbar-brand webtitle text-white fs-3" href="/">WebMall</a>
         </li>
       </ul>
       <div className="bg-light d-flex flex-row mb-3 rounded-2">
@@ -282,7 +282,7 @@ const Navbar = () => {
     </div>
     <div className="ms-auto">
       <div className="navbar-toggler border-0  	   " >
-      <span className=" text-light ">  <a className="navbar-brand text-light fs-5 fw-medium" href="/">ShopHere</a></span>
+      <span className=" text-light ">  <a className="navbar-brand text-light fs-5 fw-medium" href="/">WebMall</a></span>
     </div>
     </div>
     <div className="ms-auto">
@@ -394,23 +394,7 @@ const Navbar = () => {
           </li>
        {scrolled && <NavSearch />}   
           
-{/*               
-          <li className="nav-item ">
-            <Shop />
-          </li>
-          <li className="nav-item ">
-            <Home />
-          </li>
-           <li className="nav-item">
-            <Product />
-          </li>
-          <li className="nav-item">
-            <Pages />
-          </li>
-           <li className="nav-item">
-            <Blog />
-          </li>
-            */}
+
         
         
         </ul>

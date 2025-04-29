@@ -24,18 +24,18 @@ const {state} = useContext(FavoriteContext)
 {topFeaturedGallery?.map((item:ITEM, id) =>{
    return (
     
-        <Col key={id} className="flex-fill  " sm={6} md={4} lg={3} style={{margin:"5px",   }} >
+        <Col key={id} className="flex-fill d-none d-sm-block" xs={6} sm={6} md={4} lg={3} style={{margin:"5px",   }} >
             <Row className="bg-white rounded-3 position-relative" >
               
       <Col sm={5} className=" bg-white  " ><LazyLoadImage src={item.image}  style={{ width: '100%', height: 'auto' }}  effect="blur"   className="" /></Col>
       <Col sm={6} className="bg-white ">
       <Link onClick={() =>{ dispatch(fetchAddRecentlyViewed(item));    }}  to={`/product/${item.title}`} className="p-2 text-decoration-none text-reset">
         <div className="d-flex flex-column mb-3">
-      <div className="text-primary fw-medium ">{item.title.substring(0, 18)}</div>
+      <div className="text-primary fs-6 fw-medium ">{item.title.substring(0, 18)}</div>
             {/* <div className="d-inline-flex gap-1 text-dark fs-6">{item.rasting}</div> */}
             <div className="d-flex">
   {/* <div className="p-2 flex-fill fw-medium">${item.newprice} <span className="ms-1 text-decoration-line-through text-secondary">{item.price}</span></div> */}
-  <div className="p-2 flex-fill text-danger fs-5 fw-medium">{state.currency}{item.price}</div>
+  <div className="p-2 flex-fill text-danger fs-6 fw-medium">{state.currency}{item.price}</div>
 </div> 
  {item.discount === 0 ? (<div className="top-left  fw-bold rounded-1 px-2 text-light bg-success"></div>) : ((<div className="top-left  fw-bold rounded-1 px-2 text-light bg-success">{item.discount}%</div>))}
             

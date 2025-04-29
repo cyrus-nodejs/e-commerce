@@ -17,10 +17,15 @@ import {  useEffect, useContext  } from "react";
 import { FavoriteContext } from "../../src/Context/wishlist";
 import { fetchProductDetails, getProductDetails } from "../redux/features/items/itemSlice";
 // import CustomerViewed from "./CustomerViewed";
+// import NavSearchResults from "../../../components/Navbar/NavSearch/NavSearchResults"
+import { getSearchTerm } from "../redux/features/items/itemSlice"
+import NavSearchResults  from "../components/Navbar/NavSearch/NavSearchResults"
+
 const Productdetails = () => {
 
   const dispatch = useAppDispatch()
 const productDetails = useAppSelector(getProductDetails)
+const searchTerm = useAppSelector(getSearchTerm)
 const {state} = useContext(FavoriteContext)
 const authUser = useAppSelector(getAuthUser)
   const isAuthenticated = useAppSelector(getIsAuthenticated)
@@ -53,8 +58,9 @@ const authUser = useAppSelector(getAuthUser)
   return (
     <Container className='home' fluid>
     < Navbar />
-    <Row style={{margin:"20px 20px"}} >
+    {!searchTerm ? (<Row style={{margin:"20px 20px"}} >
     
+   
     {productDetails?.map((product:ITEM )=> 
     <div>
       <Row  style={{ margin:"20px"}} >
@@ -65,7 +71,7 @@ const authUser = useAppSelector(getAuthUser)
       <Col  sm={6} className=""   >
       <div className="fs-4 fw-normal d-inline-flex  text-dark">{product.title}</div>
       <div className="fs-4 fw-normal d-inline-flex  ">Category:{product.category}</div>
-      <div className="fs-6 text-danger fw-normal  ">Discount:  {product.discount === 0 ? (<span className="  fw-bold rounded-1 px-2  ">Nil</span>) : ((<span className="top-left  fw-bold rounded-1 px-2 text-dark ">{product.discount}%</span>))}</div>
+      <div className="fs-6  fw-normal  ">Discount:  {product.discount === 0 ? (<span className="  fw-bold rounded-1 px-2  ">0%</span>) : ((<span className="top-left  fw-bold rounded-1 px-2 text-dark ">{product.discount}%</span>))}</div>
       <div className='text-dark fs-4'    >
       {state.currency}{product.price}
         </div>
@@ -89,7 +95,10 @@ const authUser = useAppSelector(getAuthUser)
       {/* <CustomerViewed /> */}
       {authUser && isAuthenticated && (<Recentlyviewed />)}
  
-      </Row>
+      </Row>) : (<div>
+        <NavSearchResults />
+      </div>)}
+    
     </Container> 
   )
 }

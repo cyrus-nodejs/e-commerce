@@ -3,10 +3,10 @@ import express from 'express';
 import {userAuthorization} from "../middlewares/jwt/verifyToken"
 import {  AssignCustomerService,   AssignReseller, AssignAdmin,
     AllAdmins, AllCustomerService, AllOrders, AllResellers, AllCustomers
- } from '../controllers/adminControllers';
+ } from '../controllers/Admin';
 import { verifyRole } from '../middlewares/jwt/verifyToken';
 import { upload } from "../utils/storage";
-import { deleteItem, updateItem, addItem, addCategory } from '../controllers/itemControllers';
+import { deleteItem, updateItem, addItem, addCategory } from '../controllers/Item';
 const router = express.Router();
 
 

@@ -8,7 +8,7 @@ import { Address } from '../models/Address'
 
 
 
-describe('GET /getadress', () => {
+describe('GET /getaddress', () => {
     const user =  User.create({ email: 'goat@gmail.com', firstname: 'laver', lastname:'pork' });
     const userid = user._id
     it('should return owner cart', async () => {

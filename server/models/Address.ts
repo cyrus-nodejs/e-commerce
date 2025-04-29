@@ -37,7 +37,7 @@ const AddressSchema = new Schema({
         },
         region: {
             type: String ,
-            required: true,
+            
         },
         postalcode: {
             type: String ,

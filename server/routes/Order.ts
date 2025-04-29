@@ -1,6 +1,6 @@
 import express from "express"
 import { getAllOrder , getCurrentOrder, orderDetails, createPayment ,confirmPayment,
-    retrievePayment, createOrder, config } from "../controllers/orderController";
+    retrievePayment, createOrder, config } from "../controllers/Order";
     import { verifyRole } from "../middlewares/jwt/verifyToken";
 import { userAuthorization} from "../middlewares/jwt/verifyToken";
 const router = express.Router();

@@ -40,7 +40,7 @@ const {state} = useContext(FavoriteContext)
         breakpoint: 1400,
         settings: {
           slidesToShow: 1,
-          slidesToScroll:2,
+          slidesToScroll:1,
           infinite: true,
           
         }
@@ -49,7 +49,7 @@ const {state} = useContext(FavoriteContext)
         breakpoint: 1200,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
           infinite: true,
           dots: true
         }
@@ -58,7 +58,7 @@ const {state} = useContext(FavoriteContext)
         breakpoint: 1024,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
           infinite: true,
           dots: true
         }
@@ -67,7 +67,7 @@ const {state} = useContext(FavoriteContext)
         breakpoint: 992,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
           
         }
       },
@@ -75,7 +75,7 @@ const {state} = useContext(FavoriteContext)
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 2,
+          slidesToScroll: 1,
         }
       },
       {
@@ -113,8 +113,8 @@ const {state} = useContext(FavoriteContext)
        <div className="text-primary fw-medium">{product.title}</div>
       {/* <div className="d-inline-flex gap-1 text-dark fs-6">{product.rating}{product.review}</div> */}
       <div className="fw-bold ">{state.currency}{product.price}</div> 
-  
-      <div className="">{product.description.substring(0, 100)}</div>
+{/*   
+      <div className="">{product.description.substring(0, 100)}</div> */}
         <div className="text-center d-grid gap-2"><Button size="sm" className="d-block" onClick={() => dispatch(fetchAddCart(product))}  variant="outline-dark">Add to cart</Button></div>  
       
 

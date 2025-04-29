@@ -1,14 +1,30 @@
 import request from 'supertest'
 import app from '../src/index'
-
+import mongoose from 'mongoose'
+import {MongoMemoryServer} from 'mongodb-memory-serve'
 import { Item } from '../models/Item'
 import {describe, expect, test, it} from '@jest/globals';
 
 
 
+let mongoServer;
 let token;
 
+beforeAll(async () => {
+  mongoServer = await MongoMemoryServer.create();
+  const uri = mongoServer.getUri();
+  await mongoose.connect(uri);
+});
 
+afterAll(async () => {
+  await mongoose.connection.dropDatabase();
+  await mongoose.connection.close();
+  await mongoServer.stop();
+});
+
+beforeEach(async () => {
+  await Item.deleteMany();
+});
 
   describe('GET /allitems', () => {
     it('should return all products', async () => {

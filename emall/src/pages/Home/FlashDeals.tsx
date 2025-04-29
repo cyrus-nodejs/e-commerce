@@ -61,22 +61,22 @@ const {state} = useContext(FavoriteContext)
       {
         breakpoint: 992,
         settings: {
-          slidesToShow: 5,
-          slidesToScroll: 8,
+          slidesToShow: 4,
+          slidesToScroll: 1,
           
         }
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 5,
+          slidesToShow: 3,
           slidesToScroll: 1
         }
       },
       {
         breakpoint: 576,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
           slidesToScroll: 1
         }
       }
@@ -102,8 +102,8 @@ const {state} = useContext(FavoriteContext)
       <Slider   {...settings}>  
   {flashdeals?.map((items:ITEM, id) =>{
      return (
-       <Row key={id} className=" d-flex  flex-column position-relative  mb-3" style={{width:"200px", }}>
-       <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items))}}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> <LazyLoadImage   effect="blur" src={items.image}  width="150px" height="200px"  className=""  /></Link> 
+       <Row key={id} className=" d-flex  flex-column position-relative  mb-3" >
+       <Link onClick={() =>{dispatch(fetchAddRecentlyViewed(items))}}  to={`/product/${items.title}`} className="p-2 text-decoration-none text-reset"> <LazyLoadImage   effect="blur" src={items.image}   style={{ width: '100%', height: 'auto' }}     className=""  /></Link> 
         <div className="d-flex flex-column ">
          <div className="text-primary fw-medium">{items.title.substring(0, 25)}</div>
         {/* <div className="d-inline-flex gap-1 text-dark fs-6">{items.rating}{items.review}</div> */}

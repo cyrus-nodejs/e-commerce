@@ -39,8 +39,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Cors configuration for server  Local host & web hosting services
 const corsOptions = {
-  // origin: process.env!.FRONTEND_URL2,
-  origin: process.env!.FRONTEND_URL,
+  //  origin: process.env!.FRONTEND_URL2,
+   origin: process.env!.FRONTEND_URL,
  credentials: true, 
  optionSuccessStatus: 200,
  methods: ['GET', 'PUT', 'POST', 'DELETE'],
