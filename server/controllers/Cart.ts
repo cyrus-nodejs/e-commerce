@@ -2,13 +2,10 @@
 import { Cart} from "../models/Cart";
 import {Item} from "../models/Item";
 
-
-
-
 //Retrieve User cart
 export const getCart = async (req:any, res: any) =>{
 
-    const owner  = req.user?.id
+    const owner  = req.user?._id
 
       try{
         let cart = await Cart.findOne({owner:owner});
@@ -28,24 +25,25 @@ export const getCart = async (req:any, res: any) =>{
     
 // Add itemms to Cart
 export const addToCart = async (req:any, res:any ) => {
-     const owner = req.user?.id
+     const owner = req.user?._id
     const {itemId}= req.body
     console.log(itemId, owner)
+    const cart =await  Cart.findOne({owner:owner})
+    const item = await Item.findById(itemId)
+  
       try{
-        const cart =await  Cart.findOne({owner:owner})
-        const item = await Item.findOne({_id:itemId})
-     
-        const price = item.price
-       
-        const unit = item.unit
-      
+         
         if (!owner) {
-         res.json({ success: false, message: "Login to add Cart" })
-       }
-     
-       if (!item) {
-         res.status(404).send({message:"item not found!"})
-       }
+          res.json({ success: false, message: "Login to add Cart" })
+      }
+    
+      if (!item) {
+        res.status(404).send({message:"item not found!"})
+      }
+       
+        console.log(item)
+        const price = item?.price
+        const unit = item?.unit
      
      
      
@@ -70,7 +68,7 @@ export const addToCart = async (req:any, res:any ) => {
            return total + curr.unit * curr.price
          }, 0)
           await cart.save();
-         res.json({ success: true, message: "Item added to Cart!" , itemId });
+         res.status(200).json({ success: true, message: "Item added to Cart!" , cart:cart });
           }
          
          
@@ -81,7 +79,7 @@ export const addToCart = async (req:any, res:any ) => {
              items:[item],
              bill: unit * price
          })
-         return  res.json({ success: true, message: "Item added to Cart!" }) ;
+         return  res.status(200).json({ success: true, message: "Item added to Cart!", cart:newCart }) ;
       }
      }catch (err){
          console.log(err);

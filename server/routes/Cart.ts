@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 router.get("/getcart",  getCart);
-router.post("/addtocart",    addToCart);
+router.post("/addtocart",  userAuthorization,    addToCart);
 router.post("/reducecart",  userAuthorization,  decreaseCartQty);
 router.post("/addcart",  userAuthorization,  addCartQty);
 router.post("/deletecart",   deleteFromCart);

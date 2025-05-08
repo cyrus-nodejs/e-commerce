@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const AddressSchema = new Schema({ 
     owner : {
-        type: String,
+         type: mongoose.Schema.Types.ObjectId,
          required: true,
          ref: 'User'
        },

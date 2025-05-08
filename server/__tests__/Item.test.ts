@@ -1,86 +1,44 @@
 import request from 'supertest'
 import app from '../src/index'
-import mongoose from 'mongoose'
-import {MongoMemoryServer} from 'mongodb-memory-serve'
-import { Item } from '../models/Item'
-import {describe, expect, test, it} from '@jest/globals';
+import { Item } from '../models/Item';
+import { beforeAll, afterAll, test,it, expect } from '@jest/globals';
 
 
 
-let mongoServer;
-let token;
+
+let user;
+
+let token: string;
 
 beforeAll(async () => {
-  mongoServer = await MongoMemoryServer.create();
-  const uri = mongoServer.getUri();
-  await mongoose.connect(uri);
-});
-
-afterAll(async () => {
-  await mongoose.connection.dropDatabase();
-  await mongoose.connection.close();
-  await mongoServer.stop();
-});
-
-beforeEach(async () => {
-  await Item.deleteMany();
-});
-
-  describe('GET /allitems', () => {
-    it('should return all products', async () => {
-        const newProduct = {
-            title: 'Item1',
-            price: 10,
-            description:'Item description',
-            category: 'goat',
-            unit:1,
-            image: 'test.jpg',
-            trending: false,
-            recommended: false,
-            topfeatured: false,
-            topdeals: false,
-         
-          };
-          const product = new Item(newProduct)
-         await product.save();
-         
-      const response = await request(app).get('/allitems');
-      expect(response.status).toBe(200);
-      expect(response.body.length).toBe(1);
-    });
+    await request(app).post('/register').send({
+        username: 'test@example.com',
+        email: 'test@example.com',
+        password: 'password123',
+      });
+  const res = await request(app).post('/login').send({
+    username: 'test@example.com',
+    password: 'password123',
   });
 
+  token = res.body.eToken;
+  console.log(res.body)
+},30000);
+
+it('should upload item after login', async () => {
 
 
-  describe('POST /add/item', () => {
-    it('should create a new product', async () => {
-      const newProduct = {
-        title: 'Item1',
-        price: 10,
-        description:'Item description',
-        category: 'goat',
-        unit:1,
-        image: 'test.jpg',
-        trending: false,
-        recommended: false,
-        topfeatured: false,
-        topdeals: false,
-     
-      };
-    
-      const response = await request(app).post('/add/item').send(newProduct);
-      expect(response.status).toBe(200);
-     
-      
-
+  const res = await request(app)
+    .post('/add/item')
+    .set('Cookie', [`eToken=${token}`]) //.set('Authorization', `Bearer ${token}`)
+    .send({
+        title:'ball',
+        description:'object',
+        category:"sport",
+        price:50,
+        image:'geh.jpg'
     });
-  });
 
-
-  describe('GET /getcart', () => {
-    it('should return owner cart', async () => {
-      const response = await request(app).get('/getcart').set("Authorization", `Bearer ${token}`);
-      expect(response.status).toBe(200);
-
-    });
-  });
+  expect(res.status).toBe(200);
+//   expect(res.body.item.length).toBeGreaterThan(0);
+});

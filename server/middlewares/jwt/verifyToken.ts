@@ -17,16 +17,22 @@ export const verifyRole = (roles: string | any[]) => {
   
   //Authorize Users
  export const userAuthorization = (req:Request,  res:Response, next:NextFunction) => {
-    const eToken = req.cookies.eToken
+    let eToken = req.cookies.eToken
+      // Fallback to Authorization header if not in cookies
+  if (!eToken && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+    eToken = req.headers.authorization.split(' ')[1];
+  }
    console.log(`verifytoken => ${eToken}`)
     if (!eToken){
         return res.json({success:false,  message:"No Access Token! "})
     }
-    jwt.verify(eToken, process.env.TOKEN_KEY!, async (err:any, user:any) => {
+    jwt.verify(eToken, process.env.TOKEN_KEY, async (err:any, user:any) => {
         if(err){
             return res.json({success:false,  message:`Invalid or expired token!`})
         }
-        // req.user = user;
+         console.log("user contains " + JSON.stringify(user));
+          req.user = user.data;
+        console.log(req.user)
            next()
             
     })

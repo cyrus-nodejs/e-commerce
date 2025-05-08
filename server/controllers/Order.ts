@@ -97,7 +97,7 @@ export const config = async (req:any, res:any ) => {
     //Create new Order
     export const createOrder = async (req:any, res:any ) => {
        
-        const owner  = req.user?.id
+        const owner  = req.user?._id
         const {gift, shipping, clientSecret} = req.body
         console.log(gift, shipping)
        try{
@@ -112,9 +112,9 @@ export const config = async (req:any, res:any ) => {
                 paymentid:clientSecret,
             });
      
-            res.json({success:true, message:"New order created!"})
+            res.status(200).json({success:true, message:"New order created!", order:order})
         }else{
-            res.json({success:false, message:"order added!"})
+            res.json({success:false, message:"order added!", })
         }
        }catch (err){
        }

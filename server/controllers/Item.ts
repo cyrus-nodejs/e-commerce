@@ -74,7 +74,7 @@ try {
      const doc = await Category.findOneAndUpdate(filter, update, {new:true, upsert:true,  includeResultMetadata: true})
       newItem.save()
      
-      res.json({success:true, message:"Item saved to database!"})
+      res.status(200).json({success:true, message:"Item saved to database!", item:newItem})
 
 } catch (error) {
   res.json({ message: 'Server Error', error });

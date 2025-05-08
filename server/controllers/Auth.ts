@@ -24,7 +24,7 @@ export const Register = async (req: any, res: any, next: NextFunction) => {
           }
           else {
             console.log(req.user)
-            res.json({ success: true, message: "Your account has been saved" });
+            res.status(200).json({ success: true, message: "Your account has been saved" });
             // res.json({ success: true, message: "Your account has been saved" }); 
           }
         });
@@ -60,10 +60,10 @@ export const Login = async (req: any, res: any) => {
                 } else {
                   console.log(`Login my ${req.user}`)
                   const eToken = createSecretToken(user);
-                  res.cookie("eToken", eToken, {withCredentials:true, httpOnly:true, secure:true, sameSite:"none" } 
+                  res.cookie("eToken", eToken, {withCredentials:true, httpOnly:true, secure:true, sameSite:"None" } 
                     );
                   console.log(eToken)
-                  res.json({ success: true, message: "Authentication successful",  user: req.user  });
+                  res.status(200).json({ success: true, message: "Authentication successful",  user: req.user , eToken:eToken  });
                 }
               })
             }
@@ -198,7 +198,11 @@ export const Logout = async (req: any, res: any,) => {
     req.logout(function () {
       res.json({ success: true, message: 'logging out' })
     });
-
+    res.clearCookie('eToken', {
+      httpOnly: true,
+      secure: true, // set to true if using HTTPS
+      sameSite: 'None' // or 'Lax'/'None' as needed
+    });
   } else {
     res.json({ success: false, message: 'no user to log out' })
   }

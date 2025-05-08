@@ -43,7 +43,7 @@ const corsOptions = {
    origin: process.env!.FRONTEND_URL,
  credentials: true, 
  optionSuccessStatus: 200,
- methods: ['GET', 'PUT', 'POST', 'DELETE'],
+ methods: ['GET', 'PUT', 'POST', 'DELETE']
 
 }
 
@@ -94,20 +94,20 @@ app.use(passport.session());
  app.use("/", adminRoutes)
 
 
-const MONGO_URL = process.env.MONGO_URL
- const startServer  = async () => {
-  try{
-await connectDB(MONGO_URL);
-}catch (err){
-  console.log(err)
-}
+// const MONGO_URL = process.env.MONGO_URL
+//  const startServer  = async () => {
+//   try{
+// await connectDB(MONGO_URL);
+// }catch (err){
+//   console.log(err)
+// }
 
 
-}
+// }
 
- startServer();
+//  startServer();
 
- app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`))
+//  app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`))
  
   
 
