@@ -24,7 +24,7 @@ const Register = ( ) => {
     username:string;
     password: string;
     confirmPassword: string;
-    role:string
+    // role:string
   }
   
   useEffect(() =>{
@@ -43,7 +43,7 @@ const Register = ( ) => {
      .min(2, 'Name must be minimum 2')
      .max(100, 'Name must not be more than 100 characters')
      .required('Name is required'),
-     role: Yup.string().required('Please select role'),
+    //  role: Yup.string().required('Please select role'),
      email: Yup.string().email('Invalid email').required('Email is required'),
      password: Yup.string()
       .min(6, 'Password must be at least 6 characters')
@@ -74,8 +74,8 @@ const Register = ( ) => {
         username:"",
         email: '',
         password: '',
-        confirmPassword: '',
-        role: '',
+        confirmPassword: ''
+        // role: '',
       },
       validationSchema,
       onSubmit: handleSubmit,

@@ -44,9 +44,9 @@ export const fetchAsyncUser = createAsyncThunk(
           });
 
           export const fetchRegister = createAsyncThunk(
-            'auth/fetchRegister', async (data:{firstname:string, lastname:string, username:string, role:string, email:string, password:string}) => {
-           const   {firstname, lastname, email, role, username, password} = data
-                const response= await axios.post(`${BASEURL}/register`, {firstname, username, role,  lastname, email, password},{ withCredentials: true })
+            'auth/fetchRegister', async (data:{firstname:string, lastname:string, username:string,  email:string, password:string}) => {
+           const   {firstname, lastname, email,  username, password} = data
+                const response= await axios.post(`${BASEURL}/register`, {firstname, username,   lastname, email, password},{ withCredentials: true })
                 console.log(response.data)
                 return response.data
               });

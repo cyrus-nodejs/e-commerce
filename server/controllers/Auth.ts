@@ -11,7 +11,7 @@ import { contactEmail } from "../utils/nodemailer"
 export const Register = async (req: any, res: any, next: NextFunction) => {
   console.log(req.body)
   try {
-    User.register(new User({ email: req.body.email, username: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname, role:req.body.role}), req.body.password, function (err: string, user: Express.User) {
+    User.register(new User({ email: req.body.email, username: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname}), req.body.password, function (err: string, user: Express.User) {
       if (err) {
         res.json({ success: false, message: "Your account could not be saved. Error: " + err });
       }

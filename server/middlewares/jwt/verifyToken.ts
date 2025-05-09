@@ -24,7 +24,8 @@ export const verifyRole = (roles: string | any[]) => {
   }
    console.log(`verifytoken => ${eToken}`)
     if (!eToken){
-        return res.json({success:false,  message:"No Access Token! "})
+      console.log("No Access Token! ")
+        return res.json({success:false,  message:''})
     }
     jwt.verify(eToken, process.env.TOKEN_KEY, async (err:any, user:any) => {
         if(err){
