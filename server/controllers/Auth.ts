@@ -63,7 +63,7 @@ export const Login = async (req: any, res: any) => {
                   res.cookie("eToken", eToken, {withCredentials:true, httpOnly:true, secure:true, sameSite:"None" } 
                     );
                   console.log(eToken)
-                  res.status(200).json({ success: true, message: "Authentication successful",  user: req.user , eToken:eToken  });
+                  return   res.status(200).json({ success: true, message: "Authentication successful",  user: req.user , eToken:eToken  });
                 }
               })
             }
@@ -97,7 +97,7 @@ export const ForgotPassword = async (req: any, res: any) => {
     const email = req.body.email;
     const user = await User.findOne({ email });
     if (!user || user.length === 0) {
-      res.json({
+      return   res.json({
         success: false,
         message: "You  are not registered!",
       });
@@ -113,7 +113,7 @@ export const ForgotPassword = async (req: any, res: any) => {
           ${process.env.FRONTEND_URL}/resetpassword/${token},
           Reset Password`, // html body
       });
-      res.json({ success: true, message: "A password reset link has been sent to your email.", token: token });
+      return    res.json({ success: true, message: "A password reset link has been sent to your email.", token: token });
     }
   } catch (error) {
     console.log(error)
@@ -198,7 +198,7 @@ export const Logout = async (req: any, res: any,) => {
     req.logout(function () {
       res.json({ success: true, message: 'logging out' })
     });
-    res.clearCookie('eToken', {
+    res.clearCookie('accessToken', {
       httpOnly: true,
       secure: true, // set to true if using HTTPS
       sameSite: 'None' // or 'Lax'/'None' as needed

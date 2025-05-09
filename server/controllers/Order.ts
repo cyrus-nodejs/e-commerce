@@ -112,11 +112,12 @@ export const config = async (req:any, res:any ) => {
                 paymentid:clientSecret,
             });
      
-            res.status(200).json({success:true, message:"New order created!", order:order})
+          return  res.status(200).json({success:true, message:"New order created!", order:order})
         }else{
-            res.json({success:false, message:"order added!", })
+          return  res.json({success:false, message:"order added!", })
         }
        }catch (err){
+        console.log(err)
        }
        
         }

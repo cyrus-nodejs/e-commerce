@@ -1,8 +1,11 @@
 import request from 'supertest'
-import app from '../src/index'
+import app from '../src/server'
 import { beforeAll, afterAll, test,it, expect } from '@jest/globals';
 import { Item } from '../models/Item';
 import { Cart } from '../models/Cart';
+import { createSecretToken } from '../middlewares/jwt/createSecretToken'
+import mongoose from 'mongoose'
+import { timeStamp } from 'node:console';
 let token: string;
 
 
@@ -22,33 +25,41 @@ beforeAll(async () => {
 }, 30000);
 
 it('should create an order after login', async () => {
-   const item = {
-      title:'ball',
-      description:'object',
-      category:"sport",
-      price:50,
-      image:'geh.jpg'
-    }
-    const itemData = new Item(item) 
-     itemData.save()
-     const res = await request(app)
-     .post('/addtocart')
-     .set('Cookie', [`eToken=${token}`]) //.set('Authorization', `Bearer ${token}`)
-     .send({
-       ItemId: itemData._id,
-     });
-     expect(res.status).toBe(200);
- 
-  const order = {
-    gift: 10,
-    shipping:15,
-     clientSecret:"63hgreurhr"
-  };
+   
 
-  const response = await request(app)
+     const userId = new mongoose.Types.ObjectId().toHexString()
+        const user = { firstname:'men',
+          id:userId,
+          lastname:"here",
+          username: 'test@example.com',
+            email: 'test@example.com',
+            password: 'password123',}
+      ;
+      const item = await  Item.create({
+        title:'ball',
+        description:'object',
+        category:"sport",
+        price:50,
+        image:'geh.jpg'
+      }) 
+    
+        const token = createSecretToken(user)
+        const cart = await  Cart.create({
+          owner:userId,
+          items:[item],
+          bills:40,
+        }) 
+
+  const res = await request(app)
     .post('/createorder')
-    .set('Cookie', [`eToken=${token}`]) //.set('Authorization', `Bearer ${token}`)
-    .send(order);
+    .set('Authorization', `Bearer ${token}`)
+    .send(
+      {
+        gift: 10,
+        shipping:15,
+         clientSecret:"63hgreurhr"
+      }
+    );
 
 
     expect(res.status).toBe(200);

@@ -1,10 +1,24 @@
 
 // importing modules
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+
+import mongoose, { Document, Schema } from 'mongoose';
+// const Schema = mongoose.Schema
 import passportLocalMongoose from 'passport-local-mongoose';
 
 
+// // Define the User interface that represents the structure of the document
+// export interface User extends Document {
+//   id: string;   // This will be the ObjectId in MongoDB
+//   name: string;
+//   email: string;
+//   username:string;
+//   firstname:string;
+//   lastname:string;
+//   role:string;
+//   token:string; 
+//   register_date:any
+//   // add any other properties you want in the User model
+// }
 
   
 
@@ -14,6 +28,7 @@ const UserSchema = new Schema({
        required:[true, "Please enter an email"],
         unique:true,
        lowercase:true,
+    
     },  
      
     username:{

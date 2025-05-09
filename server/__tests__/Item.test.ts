@@ -1,36 +1,28 @@
 import request from 'supertest'
-import app from '../src/index'
+import app from '../src/server'
 import { Item } from '../models/Item';
 import { beforeAll, afterAll, test,it, expect } from '@jest/globals';
+import { createSecretToken } from '../middlewares/jwt/createSecretToken'
+import mongoose from 'mongoose'
 
 
 
 
-let user;
-
-let token: string;
-
-beforeAll(async () => {
-    await request(app).post('/register').send({
-        username: 'test@example.com',
-        email: 'test@example.com',
-        password: 'password123',
-      });
-  const res = await request(app).post('/login').send({
-    username: 'test@example.com',
-    password: 'password123',
-  });
-
-  token = res.body.eToken;
-  console.log(res.body)
-},30000);
 
 it('should upload item after login', async () => {
-
+ const userId = new mongoose.Types.ObjectId().toHexString()
+    const user = { firstname:'men',
+      id:userId,
+      lastname:"here",
+      username: 'test@example.com',
+        email: 'test@example.com',
+        password: 'password123',}
+  ;
+    const token = createSecretToken(user)
 
   const res = await request(app)
     .post('/add/item')
-    .set('Cookie', [`eToken=${token}`]) //.set('Authorization', `Bearer ${token}`)
+    .set('Authorization', `Bearer ${token}`)
     .send({
         title:'ball',
         description:'object',

@@ -6,7 +6,7 @@ import { userAuthorization } from "../middlewares/jwt/verifyToken";
 const router = express.Router();
 
 
-router.get("/getcart",  getCart);
+router.get("/getcart", userAuthorization,  getCart);
 router.post("/addtocart",  userAuthorization,    addToCart);
 router.post("/reducecart",  userAuthorization,  decreaseCartQty);
 router.post("/addcart",  userAuthorization,  addCartQty);

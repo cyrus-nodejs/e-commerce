@@ -33,16 +33,18 @@ export const getAddress = async (req:any, res:any) => {
 
 //create user address 
 export const createAddress = async (req:any, res:any) => {
-  const owner   = req.user?._id
-  console.log(owner)
-     const {firstname,lastname, mobile, mobile2, address,nation, region,postalcode, province, ordernote}  = req.body
+ 
      try{
+      if ((!req.user || !req.user.id)){
+        return res.status(401).json({ message: 'Unauthorized' });
+      }
       const newaddress =  await Address.create(
-        {owner, firstname,lastname, mobile, mobile2, address,nation, 
-            region,postalcode, province, ordernote,
+        {
+          ...req.body,
+      owner: req.user.id, // 👈 ensure owner is set
     });
     
-     res.json({success:true, message:"Default address saved!", address:newaddress})
+     res.status(200).json({success:true, message:"Default address saved!", address:newaddress})
     }
     catch(err){
         console.log(err)

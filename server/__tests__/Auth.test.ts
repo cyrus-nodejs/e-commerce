@@ -1,11 +1,23 @@
 import request from 'supertest'
-import app from '../src/index'
+import app from '../src/server'
+import jwt from 'jsonwebtoken'
+import mongoose from 'mongoose'
 import { beforeAll, afterAll, describe, test,it, expect } from '@jest/globals';
-import { User } from '../models/User';
+
+function generateToken(userId) {
+  return jwt.sign({ id: userId }, process.env.JWT_SECRET || 'testsecret');
+}
+
 describe('Auth', () => {
   it('should login with valid credentials', async () => {
     // First register or create user directly in DB
+    
+  const userId = new mongoose.Types.ObjectId().toHexString();
+  const token = generateToken(userId);
+
    const reg = await request(app).post('/register').send({
+    firstname:'men',
+    lastname:"here",
     username: 'test@example.com',
       email: 'test@example.com',
       password: 'password123',
