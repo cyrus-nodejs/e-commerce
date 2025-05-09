@@ -27,7 +27,7 @@ export const getCart = async (req:any, res: any) =>{
 
 // Add itemms to Cart
 export const addToCart = async (req:any, res:any ) => {
-  const owner = req.user?.id
+  const owner = req.user?._id
   const {itemId}= req.body
   console.log(itemId, owner)
   const cart =await  Cart.findOne({owner:owner})
@@ -62,7 +62,7 @@ export const addToCart = async (req:any, res:any ) => {
            }, 0)
            cart.items[itemIndex] = product
            await cart.save();
-       return res.json({ success: true, message: "Item added to Cart!" });
+       return res.status(200).json({ success: true, message: "Item added to Cart!" });
        }
        else {
         cart.items.push(item)
@@ -93,7 +93,7 @@ export const addToCart = async (req:any, res:any ) => {
 
 //Remove selected items from cart
 export const deleteFromCart = async (req:any, res:any ) => {
- const owner = req.user?.id
+ const owner = req.user?._id
      const {itemId}= req.body
  try{
 let cart = await Cart.findOne({owner:owner});
@@ -141,7 +141,7 @@ try{
 
  //Increase quantity of selected cart items
 export const addCartQty = async (req:any, res:any ) => {
-  const owner = req.user.id
+  const owner = req.user?._id
   const {itemId}= req.body
 try{
 
@@ -184,7 +184,7 @@ if (cart){
 
  //Decrease quantity of selected cart items
 export const decreaseCartQty = async (req:any, res:any ) => {
-  const owner = req.user?.id
+  const owner = req.user?._id
   const {itemId}= req.body
 try{
 
