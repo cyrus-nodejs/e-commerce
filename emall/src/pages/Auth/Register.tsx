@@ -110,8 +110,8 @@ const Register = ( ) => {
             <div className="error ">{formik.errors.email}</div>
           )}
       <br />
-      <Form.Control size="lg" className="shadow-none" hidden  required  value={formik.values.email} onChange={formik.handleChange} style={{}} name="username"   type="email" placeholder="Email" />
-      {formik.touched.email && formik.errors.email && (
+      <Form.Control size="lg" className="shadow-none" hidden  required  value={formik.values.username} onChange={formik.handleChange} style={{}} name="username"   type="email" placeholder="username" />
+      {formik.touched.username && formik.errors.username && (
             <div className="error ">{formik.errors.email}</div>
           )}
       <br />
