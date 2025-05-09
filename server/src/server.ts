@@ -24,7 +24,21 @@ dotenv.config()
  const app = express();
 
 
+// Cors configuration for server  Local host & web hosting services
+const corsOptions = {
+  //  origin: process.env!.FRONTEND_URL2,
+   origin:process.env!.FRONTEND_URL,
+ credentials: true, 
+ optionSuccessStatus: 200,
+ methods: ['GET', 'PUT', 'POST', 'DELETE']
+}
 
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
+
+
+ 
 
 app.use(cookieParser());
 
@@ -37,22 +51,7 @@ app.use(express.urlencoded({ extended: true }));
  app.use(bodyParser.urlencoded({ limit: "100mb", extended: true }));
  
 
-// Cors configuration for server  Local host & web hosting services
-const corsOptions = {
-  //  origin: process.env!.FRONTEND_URL2,
-   origin:process.env!.FRONTEND_URL,
- credentials: true, 
- optionSuccessStatus: 200,
- methods: ['GET', 'PUT', 'POST', 'DELETE']
 
-}
-
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
-
-
-
- 
 
  
 
