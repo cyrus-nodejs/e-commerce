@@ -26,69 +26,57 @@ export const getCart = async (req:any, res: any) =>{
     
 
 // Add itemms to Cart
-export const addToCart = async (req:any, res:any ) => {
-  const owner = req.user?.id
-  const {itemId}= req.body
-  console.log(itemId, owner)
-  const cart =await  Cart.findOne({owner:owner})
-  const item = await Item.findById(itemId)
+export const addToCart = async (req: any, res: any) => {
+  const owner = req.user?.id;
+  const { itemId } = req.body;
+  console.log(itemId, owner);
 
-    try{
-       
-      if (!owner) {
-        res.json({ success: false, message: "Login to add Cart" })
+  if (!owner) {
+    return res.status(401).json({ success: false, message: "Login to add to cart" });
+  }
+
+  const item = await Item.findById(itemId);
+  if (!item) {
+    return res.status(404).json({ success: false, message: "Item not found!" });
+  }
+
+  try {
+    const price = item.price;
+    const unit = item.unit;
+
+    const cart = await Cart.findOne({ owner });
+
+    if (cart) {
+      const itemIndex = cart.items.findIndex((cartItem: any) => cartItem.itemId == itemId);
+
+      if (itemIndex > -1) {
+        const product = cart.items[itemIndex];
+        product.unit += unit;
+
+        cart.items[itemIndex] = product;
+      } else {
+        cart.items.push(item);
+      }
+
+      cart.bill = cart.items.reduce((total: number, curr: any) => total + curr.unit * curr.price, 0);
+      await cart.save();
+
+      return res.status(200).json({ success: true, message: "Item added to cart!", cart });
+    } else {
+      const newCart = await Cart.create({
+        owner,
+        items: [item],
+        bill: unit * price
+      });
+
+      return res.status(200).json({ success: true, message: "Cart created and item added!", cart: newCart });
     }
-  
-    if (!item) {
-      res.status(404).send({message:"item not found!"})
-    }
-     
-      console.log(item)
-      const price = item?.price
-      const unit = item?.unit
-   
-   
-   
-    if (cart){
-       let itemIndex = cart.items.findIndex((item: { itemId: any; })=>item.itemId == itemId )
-       //check if product exists or not
-       
-   
-       if (itemIndex > -1){
-           const product  = cart.items[itemIndex]
-           product.unit += unit
-           cart.bill = cart.items.reduce((total: number, curr: { unit: number; price: number; }) =>{
-             return total + curr.unit * curr.price
-           }, 0)
-           cart.items[itemIndex] = product
-           await cart.save();
-       res.json({ success: true, message: "Item added to Cart!" });
-       }
-       else {
-        cart.items.push(item)
-        cart.bill = cart.items.reduce((total: number, curr: { unit: number; price: number; }) =>{
-         return total + curr.unit * curr.price
-       }, 0)
-        await cart.save();
-       res.status(200).json({ success: true, message: "Item added to Cart!" , cart:cart });
-        }
-       
-       
-    }else {
-       //no cart exists, create one
-       const newCart = Cart.create({
-           owner,
-           items:[item],
-           bill: unit * price
-       })
-       return  res.status(200).json({ success: true, message: "Item added to Cart!", cart:newCart }) ;
-    }
-   }catch (err){
-       console.log(err);
-       res.status(500).send("something went wrong");
-    
-   }
-    }
+
+  } catch (err) {
+    console.error("Add to cart error:", err);
+    return res.status(500).json({ success: false, message: "Something went wrong" });
+  }
+};
 
 
 //Remove selected items from cart
