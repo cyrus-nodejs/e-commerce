@@ -2,7 +2,7 @@
 
 import request from 'supertest'
 import app from '../src/server'
-import { beforeAll, afterAll, test,it, expect } from '@jest/globals';
+import { it, expect } from '@jest/globals';
 import { createSecretToken } from '../middlewares/jwt/createSecretToken'
 import mongoose from 'mongoose'
 
