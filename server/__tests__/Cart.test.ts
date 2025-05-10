@@ -30,8 +30,6 @@ it('should add item to cart after login', async () => {
   }) 
 
  
-   
-
   const response = await request(app)
     .post('/addtocart')
     .set('Authorization', `Bearer ${token}`)

@@ -31,9 +31,9 @@ export const verifyRole = (roles: string | any[]) => {
         if(err){
             return res.json({success:false,  message:`Invalid or expired token!`})
         }
-         console.log("user contains " + JSON.stringify(user));
-          req.user = user.data;
-        console.log(req.user)
+        //  console.log("user contains " + JSON.stringify(user));
+        //   req.user = user.data;
+        // console.log(req.user)
            next()
             
     })

@@ -195,12 +195,12 @@ export const UpdatePassword = async (req: any, res: any) => {
 // log out req.user
 export const Logout = async (req: any, res: any,) => {
   if (req.user) {
+    res.clearCookie('accessToken', {
+      httpOnly: true,
+      secure: true, // set to true if using HTTPS
+      sameSite: 'None' // or 'Lax'/'None' as needed
+    });
     req.logout(function () {
-      res.clearCookie('accessToken', {
-        httpOnly: true,
-        secure: true, // set to true if using HTTPS
-        sameSite: 'None' // or 'Lax'/'None' as needed
-      });
       res.json({ success: true, message: 'logging out' })
     });
     
