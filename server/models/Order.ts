@@ -11,7 +11,11 @@ const OrderSchema = new Schema({
         ref: 'User'
 
     },
-
+    cartid:{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Cart'
+    },
     items:{
         type: Array,
          ref: 'Item' 

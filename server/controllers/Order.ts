@@ -19,8 +19,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET, {
   //Retrieve current Order
   export const getCurrentOrder = async (req:any, res:any ) => {
     const owner  = req.user?.id
+    let cart = await Cart.findOne({owner})
+    let cartId = cart?._id
         try{
-            const order = await Order.findOne({owner:owner}).sort({ _id: -1 })
+            const order = await Order.findOne({cartid:cartId})
             if(order ){
               res.json({ success: true, message: "View current order!", order:order });
             }
@@ -94,33 +96,33 @@ export const config = async (req:any, res:any ) => {
    
     }
 
-    //Create new Order
-    export const createOrder = async (req:any, res:any ) => {
+    // //Create new Order
+    // export const createOrder = async (req:any, res:any ) => {
        
-        const owner  = req.user?._id
-        const {gift, shipping, clientSecret} = req.body
-        console.log(gift, shipping)
-       try{
-        let cart = await Cart.findOne({owner})
-        if (cart){
-            const order = await Order.create({
-                owner,
-                items: cart.items,
-                bill: cart.bill + shipping + gift,
-                giftwrapper:gift,
-                deliveryfee:shipping,
-                paymentid:clientSecret,
-            });
+    //     const owner  = req.user?._id
+    //     const {gift, shipping, clientSecret} = req.body
+    //     console.log(gift, shipping)
+    //    try{
+    //     let cart = await Cart.findOne({owner})
+    //     if (cart){
+    //         const order = await Order.create({
+    //             owner,
+    //             items: cart.items,
+    //             bill: cart.bill + shipping + gift,
+    //             giftwrapper:gift,
+    //             deliveryfee:shipping,
+    //             paymentid:clientSecret,
+    //         });
      
-          return  res.status(200).json({success:true, message:"New order created!", order:order})
-        }else{
-          return  res.json({success:false, message:"order added!", })
-        }
-       }catch (err){
-        console.log(err)
-       }
+    //       return  res.status(200).json({success:true, message:"New order created!", order:order})
+    //     }else{
+    //       return  res.json({success:false, message:"order added!", })
+    //     }
+    //    }catch (err){
+    //     console.log(err)
+    //    }
        
-        }
+    //     }
 
 
    
@@ -145,7 +147,8 @@ if (owner){
          res.json({success:true, message:"Order Exists"})
         }else{
         const order = await Order.create({
-            owner,
+                owner,
+                cartid:cart._id,
                 items: cart.items,
                 bill: bill,
                 giftwrapper:gift,

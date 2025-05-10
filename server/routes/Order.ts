@@ -1,6 +1,6 @@
 import express from "express"
 import { getAllOrder , getCurrentOrder, orderDetails, createPayment ,confirmPayment,
-    retrievePayment, createOrder, config } from "../controllers/Order";
+    retrievePayment,  config } from "../controllers/Order";
     import { verifyRole } from "../middlewares/jwt/verifyToken";
 import { userAuthorization} from "../middlewares/jwt/verifyToken";
 const router = express.Router();
@@ -10,7 +10,7 @@ const router = express.Router();
 router.get("/config", userAuthorization, config);
 
 router.post("/create-payment-intent", userAuthorization,  createPayment);
-router.post("/createorder",  userAuthorization, createOrder);
+// router.post("/createorder",  userAuthorization, createOrder);
 router.post("/confirmpayment", userAuthorization,   confirmPayment);
 router.post("/retrievepayment", userAuthorization, verifyRole([' customer service']), retrievePayment);
 
