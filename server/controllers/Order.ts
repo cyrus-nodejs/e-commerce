@@ -24,15 +24,15 @@ const stripe = new Stripe(process.env.STRIPE_SECRET, {
         try{
             const order = await Order.findOne({cartid:cartId})
             if(order ){
-              res.json({ success: true, message: "View current order!", order:order });
+         return     res.json({ success: true, message: "View current order!", order:order });
             }
             else{
-              res.json({ success: false, message: "No orders yet!" });
+          return    res.json({ success: false, message: "No orders yet!" });
             }
         }
         catch(err){
             console.log(err);
-            res.status(500).send("Something went wrong");
+         return   res.status(500).send("Something went wrong");
         }
       }
 
@@ -48,15 +48,15 @@ export const getAllOrder = async (req:any, res:any ) => {
         const order = await Order.find({owner:owner}).sort({ _id: -1 })
         if(order ){
             console.log(order)
-          res.json({ success: true, message: "View all orders!", order:order });
+       return   res.json({ success: true, message: "View all orders!", order:order });
         }
         else{
-          res.json({ success: false, message: "No orders yet!" });
+       return   res.json({ success: false, message: "No orders yet!" });
         }
     }
     catch(err){
         console.log(err);
-        res.status(500).send("Something went wrong");
+    return    res.status(500).send("Something went wrong");
     }}
     
 
@@ -67,15 +67,15 @@ export const orderDetails = async (req:any, res:any ) => {
        const order = await Order.findOne({_id:id})
        console.log(order)
        if(order ){
-         res.json({ success: true, message: "View order!", order:order});
+      return   res.json({ success: true, message: "View order!", order:order});
        }
        else{
-         res.json({ success: false, message: "error!" });
+       return  res.json({ success: false, message: "error!" });
        }
    }
    catch(err){
        console.log(err);
-       res.status(500).send("Something went wrong");
+    return   res.status(500).send("Something went wrong");
    }
   
    }
@@ -86,10 +86,10 @@ export const config = async (req:any, res:any ) => {
     const publishableKey = process.env.STRIPE_PUBLISHABLE_KEY
     if(publishableKey) {
         console.log(publishableKey)
-        res.json({success:true, message:"Pkey sent!", publishableKey: publishableKey ,
+     return   res.json({success:true, message:"Pkey sent!", publishableKey: publishableKey ,
         });
     }else{
-        res.json({success:false, message:"No Pkey!"})
+     return   res.json({success:false, message:"No Pkey!"})
     }
     
    
@@ -131,6 +131,7 @@ export const createPayment = async (req:any, res: any) => {
     const owner  = req.user?.id
     console.log(req.body)
     const {gift, shipping,  cartBills} = req.body
+    const cart = await Cart.findOne({owner})
 try{
      const bill = gift + shipping + cartBills
 console.log(bill)
@@ -139,13 +140,13 @@ if (owner){
         amount: bill * 100,
         currency: "usd",
       });
-    if (!paymentIntent) throw Error('payment failed!');
+    
     if (paymentIntent){
         const OrderExists = await Order.findOne({paymentid:paymentIntent.id})
-        let cart = await Cart.findOne({owner})
         if (OrderExists){
-         res.json({success:true, message:"Order Exists"})
-        }else{
+         res.json({success:true, message:"Cannot proceed! Order Exists"})
+        }
+        else{
         const order = await Order.create({
                 owner,
                 cartid:cart._id,
@@ -156,17 +157,17 @@ if (owner){
                 paymentid:paymentIntent.id
         });
         console.log(paymentIntent.client_secret)
-        res.json({success:true, message:"Payment intent created!", clientSecret: paymentIntent.client_secret})
+      return  res.json({success:true, message:"Payment intent created!", clientSecret: paymentIntent.client_secret})
        }  
     }else{
-        res.json({sucess:false, message:"cannot create payment intent!!"})
+      return  res.json({sucess:false, message:"cannot create payment intent!!"})
     }
 }else{
-    res.json({sucess:false, message:"Cannot find user!"})
+  return  res.json({sucess:false, message:"Cannot find user!"})
 }
 }catch (err){
 console.log(err)
-res.json({success:false, message:"Something went wrong"})
+return res.json({success:false, message:"Something went wrong"})
 }
 }
 
@@ -187,16 +188,16 @@ if (order){
        
          await Cart.findOneAndDelete({owner})
          console.log(order)
-        res.json({success:true, message:"Payment  Validated Successfully!"})
+     return   res.json({success:true, message:"Payment  Validated Successfully!"})
     }else{
-        res.json({success:false, message:" Payment not validated!"})
+     return   res.json({success:false, message:" Payment not validated!"})
     }
 }else{
-    res.json({sucess:false, message:"No Order exist"})
+  return  res.json({sucess:false, message:"No Order exist"})
 }
 }catch (err){
 console.log(err)
-res.json({success:false, message:"Something went wrong"})
+return res.json({success:false, message:"Something went wrong"})
 }
 }
 
@@ -213,13 +214,13 @@ if (order){
  let   paymentIntent = await stripe.paymentIntents.retrieve(`${paymentId}`);
     if (!paymentIntent) throw Error('payment failed!');
     if (paymentIntent){
-        res.json({success:true, message:`Transaction status:${paymentIntent.status}, Amount Paid:$${paymentIntent.amount}`})
+      return  res.json({success:true, message:`Transaction status:${paymentIntent.status}, Amount Paid:$${paymentIntent.amount}`})
     }
 }else{
-    res.json({sucess:false, message:"Order not found"})
+  return  res.json({sucess:false, message:"Order not found"})
 }
 }catch (err){
 console.log(err)
-res.json({success:false, message:"Something went wrong"})
+return res.json({success:false, message:"Something went wrong"})
 }
 }

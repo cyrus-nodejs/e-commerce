@@ -3,14 +3,14 @@ import { Address} from "../models/Address"
 
 // Retrieve user addresses
 export const getAddress = async (req:any, res:any) => {
-    const owner  =  req.user?.id
+    const owner  =  req.user?._id
         try{
             const address = await Address.findOne({owner:owner})
             if(address ){
-              res.json({ success: true, message: "View address!", address:address});
+             return res.status(200).json({ success: true, message: "View address!", address:address});
             }
             else{
-              res.json({ success: false, message: "Address not Found!" });
+              return   res.status(403).json({ success: false, message: "Address not Found!" });
             }
         }catch (err) {
             console.log(err);
@@ -35,35 +35,36 @@ export const getAddress = async (req:any, res:any) => {
 export const createAddress = async (req:any, res:any) => {
  
      try{
-      if ((!req.user || !req.user.id)){
+      if ((!req.user || !req.user._id)){
         return res.status(401).json({ message: 'Unauthorized' });
       }
       const newaddress =  await Address.create(
         {
           ...req.body,
-      owner: req.user.id, // 👈 ensure owner is set
+      owner: req.user._id, // 👈 ensure owner is set
     });
     
-     res.status(200).json({success:true, message:"Default address saved!", address:newaddress})
+    return res.status(200).json({success:true, message:"Default address saved!", address:newaddress})
     }
     catch(err){
         console.log(err)
-        res.status(500).send("Something went wrong");
+      return  res.status(500).send("Something went wrong");
     }
 }
 
    //Update user adress
 export const updateAddress = async (req:any, res:any) => {
-    const id  = req.user?.id
+    const id  = req.user?._id
          try {
             const updatedItem = await Address.findByIdAndUpdate(id, req.body, { new: true });
-            if (!updatedItem) {
-              return res.json({sucesss:true, message: 'Item not found' });
+            if (updatedItem) {
+              return  res.status(200).json({success:true, message:"Address book updated successfully"});
+           
             }
             console.log(updatedItem)
-            res.json({success:true, message:"Address book updated successfully"});
+            return res.json({sucesss:true, message: 'Adrress not updated' });
           } catch (error) {
-            res.json({ message: 'Server Error', error });
+          return  res.status(500).json({ message: 'Server Error'});
           }
 }
 

@@ -91,6 +91,6 @@ console.log(email)
 
   export const AdminDashboard = async (req: any, res: any, ) => {
    
-    res.json({ message: 'Welcome to the Admin Dashboard' });
+  return  res.json({ message: 'Welcome to the Admin Dashboard' });
   
   }

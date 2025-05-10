@@ -29,7 +29,7 @@ it('should create an order after login', async () => {
 
      const userId = new mongoose.Types.ObjectId().toHexString()
         const user = { firstname:'men',
-          id:userId,
+          _id:userId,
           lastname:"here",
           username: 'test@example.com',
             email: 'test@example.com',

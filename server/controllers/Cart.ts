@@ -220,7 +220,7 @@ if (cart){
   }
 }catch (err){
   console.log(err);
- return res.json({sucess:'false', message:"something went wrong1"})
+ return res.json({sucess:'false', message:"something went wrong"})
 
 } 
 };

@@ -13,18 +13,18 @@ export const Register = async (req: any, res: any, next: NextFunction) => {
   try {
     User.register(new User({ email: req.body.email, username: req.body.email, firstname: req.body.firstname, lastname: req.body.lastname}), req.body.password, function (err: string, user: Express.User) {
       if (err) {
-        res.json({ success: false, message: "Your account could not be saved. Error: " + err });
+       return res.json({ success: false, message: "Your account could not be saved. Error: " + err });
       }
       else {
 
         req.login(user, (err: any) => {
 
           if (err) {
-            res.json({ success: false, message: err });
+          return  res.json({ success: false, message: err });
           }
           else {
             console.log(req.user)
-            res.status(200).json({ success: true, message: "Your account has been saved" });
+          return  res.status(200).json({ success: true, message: "Your account has been saved" });
             // res.json({ success: true, message: "Your account has been saved" }); 
           }
         });
@@ -33,6 +33,8 @@ export const Register = async (req: any, res: any, next: NextFunction) => {
 
   } catch (error) {
     console.log(error)
+    return res.json({sucess:'false', message:"something went wrong1"})
+
   }
 
 }
@@ -87,7 +89,7 @@ export const  getAuthUser = async (req:any,  res:any) => {
    return res.json({ success: false, message:`No User Found`})
   }
   console.log(req.user)
-   res.json({ success: true, message:`Welcome ${req.user.firstname}`, user: req.user })
+ return  res.json({ success: true, message:`Welcome ${req.user.firstname}`, user: req.user })
 
   }
   
@@ -117,6 +119,7 @@ export const ForgotPassword = async (req: any, res: any) => {
     }
   } catch (error) {
     console.log(error)
+    return res.json({sucess:'false', message:"something went wrong"})
 
   }
 
@@ -158,6 +161,7 @@ export const ResetPassword = async (req: any, res: any) => {
 
   } catch (error) {
     console.log(error)
+    return res.json({sucess:'false', message:"something went wrong1"})
 
   }
 
@@ -186,6 +190,7 @@ export const UpdatePassword = async (req: any, res: any) => {
 
   } catch (error) {
     console.log(error)
+    return res.json({sucess:'false', message:"something went wrong1"})
 
   }
 

@@ -77,7 +77,7 @@ try {
       res.status(200).json({success:true, message:"Item saved to database!", item:newItem})
 
 } catch (error) {
-  res.json({ message: 'Server Error', error });
+ return res.status(500).json({ message: 'Server Error' });
 }  
     }
   
@@ -101,7 +101,8 @@ export const  updateItem = async (req:any, res:any ) => {
     console.log(updatedItem)
     res.json({success:true, message:"Item updated successfully"});
   } catch (error) {
-    res.json({ message: 'Server Error', error });
+    console.log(error)
+  return  res.json({ message: 'Server Error' });
   }
 } 
 
@@ -120,7 +121,8 @@ try{
 
 }catch (error) {
  console.log(error);
- res.json(400).send();
+ return res.json({sucess:'false', message:"something went wrong1"})
+
 }
 }
 
@@ -147,7 +149,7 @@ try {
   res.json(results);
 } catch (err) {
   console.error(err);
-  res.status(500).json({ error: 'Server error' });
+ return res.status(500).json({ error: 'Server error' });
 }
 
 }
@@ -164,10 +166,10 @@ export const getCategory = async (req:any, res:any ) => {
   console.log(item)
   if (item){
     console.log(item)
-   res.json({success:true, message:"categories sorted!", item:item})
+  return res.json({success:true, message:"categories sorted!", item:item})
   }
   }catch (err){
-    res.json({success:false, message:"No categories!"})
+   return res.json({success:false, message:"No categories!"})
   }
  
  }
@@ -227,10 +229,10 @@ export const getCategory = async (req:any, res:any ) => {
            console.log(item)
            if (item){
              console.log(item)
-            res.json({success:true, message:"categories sorted!", item:item})
+           return res.json({success:true, message:"categories sorted!", item:item})
            }
            }catch (err){
-             res.json({success:false, message:"No categories!"})
+           return  res.json({success:false, message:"No categories!"})
            }
         };
       
@@ -251,7 +253,7 @@ export const getCategory = async (req:any, res:any ) => {
                        const doc = await View.findOneAndUpdate(filter, update, 
                         {new:true, upsert:true,  includeResultMetadata: true})
                         doc.save
-                      res.json({ success: true, message: "Item added to View List!" });
+                  return    res.json({ success: true, message: "Item added to View List!" });
                       
                     }else{
                        await View.create({
@@ -259,7 +261,7 @@ export const getCategory = async (req:any, res:any ) => {
                         items:[newitem]
                     });
          
-                res.json({success:true, message:"viewed List created!"})
+              return  res.json({success:true, message:"viewed List created!"})
                 }
                   
             
@@ -279,10 +281,10 @@ export const getCategory = async (req:any, res:any ) => {
          
                  if(view ){
                  
-                   res.json({ success: true, message: "Recently viewed!", view:view});
+                 return  res.json({ success: true, message: "Recently viewed!", view:view});
                  }
                  else{
-                   res.json({ success: false, message: "No recentely viewed!" });
+                return   res.json({ success: false, message: "No recentely viewed!" });
                  }
           }
           catch(err){
