@@ -93,8 +93,8 @@ export const addToCart = async (req:any, res:any ) => {
 export const deleteFromCart = async (req:any, res:any ) => {
  const owner = req.user?._id
      const {itemId}= req.body
+     let cart = await Cart.findOne({owner:owner});
  try{
-let cart = await Cart.findOne({owner:owner});
 const itemIndex = cart.items.findIndex((item: { itemId: any; }) => item.itemId == itemId);
 console.log(itemIndex)
 if (itemIndex > -1) {
@@ -139,7 +139,7 @@ res.status(500).send("something went wrong");
 
  //Increase quantity of selected cart items
 export const addCartQty = async (req:any, res:any ) => {
-  const owner = req.user.id
+  const owner = req.user?._id
   const {itemId}= req.body
 try{
 
@@ -182,7 +182,7 @@ if (cart){
 
  //Decrease quantity of selected cart items
 export const decreaseCartQty = async (req:any, res:any ) => {
-  const owner = req.user?.id
+  const owner = req.user?._id
   const {itemId}= req.body
 try{
 
