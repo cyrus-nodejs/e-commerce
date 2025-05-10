@@ -141,14 +141,16 @@ res.status(500).send("something went wrong");
 export const addCartQty = async (req:any, res:any ) => {
   const owner = req.user?._id
   const {itemId}= req.body
+  const cart =await  Cart.findOne({owner:owner})
+  const item = await Item.findById(itemId)
+
+    
 try{
 
- const cart =await  Cart.findOne({owner:owner})
- const item = await Item.findOne({_id:itemId})
-if (!item) {
-return  res.status(404).send({message:"item not found!"})
-}
 
+  if (!item) {
+    return  res.status(404).send({message:"item not found!"})
+    }
 
 if (cart){
   let itemIndex = cart.items.findIndex((item: { itemId: any; })=>item.itemId == itemId, console.log(item.id, itemId) )
@@ -169,8 +171,8 @@ if (cart){
   
   
 }else {
- return res.status(404);
-  throw new Error("Item not found");
+ return res.status(404).send({message:"Cart not found!"})
+  
   }
 }catch (err){
   console.log(err);
@@ -184,12 +186,13 @@ if (cart){
 export const decreaseCartQty = async (req:any, res:any ) => {
   const owner = req.user?._id
   const {itemId}= req.body
+  const cart =await  Cart.findOne({owner:owner})
+  const item = await Item.findById(itemId)
 try{
 
- const cart =await  Cart.findOne({owner:owner})
- const item = await Item.findOne({_id:itemId})
+
 if (!item) {
-return  res.status(404).send({message:"item not found!"})
+return  res.status(401).send({message:"item not found!"})
 }
 
 
@@ -212,7 +215,8 @@ if (cart){
   
   
 }else {
-  return  res.json({sucess:'false', message:"Item not Found"})
+  return res.status(404).send({message:"Cart not found!"})
+  
   }
 }catch (err){
   console.log(err);

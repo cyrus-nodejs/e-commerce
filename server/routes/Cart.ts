@@ -10,8 +10,8 @@ router.get("/getcart", userAuthorization,  getCart);
 router.post("/addtocart",  userAuthorization,    addToCart);
 router.post("/reducecart",  userAuthorization,  decreaseCartQty);
 router.post("/addcart",  userAuthorization,  addCartQty);
-router.post("/deletecart",   deleteFromCart);
-router.get("/clearCart",  userAuthorization,  clearCart);
+router.post("/deletecart",  userAuthorization,  deleteFromCart);
+router.get("/clearCart",    userAuthorization,  clearCart);
 
 
 
