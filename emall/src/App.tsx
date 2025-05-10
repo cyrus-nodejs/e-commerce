@@ -5,6 +5,8 @@ import {
 
 } from "react-router-dom";
 
+import AdminRoute from "./pages/ProtectedRoutes/AdminRoutes";
+import PrivateRoute from "./pages/ProtectedRoutes/PrivateRoutes";
 // import Footer from "./components/Footer";
 // import Home from "./pages/Home/Home";
 import Index from "./pages/Home/Index";
@@ -41,7 +43,11 @@ const  App = () => {
   },
   {
     path: "/admin/dashboard",
-    element: <AdminDashboard />,
+    element:  (
+      <AdminRoute>
+        <AdminDashboard />
+      </AdminRoute>
+    ),
     errorElement: <ErrorPage />
   },
   {
@@ -66,7 +72,11 @@ const  App = () => {
   // },
   {     
     path: `/additem`,
-    element:<Additem /> ,
+    element: (
+      <PrivateRoute>
+        <Additem />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />
   },
   {
@@ -77,44 +87,76 @@ const  App = () => {
 
   {     
     path: `/payment`,
-    element:<Payment   /> ,
+    element: (
+      <PrivateRoute>
+        <Payment/>
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />
   },
   {     
     path: `/completion`,
-    element:<Completion    /> ,
+    element: (
+      <PrivateRoute>
+        <Completion/>
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />
   },
 
 
   {
     path: `/cart`,
-    element: <Cart  />,
+    element:  (
+      <PrivateRoute>
+        <Cart />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />
   },
   {     
     path: `/update/item/:id`,
-    element:<UpdateItem /> ,
+    element: (
+      <AdminRoute>
+        <UpdateItem />
+      </AdminRoute>
+    ),
     errorElement: <ErrorPage />
   },
   {     
     path: `/orderdetails/:id`,
-    element:<OrderDetails  /> ,
+    element: (
+      <PrivateRoute>
+        <OrderDetails />
+      </PrivateRoute>
+    ), 
     errorElement: <ErrorPage />
   },
   {     
     path: `/orderinvoice`,
-    element:<OrderInvoice  /> ,
+    element: (
+      <PrivateRoute>
+        <OrderInvoice />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />
   },
   {     
     path: `/orders`,
-    element:<Order  /> ,
+    element: (
+      <PrivateRoute>
+        <Order />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />
   },
   {     
     path: `/editaddress`,
-    element:<AddressForm   /> ,
+    element:  (
+      <PrivateRoute>
+        <AddressForm />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />
   },
   {
@@ -125,7 +167,11 @@ const  App = () => {
  
   {
     path: "/retrievepayment",
-    element: < RetrievePayment  />,
+    element:  (
+      <PrivateRoute>
+        <RetrievePayment />
+      </PrivateRoute>
+    ),
    errorElement: <ErrorPage />
   },
 

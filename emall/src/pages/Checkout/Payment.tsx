@@ -138,7 +138,7 @@ function Payment() {
               
             </div>
           </div>
-        ) : (<div>Network error</div>)
+        ) : (<div>Cannot create paymentn! plas try again</div>)
         }
      
       

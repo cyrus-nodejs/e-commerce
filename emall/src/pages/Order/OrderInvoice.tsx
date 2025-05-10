@@ -9,7 +9,7 @@ import { Card, Table } from "react-bootstrap";
 import Navbar from "../../components/Navbar/Navbar"
 import { useAppDispatch, useAppSelector } from "../../redux/app/hook"
 
-import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../../redux/features/auth/authSlice';
+
 
 import { fetchCurrentOrder, getCurrentOrder } from "../../redux/features/order/orderSlice";
 import { ITEM } from "../../utils/@types";
@@ -21,18 +21,12 @@ const {state} = useContext(FavoriteContext)
 const dispatch = useAppDispatch()
 const currentOrder = useAppSelector(getCurrentOrder)
 
-const user = useAppSelector(getAuthUser)
-  const isAuthenticated = useAppSelector(getIsAuthenticated)
-  
+
 
 
 const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
-useEffect(() =>{
-  dispatch(fetchAsyncUser())
-  
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch])
+
 
     useEffect(() =>{
       dispatch(fetchCurrentOrder())
@@ -47,7 +41,7 @@ return (
     <Container className='home' >
   
     
-             {isAuthenticated && user ? (<div className="p-3">
+           <div className="p-3">
             {currentOrder ? (<div className="">
               <div className=" text-dark text-start fs-4">ORDER INVOICE</div>
               <div className=" ">
@@ -131,7 +125,7 @@ return (
      
  
         
-         </div>) : (<div>Please Login to view currentOrder</div>)}
+         </div>
             
  
     

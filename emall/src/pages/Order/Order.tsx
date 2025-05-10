@@ -5,7 +5,7 @@ import { ITEM, ORDER } from "../../utils/@types";
 import "../../index.css"
 
 import { fetchAddCart } from "../../redux/features/cart/cartSlice";
-import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../../redux/features/auth/authSlice';
+
 import {  useEffect, useContext  } from "react";
 import { FavoriteContext } from "../../Context/wishlist";
 import { fetchAllOrders, getAllOrder, getOrderItems } from "../../redux/features/order/orderSlice";
@@ -16,16 +16,11 @@ const Order = () => {
 const dispatch = useAppDispatch()
 const allOrders = useAppSelector(getAllOrder)
 const orderItems = useAppSelector(getOrderItems)
-const user = useAppSelector(getAuthUser)
+// const user = useAppSelector(getAuthUser)
  const {state} = useContext(FavoriteContext)
-  const isAuthenticated = useAppSelector(getIsAuthenticated)
+  // const isAuthenticated = useAppSelector(getIsAuthenticated)
   
-  useEffect(() =>{
-    dispatch(fetchAsyncUser())
-    
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [dispatch])
-  
+
 useEffect(() =>{
   dispatch(fetchAllOrders())
   
@@ -39,7 +34,7 @@ useEffect(() =>{
     <div>
       <Navbar />
       <Container className='home' >
-      {isAuthenticated && user ?  (<Col >
+    <Col >
        {allOrders ? (<div>{ allOrders?.map((item:ORDER) =>{
      return (
        <Row  className="border border rounded-2 my-4" >
@@ -106,7 +101,7 @@ useEffect(() =>{
 </div>) : (<div className="fs-1 text-center">No Order Found!</div>) }
 
         
-        </Col>) : (<p className='fs-3'>Login required!</p>)}
+        </Col>
         
         </Container >
     </div>

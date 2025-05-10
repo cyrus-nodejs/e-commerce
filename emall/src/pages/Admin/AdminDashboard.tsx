@@ -14,7 +14,7 @@ import AssignReseller from './AssignRole/AddReseller';
 import AssignCustomerService from './AssignRole/AddCustomerService';
 import AdminAdditem from './AddItem/AddProduct';
 import AddCategory from './AddItem/AddCategory';
-import { fetchAsyncUser, getAuthUser, getIsAuthenticated } from '../../redux/features/auth/authSlice';
+import { fetchAsyncUser} from '../../redux/features/auth/authSlice';
 import { getAllItems } from '../../redux/features/items/itemSlice';
 import { getAdminAllAdmins, getAdminAllOrders,  getAdminAllCustomers,
     getAdminAllCustomerService, getAdminAllResellers } from '../../redux/features/admin/adminSlice';
@@ -31,8 +31,7 @@ function AdminDashboard () {
     const alladmins = useAppSelector(getAdminAllAdmins)
     const allresellers = useAppSelector(getAdminAllResellers)
 const allAdmins = useAppSelector(getAdminAllAdmins)
- const isAuthenticated = useAppSelector(getIsAuthenticated)
-const authUser =  useAppSelector(getAuthUser)
+
  console.log(allAdmins)
 // const permission = "Require Admin"
 useEffect(() =>{
@@ -45,7 +44,7 @@ useEffect(() =>{
     <section className='home'>
       <Navbar />
        <Container fluid>
-       {isAuthenticated && authUser?.role === 'admin' || isAuthenticated && authUser?.role === 'customer service'  ? (
+       
         <Row className="px-5">
             <p className='text-center fs-4 fw-bold '>ADMIN DASHBOARD</p>
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
@@ -110,7 +109,6 @@ useEffect(() =>{
           </Row>
         </Tab.Container>
         </Row>
-       ) : (<div className="fs-1 text-center text danger m-5">You do not have the required Permission!</div>) }
     
         
       

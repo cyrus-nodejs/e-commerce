@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { fetchGetItemById, fetchUpdateItem, getOneItem } from "../redux/features/items/itemSlice"
 import { useAppSelector, useAppDispatch } from "../redux/app/hook"
 import { useParams } from "react-router-dom";
-import { fetchAsyncUser, getAuthUser, getIsAuthenticated } from "../redux/features/auth/authSlice";
+
 import Navbar from "../components/Navbar/Navbar";
 
 const UpdateItem = () => {
@@ -13,8 +13,7 @@ const UpdateItem = () => {
     let data;
     const { id } = useParams()
     const dispatch = useAppDispatch()
-    const authUser = useAppSelector(getAuthUser)
-    const isAuthenticated = useAppSelector(getIsAuthenticated)
+
     const getItem = useAppSelector(getOneItem)
     const [state, setState] = useState({
         title:"",
@@ -127,7 +126,7 @@ setState((prevState)=>({...prevState, [e.target.name] : e.target.value}))
 
       return (
         <section className="mx-5 py-2 border ">
-        {isAuthenticated && authUser?.role === 'customer service' ? ( <Container fluid>
+    ( <Container fluid>
   <Navbar />
           <p className="fs-3 text-center">Update Item</p>
        <Form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -235,7 +234,7 @@ setState((prevState)=>({...prevState, [e.target.name] : e.target.value}))
         </Button>
         </div>
       </Form>
-      </Container>) : (<p className='fs-1'>Access Denied!</p>)}
+      </Container>
        
           </section>
   )

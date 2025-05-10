@@ -8,24 +8,19 @@ import { useParams } from "react-router-dom";
 
 
 import { fetchAddCart } from "../../redux/features/cart/cartSlice";
-import { fetchAsyncUser, getIsAuthenticated, getAuthUser } from '../../redux/features/auth/authSlice';
+
 import { fetchOrderDetails, getOrderDetails, getOrderDetailsItems } from "../../redux/features/order/orderSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/app/hook";
 import {  useEffect, useContext  } from "react";
 import { FavoriteContext } from "../../Context/wishlist";
 const OrderDetails = () => {
     const dispatch = useAppDispatch()
-    const isAuthenticated = useAppSelector(getIsAuthenticated)
-    const user = useAppSelector(getAuthUser)
+    // const isAuthenticated = useAppSelector(getIsAuthenticated)
+    // const user = useAppSelector(getAuthUser)
   const orderDetails = useAppSelector(getOrderDetails)
   const orderDetailsItems =  useAppSelector(getOrderDetailsItems) 
 const {state} = useContext(FavoriteContext)
-  useEffect(() =>{
-    dispatch(fetchAsyncUser())
-    
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [dispatch])
-  
+ 
       useEffect(() =>{
         dispatch(fetchOrderDetails())
         
@@ -54,7 +49,7 @@ const {state} = useContext(FavoriteContext)
     <div>
     <Navbar />
     <Container className='home' >
-    {isAuthenticated && user ? (<div><Col >
+<div><Col >
   
     {orderDetails ? (<div><div className="text-dark text-start my-3 fs-4">Order Details</div>
  <Row  className=" my-2" >
@@ -117,7 +112,8 @@ const {state} = useContext(FavoriteContext)
   
 
 
-  </Col></div>) : (<div className="fs-3"> Login to view Orders</div>) }
+  </Col></div>
+  
 
       
       </Container >
