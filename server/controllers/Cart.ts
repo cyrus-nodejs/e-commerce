@@ -48,7 +48,7 @@ export const addToCart = async (req:any, res:any ) => {
      
      
       if (cart){
-         let itemIndex = cart.items.findIndex((item: { itemId: string; })=>item.itemId == itemId )
+         let itemIndex = cart.items.findIndex((item:any)=>item?._id == itemId )
          //check if product exists or nots
          if (itemIndex > -1){
              const product  = cart.items[itemIndex]
