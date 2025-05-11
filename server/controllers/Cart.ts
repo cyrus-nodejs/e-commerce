@@ -48,7 +48,7 @@ export const addToCart = async (req:any, res:any ) => {
      
      
       if (cart){
-         let itemIndex = cart.items.findIndex((item:any)=>item?._id == itemId )
+         let itemIndex = cart.items.findIndex((item:any)=>item?.id == itemId , console.log(item?.id, itemId) )
          //check if product exists or nots
          if (itemIndex > -1){
              const product  = cart.items[itemIndex]
@@ -93,7 +93,7 @@ export const deleteFromCart = async (req:any, res:any ) => {
      const {itemId}= req.body
      let cart = await Cart.findOne({owner:owner});
  try{
-const itemIndex = cart.items.findIndex((item:any) => item._id == itemId);
+const itemIndex = cart.items.findIndex((item:any) => item?.id == itemId);
 console.log(itemIndex)
 if (itemIndex > -1) {
   let item = cart.items[itemIndex]
@@ -146,7 +146,8 @@ try{
     }
 
 if (cart){
-  let itemIndex = cart.items.findIndex((item: any)=>item._id == itemId, console.log(item.id, itemId) )
+  let itemIndex = cart.items.findIndex((item: any)=>item?.id == itemId, console.log(item.id, itemId) )
+  
   //check if product exists or not
   
   console.log(itemIndex)
@@ -188,7 +189,8 @@ return  res.status(401).send({message:"item not found!"})
 
 
 if (cart){
-  let itemIndex = cart.items.findIndex((item: any)=>item._id == itemId, console.log(item.id, itemId) )
+  let itemIndex = cart.items.findIndex((item: any)=>item?.id == itemId, 
+  console.log(item.id, itemId) )
   //check if product exists or not
   
 
