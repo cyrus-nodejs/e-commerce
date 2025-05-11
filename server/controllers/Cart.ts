@@ -49,9 +49,7 @@ export const addToCart = async (req:any, res:any ) => {
      
       if (cart){
          let itemIndex = cart.items.findIndex((item: { itemId: string; })=>item.itemId == itemId )
-         //check if product exists or not
-         
-     
+         //check if product exists or nots
          if (itemIndex > -1){
              const product  = cart.items[itemIndex]
              product.unit += unit
@@ -109,8 +107,6 @@ if (itemIndex > -1) {
   }, 0)
   cart = await cart.save()
 return  res.json({ success: true, message: "Item deleted from Cart!" });
-}else{
- return res.json({ success: false, message: "item not found!" });
 }
  
 }catch (error) {
@@ -144,10 +140,7 @@ export const addCartQty = async (req:any, res:any ) => {
   const cart =await  Cart.findOne({owner:owner})
   const item = await Item.findById(itemId)
 
-    
 try{
-
-
   if (!item) {
     return  res.status(404).send({message:"item not found!"})
     }
@@ -165,10 +158,8 @@ if (cart){
       }, 0)
       cart.items[itemIndex] = product
       await cart.save();
- return res.json({ success: true, message: "Item unit increased!" , cart:cart});
+   return res.json({ success: true, message: "Item unit increased!" , cart:cart});
   }
-  
-  
   
 }else {
  return res.status(404).send({message:"Cart not found!"})

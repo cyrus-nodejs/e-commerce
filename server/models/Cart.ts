@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const CartSchema = new Schema({
@@ -7,10 +7,10 @@ const CartSchema = new Schema({
          required: true,
          ref: 'User'
        },
-       items:{
+       items:[{
         type: Array,
          ref: 'Item' 
-    },
+    }],
       bill: {
           type: Number,
           required: true,
