@@ -10,11 +10,21 @@ const ViewSchema = new Schema({
          required: true,
          ref: 'User'
        },
-       items:{ 
-         type: mongoose.Schema.Types.ObjectId,
-        default: [],
-        ref: 'Item' 
-    },
+       items :[{
+        image:{
+          type:String,
+          required:true,
+          unique:true,
+      },
+        title:String,
+        unit:{
+            type:Number,
+            required:true,
+            min:1,
+            default:1,
+        },
+        price:Number,
+    }],
   });
 
 

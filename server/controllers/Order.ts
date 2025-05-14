@@ -96,33 +96,33 @@ export const config = async (req:any, res:any ) => {
    
     }
 
-    // //Create new Order
-    // export const createOrder = async (req:any, res:any ) => {
+    //Create new Order
+    export const createOrder = async (req:any, res:any ) => {
        
-    //     const owner  = req.user?._id
-    //     const {gift, shipping, clientSecret} = req.body
-    //     console.log(gift, shipping)
-    //    try{
-    //     let cart = await Cart.findOne({owner})
-    //     if (cart){
-    //         const order = await Order.create({
-    //             owner,
-    //             items: cart.items,
-    //             bill: cart.bill + shipping + gift,
-    //             giftwrapper:gift,
-    //             deliveryfee:shipping,
-    //             paymentid:clientSecret,
-    //         });
+        const owner  = req.user?._id
+        const {gift, shipping, clientSecret} = req.body
+        console.log(gift, shipping)
+       try{
+        let cart = await Cart.findOne({owner})
+        if (cart){
+            const order = await Order.create({
+                owner,
+                items: cart.items,
+                bill: cart.bill + shipping + gift,
+                giftwrapper:gift,
+                deliveryfee:shipping,
+                paymentid:clientSecret,
+            });
      
-    //       return  res.status(200).json({success:true, message:"New order created!", order:order})
-    //     }else{
-    //       return  res.json({success:false, message:"order added!", })
-    //     }
-    //    }catch (err){
-    //     console.log(err)
-    //    }
+          return  res.status(200).json({success:true, message:"New order created!", order:order})
+        }else{
+          return  res.json({success:false, message:"order added!", })
+        }
+       }catch (err){
+        console.log(err)
+       }
        
-    //     }
+        }
 
 
    

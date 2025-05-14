@@ -241,15 +241,20 @@ export const getCategory = async (req:any, res:any ) => {
        //Add items to viewed list
               export  const addViewedItem = async (req:any, res:any ) => {
                 const {itemId} = req.body
-                const owner = req.user?.id
-              
+                const owner = req.user?._id
+               console.log(itemId)
                 try{
                   const viewed = await View.findOne({owner:owner})
-                  const  newitem = await Item.findOne({_id:itemId})
-                 
+                  const  item = await Item.findOne({_id:itemId})
+                   
+                  const image = item.image
+                  const title = item.title
+                  const price = item.price
+                  const unit= item.unit
+                  const newItem = {image:image, title:title, unit:unit, price:price}
                     if (viewed){
                       const filter = {owner: owner }
-                      const update = {$addToSet:{items : newitem }}
+                      const update = {$addToSet:{items : newItem }}
                        const doc = await View.findOneAndUpdate(filter, update, 
                         {new:true, upsert:true,  includeResultMetadata: true})
                         doc.save
@@ -258,7 +263,7 @@ export const getCategory = async (req:any, res:any ) => {
                     }else{
                        await View.create({
                         owner,
-                        items:[newitem]
+                        items:[newItem]
                     });
          
               return  res.json({success:true, message:"viewed List created!"})
@@ -278,7 +283,7 @@ export const getCategory = async (req:any, res:any ) => {
             const owner  = req.user?.id
             const  view = await View.findOne({owner:owner})
             try{
-         
+            console.log(view)
                  if(view ){
                  
                  return  res.json({ success: true, message: "Recently viewed!", view:view});

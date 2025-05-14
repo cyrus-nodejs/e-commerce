@@ -24,13 +24,10 @@ const ItemSchema = new Schema({
         type:Number,
         required:true,
     },
-
-     reviews:[{
-              type: mongoose.Schema.Types.ObjectId,
-               default: [],
-               ref: 'Reviews' 
-             }],
-
+     reviews:{
+    type: Array,
+     ref: 'Reviews' 
+     },
     discount:{
         type:Number,
         default:0

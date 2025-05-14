@@ -4,28 +4,35 @@ const Schema = mongoose.Schema;
 
 
 const ReviewsSchema = new Schema({
+    item: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Item',
+        required: true,
+      },
     owner : {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
          required: true,
          ref: 'User'
        },
-    title: {
-        type:String,
-     },
-    message:{
+   
+    comment:{
         type:String,
      },
      rating:{
         type:Number,
-        default:0
+        min: 1,
+        max: 5,
+        required: true,
     
     },
-        date_added:{
-            type:Date,
-            default:Date.now
-        },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+      }
     
      
   });
 
+  // Optional: prevent duplicate reviews from the same user for an item
+ReviewsSchema.index({ item: 1, owner: 1 }, { unique: true });
   export const Reviews:any = mongoose.model("Category", ReviewsSchema);

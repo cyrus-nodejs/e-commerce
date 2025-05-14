@@ -33,16 +33,22 @@ it('should create an order after login', async () => {
           lastname:"here",
           username: 'test@example.com',
             email: 'test@example.com',
-            password: 'password123',}
-      ;
-      const item = await  Item.create({
-        title:'ball',
-        description:'object',
-        category:"sport",
-        price:50,
-        image:'geh.jpg'
-      }) 
+            password: 'password123'}
+      
+     
     
+
+  
+      const itemId = new mongoose.Types.ObjectId().toHexString()
+      const item = {
+        itemId: itemId,
+        image:'geh.jpg',
+        title:'jot',
+        price:20,
+        unit:1,
+        
+      }
+      
         const token = createSecretToken(user)
         const cart = await  Cart.create({
           owner:userId,
