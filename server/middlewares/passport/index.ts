@@ -7,11 +7,7 @@ import { User } from '../../models/User';
 
 dotenv.config();
 
-console.log(process.env.GOOGLE_CLIENT_ID!)
 
-console.log( process.env.GOOGLE_CLIENT_SECRET!)
-
-console.log(  process.env.CALLBACK_URL!)
 // Use local strategy if using passport-local-mongoose
 passport.use(User.createStrategy());
 
