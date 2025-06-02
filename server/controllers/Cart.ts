@@ -11,7 +11,7 @@ export const getCart = async (req:Request, res: Response) =>{
 
 try{
 
-  const cart = await Cart.findById(userId)
+  const cart = await Cart.findOne({owner:userId})
   
   if(!cart ){
  return res.status(402).json({ success: false, message: "empty cart!", });

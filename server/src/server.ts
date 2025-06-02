@@ -22,9 +22,9 @@ import cookieParser from 'cookie-parser';
 import crypto from 'crypto'
 dotenv.config()
 
-  const length =  32;
- const randomString = crypto.randomBytes(length).toString('hex');
-  console.log(randomString)
+//   const length =  32;
+//  const randomString = crypto.randomBytes(length).toString('hex');
+//   console.log(randomString)
  const app = express();
 
 
@@ -70,8 +70,8 @@ app.get("/", (req, res)=>{
 
  app.use(
 	session({
-    name:process.env.SESSION_NAME!,
-		secret:process.env.SESSION_SECRET!, //pick a random string to make the hash that is generated secure
+    name:process.env.SESSION_NAME,
+		secret:process.env.SESSION_SECRET, //pick a random string to make the hash that is generated secure
 		store: MongoStore.create({mongoUrl:process.env.MONGO_URL}),
 		saveUninitialized: false ,//required
     resave: false, //required
