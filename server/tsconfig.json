@@ -109,5 +109,8 @@
     "skipLibCheck": true     ,                           /* Skip type checking all .d.ts files. */
     "types": ["node", "jest"]  // <-- Important for Jest globals like beforeAll
   },
-  "exclude": ["node_modules",  "__tests__", "**/__tests__/**", "**/*.test.ts"]
+  "include": ["src", "types",  "__tests__",  "**/*.test.ts", "globals.d.ts"],
+  "exclude": ["node_modules", 
+  //  "__tests__", "**/__tests__/**", "**/*.test.ts"
+  ]
 }

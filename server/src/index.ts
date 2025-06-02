@@ -1,7 +1,9 @@
+import dotenv from 'dotenv';
 import app from './server';
 import {connectDB} from '../models/connectDb'
 const PORT = process.env.PORT || 3000;
 
+dotenv.config()
 const MONGO_URL = process.env.MONGO_URL
  const startServer  = async () => {
   try{

@@ -1,6 +1,6 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-
+import { beforeAll, afterAll, beforeEach, jest} from '@jest/globals';
 let mongo: MongoMemoryServer;
 
 beforeAll(async () => {
@@ -10,7 +10,7 @@ beforeAll(async () => {
 }, 600000);
 
 beforeEach(async () => {
-  const collections = await mongoose.connection.db.collections();
+  const collections = await mongoose.connection.db!.collections();
   for (let collection of collections) {
     await collection.deleteMany({});
   }

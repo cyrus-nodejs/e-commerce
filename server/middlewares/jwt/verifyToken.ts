@@ -25,15 +25,17 @@ export const verifyRole = (roles: string | any[]) => {
    console.log(`verifytoken => ${eToken}`)
     if (!eToken){
       console.log("No Access Token! ")
-        return res.json({success:false,  message:''})
+        return res.json({success:false,  message:'No access Token'})
     }
     jwt.verify(eToken, process.env.TOKEN_KEY, async (err:any, user:any) => {
         if(err){
             return res.json({success:false,  message:`Invalid or expired token!`})
         }
-        //  console.log("user contains " + JSON.stringify(user));
-        //   req.user = user.data;
-        // console.log(req.user)
+        
+        console.log(user)
+          req.user = user.data;
+     
+      
            next()
             
     })
@@ -41,24 +43,4 @@ export const verifyRole = (roles: string | any[]) => {
 }
 
 
-
-export const forgotPasswordVerification = (req:Request,  res:Response, next:NextFunction) => {
-    const token = req.cookies.token
-//    console.log(`verifytoken => ${token}`)
-    if (!token){
-        return res.json({success:false,  message:"Not Authorized! Token does not exist"})
-    }
-    jwt.verify(token, process.env.TOKEN_KEY!, async (err:any, data:any) => {
-        if(err){
-            return res.json({success:false,  message:`Cannot verify token + ${err}`})
-        
-        }else{
-            const user = req.user
-            if (user) return res.json({ success: true, message:`Welcome ${user}`, user: user })
-                else return res.json({ success: false, message:"Not Authorized!" })
-        }
-   
-    })
-  next()  
-}
 

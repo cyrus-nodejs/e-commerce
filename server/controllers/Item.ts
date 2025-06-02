@@ -1,20 +1,20 @@
-
+import { Request, Response } from 'express';
 import { Item} from "../models/Item";
 import { Category } from "../models/Category";
-import { View } from "../models/Viewed";
-import { verifyRole } from "../middlewares/jwt/verifyToken";
+import { RecentlyViewed } from "../models/RecentlyViewed";
+import { IUser } from '../models/User';
+import { lchown } from 'node:fs';
+
 //Retrieve all items from database
-  export const  getAllItems = async (req:any, res:any ) => {
-console.log(`My ${req.user}`)
+  export const  getAllItems = async (req:Request,res:Response) => {
     await Item.find().sort({date:-1}).then((items: any) => res.json(items)).catch((err: string) => res.json("Error : " + err));
-    
    }
 
    //Add Category to Databse
-   export  const addCategory = async  (req:any, res:any ) => {
+   export  const addCategory = async  (req:Request,res:Response) => {
     const {title} = req.body
-      console.log(req.body)
-      if (!req.file) {
+     
+    if (!req.file) {
         // No file was uploaded
         return res.status(400).json({ error: "No file uploaded" });
       }
@@ -25,18 +25,15 @@ console.log(`My ${req.user}`)
         title,
          image,
        }
-        const newItem = new Category(newCategoryData)
-      
-      newItem.save()
-      .then(() => res.json({message:"Item saved to Database"}), res.status(200).json)
-        .catch((err: string) => res.json(err))
-       }
+        
+      const newItem = new Category(newCategoryData)
+      newItem.save().then(() => res.json({message:"Item saved to Database"}), res.status(200).json).catch((err: string) => res.json(err))
+    }
       
    // Add items to database
- export  const addItem = async  (req:any, res:any ) => {
-  console.log(req.body)
-const {title, description, category, price, discount, 
-  trending, quantity, recommended, topfeatured, topdeals } = req.body
+ export  const addItem = async  (req:Request,res:Response) => {
+ 
+const {title, description, category, price, discount, trending, quantity, recommended, topfeatured, topdeals } = req.body
 
   if (!req.file) {
     // No file was uploaded
@@ -48,22 +45,11 @@ const {title, description, category, price, discount,
    
 
 try {
+
   //Create new Item
-  const newItemData = {
-    title,
-    description,
-     image,
-       trending,
-       category,
-       recommended,
-       topfeatured,
-       topdeals,
-     price,
-     quantity,
-     discount,
-   
-  }
+  const newItemData = {title,description,image,trending,category,recommended,topfeatured,topdeals,price,quantity,discount}
   const newItem = new Item(newItemData)
+  
   if (!newItem) {
     return res.json({ message: 'Item not saved to database!' });
   }
@@ -71,50 +57,59 @@ try {
   //Add item to Category schema
     const filter = {title: category }
     const update = {$addToSet:{item : newItem}}
-     const doc = await Category.findOneAndUpdate(filter, update, {new:true, upsert:true,  includeResultMetadata: true})
-      newItem.save()
+    Category.findOneAndUpdate(filter, update, {new:true, upsert:true,  includeResultMetadata: true})
+    newItem.save()
      
-      res.status(200).json({success:true, message:"Item saved to database!", item:newItem})
+    res.status(200).json({success:true, message:"Item saved to database!", item:newItem})
 
 } catch (error) {
  return res.status(500).json({ message: 'Server Error' });
 }  
-    }
+}
   
 
  //Retrieve  items by its Id
- export const  getItembyId = async (req:any, res:any ) => {
+ export const  getItembyId = async (req:Request,res:Response) => {
       const {id} = req.params
       await Item.findById(id).then((item: any) => res.json(item)).catch((err: string) => res.json("Error : " + err));
      }
   
 
    // Update selected item
-export const  updateItem = async (req:any, res:any ) => {
+export const  updateItem = async (req:Request,res:Response) => {
   const {id} = req.params
   const  {items} = req.body
+ 
   try {
     const updatedItem = await Item.findByIdAndUpdate(id, items, { new: true });
+    
     if (!updatedItem) {
       return res.json({sucesss:true, message: 'Item not found' });
     }
-    console.log(updatedItem)
+
     res.json({success:true, message:"Item updated successfully"});
+
   } catch (error) {
-    console.log(error)
+
+  console.log(error)
   return  res.json({ message: 'Server Error' });
+
   }
 } 
 
 //Remove selected item from database
-export const deleteItem = async (req:any, res:any ) => {
- 
+export const deleteItem = async (req:Request,res:Response) => {
+
   const {itemId}= req.body
 try{
-  let item = await Item.findOne({_id:itemId});
+  
+  let item = await Item.findById(itemId);
+ 
   if (item){
-    await Item.findOneAndDelete({_id:itemId});
+    
+    Item.findOneAndDelete({_id:itemId});
     res.json({ success: true, message: "Item removed from database" });
+  
   }else{
     res.json({ success: true, message: "No cart exists!" });
   }
@@ -131,14 +126,16 @@ try{
 
 
 // Search Items
-export const searchItem = async (req:any, res:any ) => {
+export const searchItem = async (req:Request,res:Response) => {
 
 const {query}= req.query
-
-// await Item.find({ title: { $regex: `${searchitem}`, $options: "i" }}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
-
+function escapeRegExp(input: any): string {
+  return input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+const safeQuery = escapeRegExp(query);
 try {
-  const regex = new RegExp(query, 'i'); // 'i' for case-insensitive
+  const regex = new RegExp(safeQuery, 'i'); // 'i' for case-insensitive
+  
   const results = await Item.find({
     $or: [
       { title: { $regex: regex } },
@@ -155,145 +152,157 @@ try {
 }
 
 //Get product categories
-export const  typeCategory = async (req:any, res:any ) => {
- await Category.find().sort({date:-1}).then((items: any) => res.json(items)).catch((err: string) => res.json("Error : " + err));
+export const  categoryMenu = async (req:Request,res:Response) => {
+ 
+ Category.find().sort({date:-1}).then((items: any) => res.json(items)).catch((err: string) => res.json("Error : " + err));
+
 }
 
 //get products by categories
-export const getCategory = async (req:any, res:any ) => {
+export const getCategoryItems = async (req:Request,res:Response) => {
+  const l = req.params.id
+  console.log(l)
   try{
-   const item =  await Item.find({category:req.params.id})
-  console.log(item)
+
+    const item =  await Item.find({category:req.params.id})
+  
   if (item){
+
     console.log(item)
   return res.json({success:true, message:"categories sorted!", item:item})
+
   }
   }catch (err){
+
    return res.json({success:false, message:"No categories!"})
+
   }
  
  }
 
 //Get product details
- export const getItemDetails = async (req:any, res:any ) => {
-  await Item.find({title:req.params.id}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
+ export const getProductDetails = async (req:Request,res:Response) => {
+   const user = req.user as IUser
+ const userId = user._id
+ 
+  // Save to recently viewed (or update timestamp)
+  RecentlyViewed.findOneAndUpdate(
+    { userId:userId, itemId: req.params.id },
+    { viewedAt: new Date() },
+    { upsert: true, new: true }
+  );
 
+  const product = await Item.findById(req.params.id);
+ 
+  if (product) {
+
+    const userHasReviewed = product.reviews.some((review: { user: { toString: () => any; }; }) => req.user && review.user.toString() === userId.toString());
+    res.status(200).json({product, userHasReviewed}
+    
+    );
+  } else {
+    res.status(404);
+    throw new Error('Product not found');
+  }
   }
 
   
   //Get trending products
-  export const trending = async (req:any, res:any ) => {
-    await Item.find({trending:"true"}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
-     }
+  export const trending = async (req:Request,res:Response) => {
+  
+    Item.find({trending:"true"}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
+    
+  }
  
 //Get recommended items
- export const recommended = async (req:any, res:any ) => {
-      await Item.find({recommended:"true"}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
-       }
+ export const recommended = async (req:Request,res:Response) => {
+  
+  Item.find({recommended:"true"}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
+       
+}
        
  
        // Get items in slide
- export  const topFeaturedSlide = async (req:any, res:any ) => {
+ export  const topFeaturedSlide = async (req:Request,res:Response) => {
 
-    await Item.find({topfeatured:"true" }).sort({ _id: -1 }).limit(4).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
-     }
+Item.find({topfeatured:"true" }).sort({ _id: -1 }).limit(4).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
+    
+  }
  
-     //Get gallery items
-     export  const topFeaturedGallery = async (req:any, res:any ) => {
-      await Item.find({topfeatured:"true"}).limit(6).then((items: any) =>  res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
-       }
+//Get gallery items
+export  const topFeaturedGallery = async (req:Request,res:Response) => {
+    
+  Item.find({topfeatured:"true"}).limit(6).then((items: any) =>  res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
+       
+    }
    
       // Get flash deals
-       export  const flashDeals = async (req:any, res:any ) => {
-       
-        //find({   date_added:{  $lt: Date.now() }})
-        await Item.find().sort({ date_added: -1 }).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
-         }
+export  const flashDeals = async (req:Request,res:Response) => {
+  //find({   date_added:{  $lt: Date.now() }})
+Item.find().sort({ date_added: -1 }).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err)) 
+      }
     
-         export  const clearance = async (req:any, res:any ) => {
+      //Get Clearance Deals
+export  const clearance = async (req:Request,res:Response) => {
 
-          await Item.find({discount:{ $gt: 1, $lt: 20 }}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
-           }
+  Item.find({discount:{ $gt: 1, $lt: 20 }}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
+          
+}
       
 
-          //Get Top deals
-  export  const topDeals = async (req:any, res:any ) => {
+//Get Top deals
+  export  const topDeals = async (req:Request,res:Response) => {
 
-        await Item.find({topdeals:"true",}).limit(2).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
-         }
+    await Item.find({topdeals:"true",}).limit(2).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
+  
+  }
     
-            //Get Related items
-         export const  relatedItem = async (req:any, res:any ) => {
-          try{
-            const item =  await Item.find({category:req.params.id})
-           console.log(item)
-           if (item){
-             console.log(item)
-           return res.json({success:true, message:"categories sorted!", item:item})
-           }
-           }catch (err){
-           return  res.json({success:false, message:"No categories!"})
-           }
-        };
+//Get Related items
+export const  relatedItem = async (req:Request,res:Response) => {
+        
+try{
+
+  const product = await Item.findById(req.params.id);
+
+const item = await Item.find({_id: { $ne: product._id }, category: product.category}).limit(8);
+        
+console.log(item)
+          
+if (!item){
+return res.json({success:false, message:"No related Items found!"})
+      
+}
+return res.json({success:true, message:"view related Items!", item:item})
+
+}catch (err){
+         console.log(err) 
+  return  res.json({success:false, message:"Network error!"})
+           
+}
+        
+};
       
 
         
-       //Add items to viewed list
-              export  const addViewedItem = async (req:any, res:any ) => {
-                const {itemId} = req.body
-                const owner = req.user?._id
-               console.log(itemId)
-                try{
-                  const viewed = await View.findOne({owner:owner})
-                  const  item = await Item.findOne({_id:itemId})
-                   
-                  const image = item.image
-                  const title = item.title
-                  const price = item.price
-                  const unit= item.unit
-                  const newItem = {image:image, title:title, unit:unit, price:price}
-                    if (viewed){
-                      const filter = {owner: owner }
-                      const update = {$addToSet:{items : newItem }}
-                       const doc = await View.findOneAndUpdate(filter, update, 
-                        {new:true, upsert:true,  includeResultMetadata: true})
-                        doc.save
-                  return    res.json({ success: true, message: "Item added to View List!" });
-                      
-                    }else{
-                       await View.create({
-                        owner,
-                        items:[newItem]
-                    });
-         
-              return  res.json({success:true, message:"viewed List created!"})
-                }
-                  
-            
-                  
-
-            }catch (err){
-     console.log(err)
-            }
-           }
-      
   
-             //Get Viewed Items
-           export const getViewedItems = async (req:any, res:any ) => {
-            const owner  = req.user?.id
-            const  view = await View.findOne({owner:owner})
-            try{
-            console.log(view)
-                 if(view ){
-                 
-                 return  res.json({ success: true, message: "Recently viewed!", view:view});
-                 }
-                 else{
-                return   res.json({ success: false, message: "No recentely viewed!" });
-                 }
-          }
-          catch(err){
-              console.log(err);
-              res.status(500).send("Something went wrong");
-          }
-        }
+  
+             //Get RecentlyViewed Items
+export const RecentlyViewedItems = async (req:Request,res:Response) => {
+ const user = req.user as IUser
+ if (!user){
+ return res.status(401).json({message: 'Nouser found' });
+ }
+
+ const userId = user._id
+
+
+  try {
+  const recent = await RecentlyViewed.find({ userId: userId }).sort({ viewedAt: -1 }).limit(8).populate('itemId'); // or manually populate desired fields
+           
+      return        res.json( {message:"view recently items", recentlyviewed:recent.map((entry: { itemId: any; }) => entry.itemId)});
+  
+ } catch (err) {
+       console.log(err)       
+ return res.status(500).json({ error: 'Failed to fetch recently viewed products' });
+    
+}}

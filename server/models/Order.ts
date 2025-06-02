@@ -42,16 +42,26 @@ const OrderSchema = new Schema({
         default:false,
         
     },
+    address:{
+        type: String,
+        required: true
+        
+    },
+    deliveredAt: {
+         type: Date 
+        },
     delivery:{
         type: String ,
         enum: ['pending', 'shipped', 'delivered', 'canceled'],
         default :'pending',
     },
-    date_added: {
-        type: Date,
-        default: Date.now
+    isDelivered:{
+        type: Boolean ,
+        default:false,
     }
-})
+},  {
+    timestamps: true // Adds createdAt and updatedAt fields automatically
+  })
 export const Order : any = mongoose.model("Order", OrderSchema)
 
 

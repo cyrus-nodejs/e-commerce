@@ -1,12 +1,6 @@
 // types/express/index.d.ts
- import { User, IFile } from '../server/types/@types';
-import { MongoMemoryServer } from 'mongodb-memory-server';
-
-declare global {
-  var mongo: MongoMemoryServer;
-}
-
-export {};
+// import { User, IFile } from './@types';
+import {User} from '../../models/User'
 
 
 declare global {

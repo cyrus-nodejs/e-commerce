@@ -14,6 +14,7 @@ import authRoutes from "../routes/Auth"
 import itemRoutes from "../routes/Items"
 import cartRoutes from "../routes/Cart"
 import orderRoutes from "../routes/Order"
+import reviewRoutes from '../routes/Review'
 import addressRoutes from "../routes/Address"
 import adminRoutes from '../routes/Admin'
 import passport from "../middlewares/passport/index"
@@ -58,6 +59,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res)=>{
   console.log(`User is login ${req.user}`)
+
 })
 
 
@@ -86,6 +88,7 @@ app.use(passport.session());
  app.use("/", orderRoutes)
  app.use("/", addressRoutes)
  app.use("/", adminRoutes)
+ app.use("/", reviewRoutes)
 
 
 

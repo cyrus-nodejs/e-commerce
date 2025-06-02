@@ -2,7 +2,22 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-
+const reviewSchema =  new Schema(
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+      },
+      name: { type: String, required: true },
+      rating: { type: Number, required: true },
+      comment: { type: String, required: true },
+    },
+    {
+      timestamps: true,
+    }
+  );
+  
 
 const ItemSchema = new Schema({
     title:{
@@ -24,10 +39,9 @@ const ItemSchema = new Schema({
         type:Number,
         required:true,
     },
-     reviews:{
-    type: Array,
-     ref: 'Reviews' 
-     },
+ 
+     numReviews: { type: Number, default: 0 },
+     reviews: [reviewSchema],
     discount:{
         type:Number,
         default:0
@@ -77,6 +91,7 @@ const ItemSchema = new Schema({
     },
 })
 
+ItemSchema.index({ category: 1 });
 export const Item:any = mongoose.model("Item", ItemSchema);
 
 

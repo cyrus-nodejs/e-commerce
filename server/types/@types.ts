@@ -10,15 +10,21 @@ export interface IFile  {
     filename:string;
 }
 
-export interface USER {
-    id: string,
-    email: string,
-    username: string,
-    register_date: string,
-    v: number,
+
+// types/User.ts
+export interface User {
+  _id: string;
+  email: string;
+  username: string;
+  firstname: string;
+  lastname: string;
+  googleId: string;
+  displayName: string;
+  photo: string;
+  role: 'customer' | 'reseller' | 'customer service' | 'admin' | 'super admin';
+  token: string;
+  register_date: Date;
 }
-
-
  
   
 
