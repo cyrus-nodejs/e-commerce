@@ -2,13 +2,13 @@ import {Row } from "react-bootstrap"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { CATEGORY } from "../../../utils/@types";
+import { CATEGORY } from "../../../../utils/@types";
 import Product from "./Product";
-import Nextrrow from "../Trending/Nextrrow";
-import Previosarrow from "../Trending/Previosarrow";
+import Nextrrow from "../../Trending/Nextrrow";
+import Previosarrow from "../../Trending/Previosarrow";
 import {  useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../redux/app/hook";
-import { fetchCategory, getCategory } from "../../../redux/features/items/itemSlice";
+import { useAppDispatch, useAppSelector } from "../../../../redux/app/hook";
+import { fetchCategory, getCategory } from "../../../../redux/features/items/itemSlice";
 const Categories = () => {
 
   const dispatch = useAppDispatch()

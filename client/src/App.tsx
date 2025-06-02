@@ -28,7 +28,7 @@ import Additem from "./pages/AddItem/AddItem";
 import UpdateItem from "./pages/UpdateItem";
 import Productdetails from "./pages/Review/Productdetails";
 
-import Category from "./pages/Category";
+import Category from "./pages/Home/Category/CategoryItems";
 
 import AddressForm from "./pages/AdressForm";
 

@@ -1,22 +1,22 @@
 
-import "../index.css"
+import "../../../index.css"
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
  import{Row, Col,  Container, } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
-import Navbar from '../components/Navbar/Navbar';
+import Navbar from '../../../components/Navbar/Navbar';
 import {  useEffect, useContext  } from "react";
-import { FavoriteContext } from "../Context/wishlist";
+import { FavoriteContext } from "../../../Context/wishlist";
 
-import { useAppDispatch, useAppSelector } from '../redux/app/hook';
-import { fetchCategoryItems, getCategoryItems} from '../redux/features/items/itemSlice';
+import { useAppDispatch, useAppSelector } from '../../../redux/app/hook';
+import { fetchCategoryItems, getCategoryItems} from '../../../redux/features/items/itemSlice';
 
 
-import {  getIsAuthenticated, getAuthUser } from '../redux/features/auth/authSlice';
-import Recentlyviewed from './Recentlyviewed';
+import {  getIsAuthenticated, getAuthUser } from '../../../redux/features/auth/authSlice';
+import Recentlyviewed from '../../Recentlyviewed';
 import { useParams } from "react-router-dom";
-import { ITEM } from '../utils/@types';
+import { ITEM } from '../../../utils/@types';
 
 
 const Category = () => {

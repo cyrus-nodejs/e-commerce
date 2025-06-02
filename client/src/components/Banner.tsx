@@ -1,12 +1,12 @@
-import "../Home/Home.css"
+import "../../src/pages/Home/Home.css"
 
 import {  Button, Row, Col, Carousel , Image } from "react-bootstrap"
-import Headphone from "./images/Headphone & Audio.avif"
-import Wireless from "./images/Wireless Earbuds.avif"
-import Decor from "./images/Decor & Furniture.avif"
-import Cellphone from "./images/Cellphone & Tablets.avif"
-import banner from "./images/banner.webp"
-import banner1 from "./images/banner2.webp"
+import Headphone from "../assets/images/Headphone & Audio.avif"
+import Wireless from "../assets/images/Wireless Earbuds.avif"
+import Decor from "../assets/images/Decor & Furniture.avif"
+import Cellphone from "../assets/images/Cellphone & Tablets.avif"
+import banner from "../assets/images/banner.webp"
+import banner1 from "../assets/images/banner2.webp"
 
 const Banner = () => {
   return (
