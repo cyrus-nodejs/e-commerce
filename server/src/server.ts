@@ -19,9 +19,12 @@ import addressRoutes from "../routes/Address"
 import adminRoutes from '../routes/Admin'
 import passport from "../middlewares/passport/index"
 import cookieParser from 'cookie-parser';
-
+import crypto from 'crypto'
 dotenv.config()
 
+  const length =  32;
+ const randomString = crypto.randomBytes(length).toString('hex');
+  console.log(randomString)
  const app = express();
 
 

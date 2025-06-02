@@ -1,7 +1,7 @@
 // auth/passport.ts
 import passport from 'passport';
 import { Strategy as GoogleStrategy, Profile } from 'passport-google-oauth20';
-import { Strategy as LocalStrategy } from 'passport-local';
+
 import dotenv from 'dotenv';
 import { User } from '../../models/User';
 
@@ -17,8 +17,8 @@ passport.use(User.createStrategy());
 
 // Google OAuth strategy
 passport.use(new GoogleStrategy({
-  clientID: process.env.GOOGLE_CLIENT_ID!,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: process.env.CALLBACK_URL,
 }, async (accessToken, refreshToken, profile: Profile, done) => {
   try {

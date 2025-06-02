@@ -2,7 +2,7 @@ import request from 'supertest'
 import app from '../src/server'
 import jwt from 'jsonwebtoken'
 import mongoose from 'mongoose'
-import { beforeAll, afterAll, describe, test,it, expect } from '@jest/globals';
+import {  describe, it, expect } from '@jest/globals';
 
 function generateToken(userId) {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET || 'testsecret');
