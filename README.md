@@ -1,111 +1,147 @@
-# MERN E-Commerce Application
+🛍️ MERN eCommerce Store
+A full-featured eCommerce web application built using the MERN stack (MongoDB, Express, React, Node.js) with product reviews, Stripe payment integration, and a full admin dashboard.
 
-A fully functional e-commerce application built with the MERN stack (MongoDB, Express, React, Node.js). This app includes features like product browsing, shopping cart management, Stripe payment integration, and an admin dashboard to manage products and orders.
+🔗 Live Website: https://shoppingluxury.netlify.app/
+📂 GitHub Repository: https://github.com/cyrus-nodejs/e-commerce
 
-## Features
+📦 Features
+🧑‍💻 User Features
+🔐 User registration and login (Passport & JWT-based auth)
 
-- **Product Browsing**: Users can view a variety of products with images, descriptions, and prices.
-- **Shopping Cart**: Users can add items to the cart, view the cart, update quantities, and proceed to checkout.
-- **Stripe Payment Integration**: Users can securely make payments using Stripe's API.
-- **Admin Panel**: Admin users can manage products (add, update, delete) and view order details.
-- **User Authentication**: Secure user login and registration using JWT (JSON Web Tokens).
-- **Order Management**: Admins can see and manage customer orders and their statuses.
+🛍️ Browse, search, and filter products
 
-## Technologies Used
+🛒 Add/remove items from cart
 
-- **Frontend**: React, Redux (for state management), Axios
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB
-- **Authentication**: JWT (JSON Web Tokens)
-- **Payment**: Stripe API
-- **Hosting**: (Choose your preferred hosting solution, e.g., Heroku, Netlify for frontend, etc.)
+💳 Stripe-powered checkout & payment
 
-## Getting Started
+📜 Order history and details
 
-To run this project locally, follow these steps:
+⭐ Leave and view product reviews (1–5 stars + comments)
 
-### 1. Clone the repository
 
-```bash
-git clone https://github.com/cyrus-nodejs/e-commerce.git
-2. Install Dependencies
-Install both client-side and server-side dependencies.
 
-For the backend:
+🛠️ Admin Features
+👤 Manage users (view, delete)
+
+🛒 Manage products (create, edit, delete)
+
+📦 View and manage orders
+
+⚙️ Dashboard with protected routes
+
+🧰 Tech Stack
+Layer	Tech
+Frontend	React, Redux Toolkit, Bootstrap
+Backend	Node.js, Express.js
+Database	MongoDB (Mongoose)
+Authentication	JWT, Passport
+Payments	Stripe API
+File Uploads	Cloudinary 
+Hosting	Netlify (frontend) + Render(backend)
+
+🗂️ Folder Structure
 bash
 Copy
-cd backend
+Edit
+/client       // React frontend
+  /src
+    /components
+    /pages
+    /redux
+/server       // Express backend
+  /controllers
+  /routes
+  /models
+  /middlewares
+  server.js
+🚀 Getting Started
+📋 Prerequisites
+Node.js
+
+MongoDB Atlas or local MongoDB
+
+Stripe Account (for test keys)
+
+🔧 Installation
+bash
+Copy
+Edit
+# Clone the repo
+git clone https://github.com//cyrus-nodejs/mern-ecommerce.git
+cd mern-ecommerce
+
+# Install backend dependencies
+cd server
 npm install
-For the frontend:
-bash
-Copy
-cd frontend
+
+# Install frontend dependencies
+cd ../client
 npm install
-3. Set Up Environment Variables
-Create a .env file in the root of both backend and frontend directories.
+🧪 Environment Variables
+Create a .env file in the /server folder:
 
-Backend .env file:
+ini
+Copy
+Edit
+TOKEN_KEY= TOKEN_KEY
+JWT_SECRET=JWT_SECRET
+EMAIL=EMAIL
+NODE_ENV=production
+PASS=PASS
+STRIPE_PUBLISHABLE_KEY=STRIPE_PUBLISHABLE_KEY
+STRIPE_SECRET=STRIPE_SECRET
+SESSION_KEY= SESSION_KEY
+SESSION_SECRET=SESSION_SECRET
+SESSION_NAME=SESSION_NAME
+NODE_ENV = NODE_ENV 
+PORT = PORT
+CLOUD_NAME = CLOUD_NAME
+CLOUDINARY_KEY= CLOUDINARY_KEY
+CLOUDINARY_SECRET = CLOUDINARY_SECRET
+SERVER_URL=SERVER_URL
+FRONTEND_URL=SERVER_URL
+FRONTEND_URL2=FRONTEND_URL2
+GOOGLE_CLIENT_ID=GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET=GOOGLE_CLIENT
+CALLBACK_URL =CALLBACK_URL 
+🚦 Run the App
 bash
 Copy
-MONGO_URL=<your-mongodb-connection-string>
-JWT_SECRET=<your-jwt-secret-key>
-STRIPE_SECRET=<your-stripe-secret-key>
-MONGO_URL=mongodb+srv://admin-bakerr:N0qmGOCBDkSPKQYC@cluster0.pdu7dww.mongodb.net/shop-here
+Edit
+# Run backend
+cd server
+npm run dev
 
-
-#  FRONTEND_URL= http://localhost:5173
-PASS=ovcqtpyyevpbtjms
-STRIPE_PUBLISHABLE_KEY = pk_test_51Mm5W2C39kEUAF74gA8phE7elm1XbnhXDVOckq9LkH5s5Vqk2R7veSHQC9EVq6N48uGuIwiReOcjgoOZVNQXzAPi00z6RuwWbw
-STRIPE_SECRET = sk_test_51Mm5W2C39kEUAF7481E7iFl931qdc47cg1Wr2VHq7fyP8dJAa96Q5sdda6pk5xlkCYjxh2HwjFEXf0eSByhrP4sv00N1jK2w1O
-
-Frontend .env file:
-bash
-Copy
-REACT_APP_BACKEND_URL=http://localhost:5000
-4. Run the Application
-Start the Backend Server:
-bash
-Copy
-cd backend
+# Run frontend
+cd ../client
 npm start
-Start the Frontend Development Server:
-bash
-Copy
-cd frontend
-npm start
-Your application should now be running at http://localhost:3000.
+Frontend: http://localhost:5173
+Backend: http://localhost:3000
 
-Admin Panel
-The admin dashboard allows managing products and viewing orders. You can access it by logging in with the admin credentials (ensure the user is marked as an admin in the database).
+🛡️ Security Notes
+Passwords are hashed using passport mongoose local
 
-Stripe Integration
-Sign up for a Stripe account here.
-Obtain your Stripe API keys and place them in the backend .env file.
-Make sure to test payments using Stripe's test card numbers.
-Screenshots
+Routes are protected with JWT middleware
 
-Future Improvements
-Add pagination for products.
-Integrate more payment gateways.
-Implement email notifications for order updates.
-Add reviews and ratings for products.
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+Admin routes are role-guarded
 
-Acknowledgements
-Thanks to Stripe for providing the payment gateway API.
-Thanks to MongoDB for database management.
-Feel free to fork, contribute, or modify this repository as needed!
+✨ Future Improvements
 
-markdown
-Copy
+Pagination for product listings
 
-### Key Points:
-1. **Folder Structure**: 
-    - `backend`: Contains the Node.js API.
-    - `frontend`: Contains the React app.
-2. **Admin Panel**: Add functionality to manage products and orders, and ensure proper authentication for admin users.
-3. **Stripe Integration**: You’ll need the Stripe API keys, and the backend should handle payment processing.
-4. **Environment Variables**: These should be securely stored and not exposed publicly.
+Email notifications (orders, signups)
 
-Let me know if you need any specific additions or modifications!
+Dark mode toggle
+
+
+
+🙌 Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you’d like to change.
+
+📄 License
+This project is open-source and available under the MIT License.
+
+💬 Connect With Me
+LinkedIn: Your Profile
+
+
