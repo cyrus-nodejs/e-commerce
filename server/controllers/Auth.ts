@@ -231,8 +231,6 @@ export const Logout = async (req: Request, res: Response, next:NextFunction) => 
   
   req.logout(err => {
     if (err) return next(err);
-    //  Destroy server session 
-    req.session.destroy(() => {
       //  Clear session cookie 
       res.clearCookie(process.env.SESSION_NAME);
       //  Clear JWT cookie 
@@ -241,9 +239,8 @@ export const Logout = async (req: Request, res: Response, next:NextFunction) => 
         secure: true,
         sameSite: 'none',
       });
-
       res.status(200).json({ message: 'Logged out successfully' });
-    });
+    
   });
 
 

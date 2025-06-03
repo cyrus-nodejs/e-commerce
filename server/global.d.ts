@@ -12,7 +12,7 @@ declare global {
   namespace Express {
     interface Request {
       user?: User;
-      files?: IFile;
+      file?: IFile;
     }
   }
 }
