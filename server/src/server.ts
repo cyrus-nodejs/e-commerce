@@ -72,7 +72,7 @@ app.get("/", (req, res)=>{
 		store: MongoStore.create({mongoUrl:process.env.MONGO_URL}),
 		saveUninitialized: false ,//required
     resave: false, //required
-      cookie: { httpOnly:true, secure:true, sameSite:"none"  } 
+    cookie: { httpOnly:true, secure:true, sameSite:"none"  } 
 	})
 )
 app.use(passport.initialize()); 

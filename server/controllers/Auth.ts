@@ -104,8 +104,7 @@ export const googleAuthCallback = (req:Request, res:Response, next:NextFunction)
     res.cookie(process.env.TOKEN_NAME, eToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'none',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      sameSite: 'none'
     });
    
     return res.redirect(`${process.env.FRONTEND_URL}`);
@@ -232,12 +231,11 @@ export const Logout = async (req: Request, res: Response, next:NextFunction) => 
   
   req.logout(err => {
     if (err) return next(err);
-
     //  Destroy server session 
     req.session.destroy(() => {
       //  Clear session cookie 
       res.clearCookie(process.env.SESSION_NAME);
-      //  Clear JWT cookie (assuming it's called 'token')
+      //  Clear JWT cookie 
       res.clearCookie(process.env.TOKEN_NAME, {
         httpOnly: true,
         secure: true,
