@@ -12,7 +12,7 @@ declare global {
   namespace Express {
     interface Request {
       user?: User;
-      file?: IFile;
+      file?: Multer.File;
     }
   }
 }
