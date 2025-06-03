@@ -9,7 +9,7 @@ import morgan from "morgan";
 import compression from "compression"
 import bodyParser from "body-parser";
 import cors from "cors";
-import {connectDB} from '../models/connectDb'
+
 import authRoutes from "../routes/Auth"
 import itemRoutes from "../routes/Items"
 import cartRoutes from "../routes/Cart"
