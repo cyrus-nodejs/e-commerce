@@ -83,7 +83,7 @@ const Categories = () => {
     const category = useAppSelector(getCategory)
     console.log(category)
   return (
-    <Row className="mx-5">
+    <Row className="mx-3">
 {category && category.length > 0  &&  (<div><div className="mb-4">
       <div className="d-inline-flex p-2 fs-4 border-info  border-bottom">Popular Categories</div>
     </div>

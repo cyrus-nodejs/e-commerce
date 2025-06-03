@@ -8,12 +8,10 @@ export const getCart = async (req:Request, res: Response) =>{
  const user = req.user as IUser
  console.log(user)
  const userId = user?._id
-
-try{
-
+ console.log(`My cart ${userId}`)
   const cart = await Cart.findOne({owner:userId})
-  
-  if(!cart ){
+try{
+if(!cart ){
  return res.status(402).json({ success: false, message: "empty cart!", });
 }
  return res.status(201).json({ success: true, message: "View cart!", cart:cart });

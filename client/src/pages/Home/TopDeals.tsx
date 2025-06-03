@@ -41,7 +41,7 @@ const topdeals = useAppSelector(getTopdeals)
       
     //     }, [dispatch])
   return (
-    <Row className="my-3">
+    <Row className="my-3 mx-3">
       {topdeals && topdeals.length  > 0 && (<div><div className="d-flex row mb-3">
    
   

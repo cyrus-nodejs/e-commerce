@@ -100,7 +100,7 @@ const {state} = useContext(FavoriteContext)
     
            
            
-    <Row  className='' >
+    <Row  className='mx-3' >
     {clearance && clearance.length > 0  && (<div>
       <div>
   <div className="d-inline-flex p-2 fs-4 border-info  border-bottom">Clearance Deals</div>

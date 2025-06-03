@@ -89,7 +89,7 @@ const TrendingProduct = () => {
     
   return (
              
-    <Row  className=' ' >
+    <Row  className='mx-3 ' >
       {trending && trending.length > 0  ? (<div> <div>
       <div className="d-inline-flex p-2 fs-4 border-info  border-bottom">Hot Trending Product</div>
     </div>

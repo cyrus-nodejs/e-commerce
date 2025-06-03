@@ -19,19 +19,16 @@ import addressRoutes from "../routes/Address"
 import adminRoutes from '../routes/Admin'
 import passport from "../middlewares/passport/index"
 import cookieParser from 'cookie-parser';
-import crypto from 'crypto'
+
 dotenv.config()
 
-//   const length =  32;
-//  const randomString = crypto.randomBytes(length).toString('hex');
-//   console.log(randomString)
  const app = express();
 
 
 // Cors configuration for server  Local host & web hosting services
 const corsOptions = {
   //  origin: process.env!.FRONTEND_URL2,
-   origin:process.env!.FRONTEND_URL,
+  origin:process.env.FRONTEND_URL,
  credentials: true, 
  optionSuccessStatus: 200,
  methods: ['GET', 'PUT', 'POST', 'DELETE']
@@ -75,7 +72,7 @@ app.get("/", (req, res)=>{
 		store: MongoStore.create({mongoUrl:process.env.MONGO_URL}),
 		saveUninitialized: false ,//required
     resave: false, //required
-    cookie: { httpOnly:true, secure:true, sameSite:"none"  } 
+      cookie: { httpOnly:true, secure:true, sameSite:"none"  } 
 	})
 )
 app.use(passport.initialize()); 

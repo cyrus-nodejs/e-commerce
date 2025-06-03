@@ -93,7 +93,7 @@ const {state} = useContext(FavoriteContext)
     
            
            
-      <Row  className='' >
+      <Row  className='mx-3' >
         {flashdeals && flashdeals.length > 0  && (<div>
           <div>
       <div className="d-inline-flex p-2 fs-4 border-info  border-bottom">Flash Deals</div>

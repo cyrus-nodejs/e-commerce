@@ -299,7 +299,7 @@ export const RecentlyViewedItems = async (req:Request,res:Response) => {
   try {
   const recent = await RecentlyViewed.find({ userId: userId }).sort({ viewedAt: -1 }).limit(8).populate('itemId'); // or manually populate desired fields
            
-      return        res.json( {message:"view recently items", recentlyviewed:recent.map((entry: { itemId: any; }) => entry.itemId)});
+      return  res.json( {message:"view recently items", recentlyviewed:recent.map((entry: { itemId: any; }) => entry.itemId)});
   
  } catch (err) {
        console.log(err)       
