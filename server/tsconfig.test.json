@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",      // Jest prefers CommonJS
+    "types": ["jest", "node"]  // include Jest types here
+  },
+  "include": ["__tests__", "**/*.test.ts"],
+  "exclude": ["node_modules"]
+}
