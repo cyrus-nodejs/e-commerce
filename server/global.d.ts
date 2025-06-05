@@ -8,8 +8,8 @@ declare global {
   namespace Express {
     interface Request {
       user?: Users;
-       file?: Multer.File;
-      files?: Multer.File[];
+       file?: IFile;
+      files?:IFile[];
     }
   }
 
