@@ -13,7 +13,9 @@ import { IFile } from '../types/@types';
    //Add Category to Databse
    export  const addCategory = async  (req:Request,res:Response) => {
     const {title} = req.body
-      const file = req.file as any 
+  
+      const file = req.file as Express.Multer.File;
+      
     if (!file) {
         // No file was uploaded
         return res.status(400).json({ error: "No file uploaded" });
@@ -34,14 +36,15 @@ import { IFile } from '../types/@types';
  export  const addItem = async  (req:Request,res:Response) => {
  
 const {title, description, category, price, discount, trending, quantity, recommended, topfeatured, topdeals } = req.body
-      const file = req.file as any
+      const file = req?.file as Express.Multer.File
+      console.log(file)
   if (!file) {
     // No file was uploaded
     return res.status(400).json({ error: "No file uploaded" });
   }
 
   //Retrieve image cloudinary url
-  const image = file.path
+  const image:string = file?.path
    
 
 try {
