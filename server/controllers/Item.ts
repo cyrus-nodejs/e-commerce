@@ -3,7 +3,7 @@ import { Item} from "../models/Item";
 import { Category } from "../models/Category";
 import { RecentlyViewed } from "../models/RecentlyViewed";
 import { IUser } from '../models/User';
-
+import { IFile } from '../types/@types';
 
 //Retrieve all items from database
   export const  getAllItems = async (req:Request,res:Response) => {
@@ -13,13 +13,13 @@ import { IUser } from '../models/User';
    //Add Category to Databse
    export  const addCategory = async  (req:Request,res:Response) => {
     const {title} = req.body
-     
-    if (!req.file) {
+      const file = req.file as IFile 
+    if (!file) {
         // No file was uploaded
         return res.status(400).json({ error: "No file uploaded" });
       }
-    
-      const image = req.file.path
+   
+      const image = file.path
        console.log(title, image)
        const newCategoryData = {
         title,
@@ -34,14 +34,14 @@ import { IUser } from '../models/User';
  export  const addItem = async  (req:Request,res:Response) => {
  
 const {title, description, category, price, discount, trending, quantity, recommended, topfeatured, topdeals } = req.body
-
-  if (!req.file) {
+      const file = req.file as IFile 
+  if (!file) {
     // No file was uploaded
     return res.status(400).json({ error: "No file uploaded" });
   }
 
   //Retrieve image cloudinary url
-  const image = req.file.path
+  const image = file.path
    
 
 try {
