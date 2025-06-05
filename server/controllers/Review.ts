@@ -65,7 +65,8 @@ if (!order) {
   res.status(201).json({ message: 'Review added successfully' });
   
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.log(error)
+    res.status(500).json({ message: 'Network error' });
   }
 }
 

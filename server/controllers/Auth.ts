@@ -63,7 +63,7 @@ export const Login = async (req: Request, res: Response) => {
                 } else {
                   console.log(`Login my ${req.user}`)
                   const eToken = createSecretToken(req.user);
-                  res.cookie(process.env.TOKEN_NAME, eToken, { httpOnly:true, secure:true, sameSite:"none" });
+                  res.cookie(process.env.TOKEN_NAME!, eToken, { httpOnly:true, secure:true, sameSite:"none" });
                   console.log(eToken)
                   return   res.status(200).json({ success: true, message: "Authentication successful",  user: req.user , eToken:eToken  });
                 }
@@ -101,13 +101,13 @@ export const googleAuthCallback = (req:Request, res:Response, next:NextFunction)
 
     const eToken = createSecretToken(user);
     // 🔐 Set token in cookie
-    res.cookie(process.env.TOKEN_NAME, eToken, {
+    res.cookie(process.env.TOKEN_NAME!, eToken, {
       httpOnly: true,
       secure: true,
       sameSite: 'none'
     });
    
-    return res.redirect(`${process.env.FRONTEND_URL}`);
+    return res.redirect(`${process.env.FRONTEND_URL!}`);
 
   })(req, res, next);
 };
@@ -232,9 +232,9 @@ export const Logout = async (req: Request, res: Response, next:NextFunction) => 
   req.logout(err => {
     if (err) return next(err);
       //  Clear session cookie 
-      res.clearCookie(process.env.SESSION_NAME);
+      res.clearCookie(process.env.SESSION_NAME!);
       //  Clear JWT cookie 
-      res.clearCookie(process.env.TOKEN_NAME, {
+      res.clearCookie(process.env.TOKEN_NAME!, {
         httpOnly: true,
         secure: true,
         sameSite: 'none',

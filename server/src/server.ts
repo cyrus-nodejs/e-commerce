@@ -67,9 +67,9 @@ app.get("/", (req, res)=>{
 
  app.use(
 	session({
-    name:process.env.SESSION_NAME,
-		secret:process.env.SESSION_SECRET, //pick a random string to make the hash that is generated secure
-		store: MongoStore.create({mongoUrl:process.env.MONGO_URL}),
+    name:process.env.SESSION_NAME!,
+		secret:process.env.SESSION_SECRET!, //pick a random string to make the hash that is generated secure
+		store: MongoStore.create({mongoUrl:process.env.MONGO_URL!}),
 		saveUninitialized: false ,//required
     resave: false, //required
     cookie: { httpOnly:true, secure:true, sameSite:"none"  } 

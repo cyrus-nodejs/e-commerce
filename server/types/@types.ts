@@ -1,5 +1,5 @@
 
-export interface IFile  {
+ export interface IFile  extends Express.Multer.File   {
     fieldname: string;
     originalname: string;
     encoding: string;
@@ -11,8 +11,7 @@ export interface IFile  {
 }
 
 
-// types/User.ts
-export interface User {
+export interface Users {
   _id: string;
   email: string;
   username: string;

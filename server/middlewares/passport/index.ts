@@ -1,9 +1,9 @@
-// auth/passport.ts
+
 import passport from 'passport';
 import { Strategy as GoogleStrategy, Profile } from 'passport-google-oauth20';
 
 import dotenv from 'dotenv';
-import { User } from '../../models/User';
+import { User, IUser } from '../../models/User';
 
 dotenv.config();
 
@@ -13,10 +13,10 @@ passport.use(User.createStrategy());
 
 // Google OAuth strategy
 passport.use(new GoogleStrategy({
-  clientID: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  clientID: process.env.GOOGLE_CLIENT_ID!,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
   callbackURL: process.env.CALLBACK_URL,
-}, async (accessToken, refreshToken, profile: Profile, done) => {
+}, async (_accessToken, refreshToken, profile: Profile, done) => {
   try {
 
     // Try to find user by googleId
@@ -61,7 +61,7 @@ passport.use(new GoogleStrategy({
   }
 }));
 
-passport.serializeUser(User.serializeUser());
+passport.serializeUser(User.serializeUser() as any);
 passport.deserializeUser(User.deserializeUser());
 
 export default passport;

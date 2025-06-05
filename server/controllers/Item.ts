@@ -3,7 +3,7 @@ import { Item} from "../models/Item";
 import { Category } from "../models/Category";
 import { RecentlyViewed } from "../models/RecentlyViewed";
 import { IUser } from '../models/User';
-import { lchown } from 'node:fs';
+
 
 //Retrieve all items from database
   export const  getAllItems = async (req:Request,res:Response) => {

@@ -6,7 +6,7 @@ import {Cart} from "../models/Cart"
 import { Address } from '../models/Address';
 import { Request, Response} from "express";
 import { IUser } from '../models/User';
-const stripe = new Stripe(process.env.STRIPE_SECRET, {
+const stripe = new Stripe(process.env.STRIPE_SECRET!, {
     apiVersion: "2024-06-20",
     appInfo: {
       name: "emall",

@@ -7,7 +7,7 @@ dotenv.config()
 const MONGO_URL = process.env.MONGO_URL
  const startServer  = async () => {
   try{
-await connectDB(MONGO_URL);
+await connectDB(MONGO_URL!);
 }catch (err){
   console.error('Failed to connect to MongoDB', err);
     process.exit(1);
