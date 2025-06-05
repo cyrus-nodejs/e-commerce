@@ -1,5 +1,7 @@
+import { Multer } from 'multer';
 
- export interface IFile  extends Express.Multer.File   {
+
+ export interface  IFile  {
     fieldname: string;
     originalname: string;
     encoding: string;
