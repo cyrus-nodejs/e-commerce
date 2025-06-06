@@ -1,5 +1,5 @@
 
-//@ts-nocheck
+
 import multer from 'multer'
 import path from 'path';
 const cloudinary = require('cloudinary').v2;
@@ -9,22 +9,15 @@ import { CloudinaryStorage } from 'multer-storage-cloudinary';
 
 
 cloudinary.config({
-    cloud_name:process.env.CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_KEY,
-    api_secret:process.env.CLOUDINARY_SECRET
+    cloud_name:process.env.CLOUD_NAME!,
+    api_key: process.env.CLOUDINARY_KEY!,
+    api_secret:process.env.CLOUDINARY_SECRET!
 });
 
-const storage = new CloudinaryStorage({
-    cloudinary,
-    params: {
-        folder: 'CloudinaryDemo',
-        allowedFormats: ['jpeg', 'png', 'jpg'],
-    }
-});
 
-// export const upload = multer({ storage });
 
- const  uploadMiddleware = (folderName) => {
+
+ const  uploadMiddleware = (folderName: string) => {
     const storage = new CloudinaryStorage({
       cloudinary: cloudinary,
       params: (req, file) => {

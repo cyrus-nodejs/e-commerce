@@ -91,7 +91,7 @@ export const  updateItem = async (req:Request,res:Response) => {
       return res.json({sucesss:true, message: 'Item not found' });
     }
 
-    res.json({success:true, message:"Item updated successfully"});
+   return res.json({success:true, message:"Item updated successfully"});
 
   } catch (error) {
 
@@ -108,15 +108,12 @@ export const deleteItem = async (req:Request,res:Response) => {
 try{
   
   let item = await Item.findById(itemId);
- 
   if (item){
-    
     Item.findOneAndDelete({_id:itemId});
     res.json({ success: true, message: "Item removed from database" });
-  
-  }else{
-    res.json({ success: true, message: "No cart exists!" });
   }
+   return res.json({ success: true, message: "No cart exists!" });
+
 
 }catch (error) {
  console.log(error);
