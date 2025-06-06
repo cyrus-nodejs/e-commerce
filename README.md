@@ -83,7 +83,8 @@ npm install
 
 ```
 
-# 🔐 Authentication & Session
+```bash
+- 🔐 Authentication & Session
 TOKEN_KEY=your_token_key
 JWT_SECRET=your_jwt_secret
 SESSION_KEY=your_session_key
@@ -94,7 +95,7 @@ SESSION_NAME=your_session_name
 EMAIL=your_email
 PASS=your_email_password
 
-# 💳 Stripe Payment Integration
+- 💳 Stripe Payment Integration
 STRIPE_PUBLISHABLE_KEY=your_stripe_public_key
 STRIPE_SECRET=your_stripe_secret
 
@@ -104,17 +105,19 @@ PORT=3000
 SERVER_URL=http://localhost:3000
 FRONTEND_URL=http://localhost:5173
 
-# ☁️ Cloudinary (File Uploads)
+- ☁️ Cloudinary (File Uploads)
 CLOUD_NAME=your_cloudinary_name
 CLOUDINARY_KEY=your_cloudinary_key
 CLOUDINARY_SECRET=your_cloudinary_secret
 
-# 🔐 Google OAuth (Optional)
+- 🔐 Google OAuth (Optional)
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 CALLBACK_URL=http://localhost:3000/auth/google/callback
 
+```
 
+```bash
 Running the App
 bash
 Copy
@@ -132,6 +135,7 @@ Frontend: http://localhost:5173 (React Vite)
 
 Backend: http://localhost:3000
 
+```
 
 # 🛡️ Security Notes
 
