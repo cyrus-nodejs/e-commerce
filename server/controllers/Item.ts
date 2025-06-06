@@ -14,7 +14,7 @@ import { IFile } from '../types/@types';
    export  const addCategory = async  (req:Request,res:Response) => {
     const {title} = req.body
   
-      const image = req?.file?.path as string;
+      const image = req?.file?.path ;
       
     if (!image) {
         // No file was uploaded
@@ -37,7 +37,7 @@ import { IFile } from '../types/@types';
  
 const {title, description, category, price, discount, trending, quantity, recommended, topfeatured, topdeals } = req.body
      //Retrieve image cloudinary url
-const image  = req?.file?.path as string
+const image  = req?.file?.path 
       console.log(image)
   if (!image) {
     // No file was uploaded

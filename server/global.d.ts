@@ -9,7 +9,7 @@ declare global {
     interface Request {
       user?: Users;
        file?: IFile;
-      files?:IFile[];
+  
     }
   }
 
