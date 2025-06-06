@@ -42,18 +42,18 @@ A full-featured eCommerce web application built using the **MERN stack** (MongoD
 
 ## 🗂️ Folder Structure
 
-📁 /client                # React frontend
- └── 📁 /src
-     ├── 📁 /components   # Reusable UI components
-     ├── 📁 /pages        # React pages/routes
-     └── 📁 /redux        # Redux Toolkit logic (slices, store)
+📁 /client                 # React frontend
+└── 📁 /src
+    ├── 📁 /components     # Reusable UI components
+    ├── 📁 /pages          # React pages/routes
+    └── 📁 /redux          # Redux Toolkit logic (slices, store)
 
-📁 /server                # Express backend
- ├── 📁 /controllers      # Request logic handlers
- ├── 📁 /routes           # API route definitions
- ├── 📁 /models           # Mongoose models
- ├── 📁 /middlewares      # Auth, error handlers, etc.
- └── 📄 server.js         # Entry point for backend server
+📁 /server                 # Express backend
+├── 📁 /controllers        # Request logic handlers
+├── 📁 /routes             # API route definitions
+├── 📁 /models             # Mongoose models
+├── 📁 /middlewares        # Auth, error handlers, etc.
+└── 📄 server.js           # Entry point for backend server
 
  
 ---
