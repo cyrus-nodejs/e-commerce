@@ -1,73 +1,76 @@
-🛍️ MERN eCommerce Store
-A full-featured eCommerce web application built using the MERN stack (MongoDB, Express, React, Node.js) with product reviews, Stripe payment integration, and a full admin dashboard.
+# 🛍️ MERN eCommerce Store
 
-🔗 Live Website: https://shoppingluxury.netlify.app/
-📂 GitHub Repository: https://github.com/cyrus-nodejs/e-commerce
+A full-featured eCommerce web application built using the **MERN stack** (MongoDB, Express, React, Node.js) with product reviews, Stripe payment integration, and a full admin dashboard.
 
-📦 Features
-🧑‍💻 User Features
-🔐 User registration and login (Passport & JWT-based auth)
+🔗 **Live Demo:** [shoppingluxury.netlify.app](https://shoppingluxury.netlify.app/)
 
-🛍️ Browse, search, and filter products
+---
 
-🛒 Add/remove items from cart
+## 📦 Features
 
-💳 Stripe-powered checkout & payment
+### 🧑‍💻 User Features
 
-📜 Order history and details
+- 🔐 User registration and login (Passport & JWT-based auth)
+- 🛍️ Browse, search, and filter products
+- 🛒 Add/remove items from cart
+- 💳 Stripe-powered checkout & payment
+- 📜 View order history and details
+- ⭐ Leave and view product reviews (1–5 stars + comments)
 
-⭐ Leave and view product reviews (1–5 stars + comments)
+### 🛠️ Admin Features
 
+- 👤 Manage users (view, delete)
+- 🛒 Manage products (create, edit, delete)
+- 📦 View and manage orders
+- ⚙️ Admin dashboard with protected routes
 
+---
 
-🛠️ Admin Features
-👤 Manage users (view, delete)
+## 🧰 Tech Stack
 
-🛒 Manage products (create, edit, delete)
+| Layer        | Technology                        |
+|-------------|------------------------------------|
+| **Frontend**| React, Redux Toolkit, Bootstrap    |
+| **Backend** | Node.js, Express.js                |
+| **Database**| MongoDB (Mongoose)                 |
+| **Auth**    | JWT, Passport                      |
+| **Payments**| Stripe API                         |
+| **Uploads** | Cloudinary                         |
+| **Hosting** | Netlify (frontend) + Render (backend) |
 
-📦 View and manage orders
+---
 
-⚙️ Dashboard with protected routes
+## 🗂️ Folder Structure
 
-🧰 Tech Stack
-Layer	Tech
-Frontend	React, Redux Toolkit, Bootstrap
-Backend	Node.js, Express.js
-Database	MongoDB (Mongoose)
-Authentication	JWT, Passport
-Payments	Stripe API
-File Uploads	Cloudinary 
-Hosting	Netlify (frontend) + Render(backend)
+📁 /client                # React frontend
+ └── 📁 /src
+     ├── 📁 /components   # Reusable UI components
+     ├── 📁 /pages        # React pages/routes
+     └── 📁 /redux        # Redux Toolkit logic (slices, store)
 
-🗂️ Folder Structure
-bash
-Copy
-Edit
-/client       // React frontend
-  /src
-    /components
-    /pages
-    /redux
-/server       // Express backend
-  /controllers
-  /routes
-  /models
-  /middlewares
-  server.js
-🚀 Getting Started
-📋 Prerequisites
-Node.js
+📁 /server                # Express backend
+ ├── 📁 /controllers      # Request logic handlers
+ ├── 📁 /routes           # API route definitions
+ ├── 📁 /models           # Mongoose models
+ ├── 📁 /middlewares      # Auth, error handlers, etc.
+ └── 📄 server.js         # Entry point for backend server
 
-MongoDB Atlas or local MongoDB
+ 
+---
 
-Stripe Account (for test keys)
+## 🚀 Getting Started
 
-🔧 Installation
-bash
-Copy
-Edit
+### 📋 Prerequisites
+
+- Node.js
+- MongoDB Atlas or local MongoDB
+- Stripe Account (for test keys)
+
+### 🔧 Installation
+
+```bash
 # Clone the repo
-git clone https://github.com//cyrus-nodejs/mern-ecommerce.git
+git clone https://github.com/cyrus-nodejs/mern-ecommerce.git
 cd mern-ecommerce
 
 # Install backend dependencies
@@ -77,71 +80,82 @@ npm install
 # Install frontend dependencies
 cd ../client
 npm install
-🧪 Environment Variables
-Create a .env file in the /server folder:
 
-ini
-Copy
-Edit
-TOKEN_KEY= TOKEN_KEY
-JWT_SECRET=JWT_SECRET
-EMAIL=EMAIL
+```
+
+# 🔐 Authentication & Session
+TOKEN_KEY=your_token_key
+JWT_SECRET=your_jwt_secret
+SESSION_KEY=your_session_key
+SESSION_SECRET=your_session_secret
+SESSION_NAME=your_session_name
+
+# 📧 Email Configuration
+EMAIL=your_email
+PASS=your_email_password
+
+# 💳 Stripe Payment Integration
+STRIPE_PUBLISHABLE_KEY=your_stripe_public_key
+STRIPE_SECRET=your_stripe_secret
+
+# 🌍 Environment & Server
 NODE_ENV=production
-PASS=PASS
-STRIPE_PUBLISHABLE_KEY=STRIPE_PUBLISHABLE_KEY
-STRIPE_SECRET=STRIPE_SECRET
-SESSION_KEY= SESSION_KEY
-SESSION_SECRET=SESSION_SECRET
-SESSION_NAME=SESSION_NAME
-NODE_ENV = NODE_ENV 
-PORT = PORT
-CLOUD_NAME = CLOUD_NAME
-CLOUDINARY_KEY= CLOUDINARY_KEY
-CLOUDINARY_SECRET = CLOUDINARY_SECRET
-SERVER_URL=SERVER_URL
-FRONTEND_URL=SERVER_URL
-FRONTEND_URL2=FRONTEND_URL2
-GOOGLE_CLIENT_ID=GOOGLE_CLIENT_ID
-GOOGLE_CLIENT_SECRET=GOOGLE_CLIENT
-CALLBACK_URL =CALLBACK_URL 
-🚦 Run the App
+PORT=3000
+SERVER_URL=http://localhost:3000
+FRONTEND_URL=http://localhost:5173
+
+# ☁️ Cloudinary (File Uploads)
+CLOUD_NAME=your_cloudinary_name
+CLOUDINARY_KEY=your_cloudinary_key
+CLOUDINARY_SECRET=your_cloudinary_secret
+
+# 🔐 Google OAuth (Optional)
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+CALLBACK_URL=http://localhost:3000/auth/google/callback
+
+
+Running the App
 bash
 Copy
 Edit
-# Run backend
+# Start backend
 cd server
 npm run dev
 
-# Run frontend
-cd ../client
+# Start frontend
+cd client
+npm run dev
+
 npm start
-Frontend: http://localhost:5173
+Frontend: http://localhost:5173 (React Vite)
+
 Backend: http://localhost:3000
 
-🛡️ Security Notes
-Passwords are hashed using passport mongoose local
 
-Routes are protected with JWT middleware
+# 🛡️ Security Notes
 
-Admin routes are role-guarded
+- Passwords are hashed using passport-local-mongoose
 
-✨ Future Improvements
+- Routes are protected via JWT middleware
 
-Pagination for product listings
-
-Email notifications (orders, signups)
-
-Dark mode toggle
+- Admin routes are role-guarded for access control
 
 
+# ✨ Future Improvements
 
-🙌 Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you’d like to change.
+- 📑 Pagination for product listings
+
+- 📧 Email notifications (orders, signups)
+
+- 🌙 Dark mode toggle
 
 📄 License
-This project is open-source and available under the MIT License.
+This project is licensed under the MIT License.
 
 💬 Connect With Me
-LinkedIn: Your Profile
+- [LinkedIn](https://www.linkedin.com/in/emmanuel-adeyemi-464ba5227)
+
+
 
 
