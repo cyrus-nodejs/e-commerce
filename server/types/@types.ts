@@ -9,6 +9,7 @@
     size: number;
     path:string;
     filename:string;
+  
 }
 
 

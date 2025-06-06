@@ -3,7 +3,11 @@ import { Item} from "../models/Item";
 import { Category } from "../models/Category";
 import { RecentlyViewed } from "../models/RecentlyViewed";
 import { IUser } from '../models/User';
-import { IFile } from '../types/@types';
+
+
+
+
+
 
 //Retrieve all items from database
   export const  getAllItems = async (req:Request,res:Response) => {
@@ -11,10 +15,11 @@ import { IFile } from '../types/@types';
    }
 
    //Add Category to Databse
-   export  const addCategory = async  (req:Request,res:Response) => {
-    const {title} = req.body
+   export  const addCategory = async  (req:Request, res:Response) => {
+  const {title} = req.body
+  const file = (req as Express.Request & { file?: Express.Multer.File }).file;
   
-      const image = req?.file?.path ;
+  const image = file?.path ;
       
     if (!image) {
         // No file was uploaded
@@ -37,8 +42,9 @@ import { IFile } from '../types/@types';
  
 const {title, description, category, price, discount, trending, quantity, recommended, topfeatured, topdeals } = req.body
      //Retrieve image cloudinary url
-const image  = req?.file?.path 
-      console.log(image)
+
+const file = (req as Express.Request & { file?: Express.Multer.File }).file;
+  const image  = file?.path
   if (!image) {
     // No file was uploaded
     return res.status(400).json({ error: "No file uploaded" });
