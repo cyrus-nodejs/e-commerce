@@ -17,7 +17,7 @@ import {IFile } from '../types/@types'
    //Add Category to Databse
    export  const addCategory = async  (req:any, res:any) => {
   const {title} = req.body
-  const file = req .file as IFile
+  const file = req.file as IFile
   
   const image = file?.path ;
       
@@ -43,13 +43,13 @@ import {IFile } from '../types/@types'
 const {title, description, category, price, discount, trending, quantity, recommended, topfeatured, topdeals } = req.body
      //Retrieve image cloudinary url
 
- const file = req .file as IFile
+ const file = req.file as IFile
   const image  = file?.path
   if (!image) {
     // No file was uploaded
     return res.status(400).json({ error: "No file uploaded" });
   }
-S
+
  
 
    
