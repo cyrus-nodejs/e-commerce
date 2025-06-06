@@ -15,7 +15,7 @@ import {IFile } from '../types/@types'
    }
 
    //Add Category to Databse
-   export  const addCategory = async  (req:Request, res:Response) => {
+   export  const addCategory = async  (req:any, res:any) => {
   const {title} = req.body
   const file = req .file as IFile
   
@@ -38,7 +38,7 @@ import {IFile } from '../types/@types'
     }
       
    // Add items to database
- export  const addItem = async  (req:Request,res:Response) => {
+ export  const addItem = async  (req:any,res:any) => {
  
 const {title, description, category, price, discount, trending, quantity, recommended, topfeatured, topdeals } = req.body
      //Retrieve image cloudinary url
@@ -49,7 +49,7 @@ const {title, description, category, price, discount, trending, quantity, recomm
     // No file was uploaded
     return res.status(400).json({ error: "No file uploaded" });
   }
-
+S
  
 
    
