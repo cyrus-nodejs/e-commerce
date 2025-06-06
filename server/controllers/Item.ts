@@ -3,7 +3,7 @@ import { Item} from "../models/Item";
 import { Category } from "../models/Category";
 import { RecentlyViewed } from "../models/RecentlyViewed";
 import { IUser } from '../models/User';
-
+import {IFile } from '../types/@types'
 
 
 
@@ -17,7 +17,7 @@ import { IUser } from '../models/User';
    //Add Category to Databse
    export  const addCategory = async  (req:Request, res:Response) => {
   const {title} = req.body
-  const file = (req as Express.Request & { file?: Express.Multer.File }).file;
+  const file = req .file as IFile
   
   const image = file?.path ;
       
@@ -43,7 +43,7 @@ import { IUser } from '../models/User';
 const {title, description, category, price, discount, trending, quantity, recommended, topfeatured, topdeals } = req.body
      //Retrieve image cloudinary url
 
-const file = (req as Express.Request & { file?: Express.Multer.File }).file;
+ const file = req .file as IFile
   const image  = file?.path
   if (!image) {
     // No file was uploaded
