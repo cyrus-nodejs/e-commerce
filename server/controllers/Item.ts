@@ -14,14 +14,14 @@ import { IFile } from '../types/@types';
    export  const addCategory = async  (req:Request,res:Response) => {
     const {title} = req.body
   
-      const file = req.file as Express.Multer.File;
+      const image = req?.file?.path as string;
       
-    if (!file) {
+    if (!image) {
         // No file was uploaded
         return res.status(400).json({ error: "No file uploaded" });
       }
    
-      const image = file.path
+     
        console.log(title, image)
        const newCategoryData = {
         title,
@@ -36,15 +36,16 @@ import { IFile } from '../types/@types';
  export  const addItem = async  (req:Request,res:Response) => {
  
 const {title, description, category, price, discount, trending, quantity, recommended, topfeatured, topdeals } = req.body
-      const file = req?.file as Express.Multer.File
-      console.log(file)
-  if (!file) {
+     //Retrieve image cloudinary url
+const image  = req?.file?.path as string
+      console.log(image)
+  if (!image) {
     // No file was uploaded
     return res.status(400).json({ error: "No file uploaded" });
   }
 
-  //Retrieve image cloudinary url
-  const image:string = file?.path
+ 
+
    
 
 try {
