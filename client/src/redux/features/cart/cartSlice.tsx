@@ -129,7 +129,7 @@ export const cartSlice = createSlice({
           state.error = action.error.message;
         })
 
-        .addCase(fetchAddCartQty.pending, (state) => {
+      .addCase(fetchAddCartQty.pending, (state) => {
       state.status = 'pending'
       })
       .addCase(fetchAddCartQty.fulfilled, (state, action) => {
@@ -146,14 +146,13 @@ export const cartSlice = createSlice({
         })
         .addCase(fetchDeleteFromCart.fulfilled, (state, action) => {
           state.status = 'succeeded'
-         
           state.message = action.payload.message
         })
         .addCase(fetchDeleteFromCart.rejected, (state, action) => {
           state.status = 'failed'
           state.error = action.error.message;
         })
-        
+
         .addCase(fetchClearCart.pending, (state) => {
           state.status = 'pending'
           })

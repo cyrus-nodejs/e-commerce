@@ -153,6 +153,8 @@ Backend: http://localhost:3000
 
 - 🌙 Dark mode toggle
 
+- 📄 Mobile version
+
 📄 License
 This project is licensed under the MIT License.
 

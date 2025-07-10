@@ -44,7 +44,7 @@ console.log(productId)
 
   return (
     <div>
-    {userHasReviewed ? (
+    {userHasReviewed === true ? (
         // <Message variant='info'>You have already reviewed this product.</Message>
         <p >You have already reviewed this product.</p>
       ) : (

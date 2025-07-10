@@ -1,7 +1,17 @@
 :root {
+   --color-primary: #0f359a;
+  --color-accent: #81acd2;
+   --color-background: #fafbfa; 
+   --color-sub-background:#fefefe;
+    --color-text: #0D1016;;
+}
+
+
+
+body{
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  color:#242424;
-  background-color:  #F5F5F5;
+  color: var(--color-text);
+   background-color: var(--color-background); 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -26,6 +36,22 @@
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
+}
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+
+
+p {
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 /* Track */

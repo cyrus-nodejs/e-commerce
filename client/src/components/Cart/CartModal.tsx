@@ -36,7 +36,7 @@ const CartModal = () => {
   <div className="p-2 flex-fill"> <Image src={item.image} width="100px" alt={item.title} className="rounded-md h-24" /></div>
   <div className="p-2 flex-fill">
   <div className="d-flex flex-column mb-3">
-  <div className="p-2"><h6 className="text-primary fw-medium">{item.title}</h6></div>
+  <div className="p-2"><p className="text-primary fw-medium">{item.title}</p></div>
   <div className="p-2"><p className="text-gray-600">{state.currency}{item.price}</p></div>
   <div className="p-2"><div className="d-flex">
   <div className="p-2 flex-fill"><Button

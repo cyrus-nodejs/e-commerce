@@ -117,12 +117,12 @@ const {state} = useContext(FavoriteContext)
             <LazyLoadImage effect="blur" src={items.image}  style={{ width: '100%', height: 'auto' }}  className="" />
             </Link>
             <div className="d-flex flex-column ">
-             <div className="text-primary fw-medium">{items.title.substring(0, 25)}</div>
+             <div className="text-primary ">{items.title.substring(0, 25)}</div>
           
-            <div className="fw-bold ">{state.currency}{items.price}</div> 
+            <div className=" ">{state.currency}{items.price}</div> 
             {/* <div className="top-left  fw-bold rounded-1 px-2 text-light bg-info ">{items.status}</div>  */}
            
-            <div className="top-left  fw-bold rounded-1 px-2 text-light bg-info ">{items.discount ? (<div>-{items.discount}%</div>) : (<div></div>)}</div>  
+            <div className="top-left   rounded-1 px-2 text-light bg-info ">{items.discount ? (<div>-{items.discount}%</div>) : (<div></div>)}</div>  
              
               <div className="text-center d-grid gap-2"><Button size="sm" onClick={() => dispatch(fetchAddCart(items))}   className="d-block" variant="dark">Add to cart</Button></div>  
            

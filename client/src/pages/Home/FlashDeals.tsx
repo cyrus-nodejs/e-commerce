@@ -105,9 +105,9 @@ const {state} = useContext(FavoriteContext)
        <Row key={id} className=" d-flex  flex-column position-relative  mb-3" >
        <Link   to={`/product/${items._id}`} className="p-2 text-decoration-none text-reset"> <LazyLoadImage   effect="blur" src={items.image}   style={{ width: '130px', height: '130px' }}     className=""  /></Link> 
         <div className="d-flex flex-column ">
-         <div className="text-primary fw-medium">{items.title.substring(0, 25)}</div>
+         <div className="text-primary ">{items.title.substring(0, 25)}</div>
         {/* <div className="d-inline-flex gap-1 text-dark fs-6">{items.rating}{items.review}</div> */}
-        <div className="fw-bold ">{state.currency}{items.price}</div> 
+        <div className=" ">{state.currency}{items.price}</div> 
    
        {/* < div className="top-left  fw-bold rounded-1 px-2 text-light bg-success ">{items.discount}</div>  */}
          

@@ -110,9 +110,9 @@ const {state} = useContext(FavoriteContext)
       
       <Col >
       <div className="d-flex flex-column">
-       <div className="text-primary fw-medium">{product.title}</div>
+       <div className="text-primary ">{product.title}</div>
       {/* <div className="d-inline-flex gap-1 text-dark fs-6">{product.rating}{product.review}</div> */}
-      <div className="fw-bold ">{state.currency}{product.price}</div> 
+      <div className=" ">{state.currency}{product.price}</div> 
   
       <div className="d-none d-sm-block">{product.description.substring(0, 100) + ".."}</div> 
         <div className="text-center d-grid gap-2"><Button size="sm" className="d-block" onClick={() => dispatch(fetchAddCart(product))}  variant="outline-dark">Add to cart</Button></div>  

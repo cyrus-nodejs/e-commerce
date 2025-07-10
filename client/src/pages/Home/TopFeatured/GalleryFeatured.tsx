@@ -31,13 +31,13 @@ const {state} = useContext(FavoriteContext)
       <Col sm={7} className="bg-white ">
       <Link  to={`/product/${item._id}`} className="p-2 text-decoration-none text-reset">
         <div className="d-flex flex-column mb-3">
-      <div className="text-primary fs-6 fw-medium ">{item.title.substring(0, 18)}</div>
-             <div className="d-inline-flex gap-1 text-dark fs-6">{item.description.substring(0, 30) + ".."}</div> 
+      <div className="text-primary fs-6  ">{item.title.substring(0, 18)}</div>
+             <div className="d-inline-flex gap-1 ">{item.description.substring(0, 30) + ".."}</div> 
             <div className="d-flex">
   {/* <div className="p-2 flex-fill fw-medium">${item.newprice} <span className="ms-1 text-decoration-line-through text-secondary">{item.price}</span></div> */}
-  <div className="p-2 flex-fill text-danger fs-6 fw-medium">{state.currency}{item.price}</div>
+  <div className="p-2 flex-fill  fs-6 ">{state.currency}{item.price}</div>
 </div> 
- {item.discount === 0 ? (<div className="top-left  fw-bold rounded-1 px-2 text-light bg-success"></div>) : ((<div className="top-left  fw-bold rounded-1 px-2 text-light bg-success">{item.discount}%</div>))}
+ {item.discount === 0 ? (<div className="top-left   rounded-1 px-2 text-light bg-success"></div>) : ((<div className="top-left   rounded-1 px-2 text-light bg-success">{item.discount}%</div>))}
             
             
             </div>

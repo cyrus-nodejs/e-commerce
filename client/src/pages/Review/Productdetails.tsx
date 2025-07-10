@@ -68,9 +68,9 @@ console.log(product)
     <LazyLoadImage effect="blur" style={{ width: '250px', height: '300px' }}   src={product?.image} />
     </Col>
       <Col  sm={6} className=""   >
-      <div className="fs-4 fw-normal   text-dark">{product?.title}</div>
+      <div className="fs-4 fw-normal   text-primary">{product?.title}</div>
       <div className="fs-4 fw-normal d-inline-flex  ">Category:{product?.category}</div>
-      <div className="fs-6  fw-normal  ">Discount:  {!product?.discount ? (<span className="text-dark  fw-bold rounded-1 px-2  ">0%</span>) : ((<span className="top-left  fw-bold rounded-1 px-2 text-dark ">{product?.discount}%</span>))}</div>
+      <div className="fs-6    ">Discount:  {!product?.discount ? (<span className="text-dark  fw-bold rounded-1 px-2  ">0%</span>) : ((<span className="top-left  fw-bold rounded-1 px-2 text-dark ">{product?.discount}%</span>))}</div>
       <div className='text-dark fs-4'    >Price:
       {state.currency}{product?.price}
         </div>

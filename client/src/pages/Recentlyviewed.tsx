@@ -58,9 +58,9 @@ const Recentlyviewed = () => {
             <LazyLoadImage effect="blur" src={items.image}  style={{ width: '130px', height: '130px' }}  className="" />
             </Link>
             <div className="d-flex flex-column ">
-             <div className="text-primary fw-medium">{items.title.substring(0, 25)}</div>
+             <div className="text-primary ">{items.title.substring(0, 25)}</div>
            
-            <div className="fw-bold ">{state.currency}{items.price}</div> 
+            <div className=" ">{state.currency}{items.price}</div> 
             {/* <div className="top-left  fw-bold rounded-1 px-2 text-light bg-info ">{items.status}</div>  */}
            
             <div className="top-left  fw-bold rounded-1 px-2 text-light bg-info ">{items.discount ? (<div>-{items.discount}%</div>) : (<div></div>)}</div>  

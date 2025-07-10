@@ -77,9 +77,9 @@ const dispatch = useAppDispatch()
       
       </div>
 </div>
-<div className=" text-primary fw-medium"> {product.title.substring(0, 25)}</div>
+<div className=" text-primary "> {product.title.substring(0, 25)}</div>
 
-<div className=" fw-bold"> {state.currency}{product.price} </div>
+<div className=" "> {state.currency}{product.price} </div>
 
 </div>
 

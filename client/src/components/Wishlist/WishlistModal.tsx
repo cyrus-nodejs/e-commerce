@@ -46,8 +46,8 @@ const WishlistModal = () => {
          )  : ( 
          <div className="d-grid gap-2">
             
-          <Button onClick={getOrder} className="d-block" variant="outline-info" size="lg">
-        <Link to="/orders" className="text-decoration-none">View Favorites</Link>  
+          <Button  className="d-block" variant="outline-info" size="lg">
+        <Link  className="text-decoration-none">View Favorites</Link>  
           </Button>
           
           </div>

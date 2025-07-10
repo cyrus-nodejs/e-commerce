@@ -14,10 +14,10 @@ const Product = ({product}: { product: CATEGORY }) => {
               <LazyLoadImage src={product.image}  
               
         style={{ width: '100%', height: 'auto' }}  effect="blur" />
-            <div className="top-left">
+            <div className="top-left ">
 
-             <p className="text-light ">{product.title}</p> 
-             <p className="text-light"> ({product.item.length} products )</p> 
+             <div className="ps-3 fs-5 ">{product.title}</div> 
+             <div className=" "> ({product.item.length} products )</div> 
              
             
             </div>
