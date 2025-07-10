@@ -190,7 +190,7 @@ export const getCategoryItems = async (req:Request,res:Response) => {
 //Get product details
  export const getProductDetails = async (req:Request,res:Response) => {
    const user = req.user as IUser
- const userId = user._id
+ const userId = user?._id
  
   // Save to recently viewed (or update timestamp)
   RecentlyViewed.findOneAndUpdate(
@@ -220,6 +220,10 @@ export const getCategoryItems = async (req:Request,res:Response) => {
     Item.find({trending:"true"}).then((items: any) => res.json(items)).catch((err: string) => res.status(400).json("Error : " + err))
     
   }
+
+  
+
+
  
 //Get recommended items
  export const recommended = async (req:Request,res:Response) => {

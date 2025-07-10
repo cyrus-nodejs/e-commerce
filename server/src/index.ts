@@ -1,8 +1,21 @@
 import dotenv from 'dotenv';
 import app from './server';
 import {connectDB} from '../models/connectDb'
+
+import cron from 'node-cron';
+import axios from 'axios';
+
 const PORT = process.env.PORT || 3000;
 
+cron.schedule('*/5 * * * *', async () => {
+  try {
+    const url = process.env.SERVER_URL!;
+    await axios.get(url);
+    console.log('Ping sent to:', url);
+  } catch (err) {
+    console.error('Ping failed', err);
+  }
+});
 dotenv.config()
 const MONGO_URL = process.env.MONGO_URL
  const startServer  = async () => {
