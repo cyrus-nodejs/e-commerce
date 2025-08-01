@@ -3,7 +3,7 @@ import {Request, Response} from 'express'
 import { Item} from "../models/Item";
 import {Order} from "../models/Order"
 import { IUser } from '../models/User';
-import { RecentlyViewed } from '../models/RecentlyViewed';
+
 //create user address 
 export const createReview = async (req:Request, res:Response) => {
      const user = req.user as IUser
@@ -71,30 +71,3 @@ if (!order) {
 }
 
 
-//Get product details
- export const getProductReview = async (req:Request,res:Response) => {
-   const user = req.user as IUser
- const userId = user._id
- 
-  // Save to recently viewed (or update timestamp)
-  RecentlyViewed.findOneAndUpdate(
-    { userId:userId, itemId: req.params.id },
-    { viewedAt: new Date() },
-    { upsert: true, new: true }
-  );
-
-  const product = await Item.findById(req.params.id);
- 
-  if (product) {
-
-    const userHasReviewed = product.reviews.some((review: { user: { toString: () => any; }; }) => req.user && review.user.toString() === userId.toString());
-    res.status(200).json({product, userHasReviewed}
-    
-    );
-  } else {
-    res.status(404);
-    throw new Error('Product not found');
-  }
-  }
-
-  

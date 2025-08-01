@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const PORT = process.env.PORT || 3000;
 
-cron.schedule('*/5 * * * *', async () => {
+cron.schedule('*/1440 * * * *', async () => {
   try {
     const url = process.env.SERVER_URL!;
     await axios.get(url);
